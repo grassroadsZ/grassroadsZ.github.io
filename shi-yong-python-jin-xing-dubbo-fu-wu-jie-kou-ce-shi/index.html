@@ -1,0 +1,368 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>使用Python进行Dubbo服务接口测试 | Gridea</title>
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653723095734">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="使用Python进行Dubbo服务接口测试 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+good good study day day up
+
+使用python请求dubbo服务
+请求方式
+● 跳过zk，直接使用telnet命令请求dubbo服务
+● 连接zk，通过zk找到对应的dubbo服务的ip及port，使用telne..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://grassroadsz.github.io">
+  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653723095734" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              使用Python进行Dubbo服务接口测试
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-05-27
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>good good study day day up</p>
+</blockquote>
+<p>使用python请求dubbo服务</p>
+<p>请求方式<br>
+● 跳过zk，直接使用telnet命令请求dubbo服务<br>
+● 连接zk，通过zk找到对应的dubbo服务的ip及port，使用telnet命令请求</p>
+<p>方式一<br>
+参考代码</p>
+<pre><code class="language-python">import json
+import telnetlib
+import socket
+
+
+class Dubbo(telnetlib.Telnet):
+    prompt = 'dubbo&gt;'
+    coding = 'gbk'
+
+    def __init__(self, host=None, port=0,
+                 timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+        super().__init__(host, port)
+        self.write(b'\n')
+
+    def command(self, flag, str_=&quot;&quot;):
+        data = self.read_until(flag.encode())
+        self.write(str_.encode() + b&quot;\n&quot;)
+        return data
+
+    def invoke(self, service_name, method_name, arg):
+        command_str = &quot;invoke {0}.{1}({2})&quot;.format(
+            service_name, method_name, json.dumps(arg))
+        self.command(Dubbo.prompt, command_str)
+        data = self.command(Dubbo.prompt, &quot;&quot;)
+        data = data.decode(&quot;utf-8&quot;,
+                           errors='ignore').split('\n')[1].strip()
+
+        return data
+
+
+if __name__ == '__main__':
+    # Dubbo服务的ip, 与port
+    conn = Dubbo('192.168.227.237', 34510)
+
+    json_data = {&quot;dtlBeanList&quot;: [
+        {&quot;cost&quot;: 100, &quot;memoSku&quot;: &quot;haha&quot;, &quot;orderUnit&quot;: &quot;EAJ&quot;, &quot;poNo&quot;: &quot;string&quot;, &quot;qty&quot;: 10, &quot;seq&quot;: &quot;1&quot;, &quot;sku&quot;: &quot;999999&quot;,
+         &quot;unitCost&quot;: 10}], &quot;mstBean&quot;: {&quot;address&quot;: &quot;string&quot;, &quot;cancelDate&quot;: &quot;2020-06-22 07:11:40.238&quot;, &quot;city&quot;: &quot;string&quot;,
+                                       &quot;comCode&quot;: &quot;ZB91&quot;, &quot;currency&quot;: &quot;string&quot;, &quot;issuedBy&quot;: &quot;string&quot;, &quot;memo&quot;: &quot;string&quot;,
+                                       &quot;orderDate&quot;: &quot;2020-06-22 07:11:40.238&quot;, &quot;orderType&quot;: 0, &quot;poNo&quot;: &quot;2801723696&quot;,
+                                       &quot;province&quot;: &quot;string&quot;, &quot;receiver&quot;: &quot;string&quot;, &quot;receiverPhone&quot;: &quot;string&quot;,
+                                       &quot;refPoNo&quot;: &quot;string&quot;, &quot;refStoreCode&quot;: &quot;2588&quot;, &quot;region&quot;: &quot;string&quot;, &quot;serviceFee&quot;: 0,
+                                       &quot;status&quot;: 0, &quot;storeCode&quot;: &quot;2588&quot;, &quot;street&quot;: &quot;string&quot;, &quot;totalPrice&quot;: 0,
+                                       &quot;vendorCode&quot;: &quot;string&quot;}}
+
+    result = conn.invoke(&quot;com.bnq.supplier.sp.enpower.api.service.IEnpowerPlatformServiceRPC&quot;,
+                         &quot;saveChannelOrder&quot;,
+                         json_data
+                         )
+    print(result)
+</code></pre>
+<p>缺点<br>
+● dubbo服务ip地址，port均会发生变化，通过写死的ip和port直连dubbo服务不利于使用脚本集成，dubbo服务重启，对应的ip和port在脚本中均需要修改</p>
+<p>方式二<br>
+参考代码</p>
+<pre><code class="language-python">import urllib
+import json
+import telnetlib
+from urllib.parse import unquote
+
+# 需要安装kazoo依赖库
+from kazoo.client import KazooClient
+
+
+class Dubbo(telnetlib.Telnet):
+    prompt = 'dubbo&gt;'
+    coding = 'utf-8'
+
+    def __init__(self, host=None, port=0, timeout=10):
+        super().__init__(host, port)
+        self.write(b'\n')
+
+    def command(self, flag, str_=&quot;&quot;):
+        data = self.read_until(flag.encode())
+        self.write(str_.encode() + b&quot;\n&quot;)
+        return data
+
+    def invoke(self, service_name, method_name, arg):
+        command_str = &quot;invoke {0}.{1}({2})&quot;.format(
+            service_name, method_name, json.dumps(arg))
+        self.command(Dubbo.prompt, command_str)
+        data = self.command(Dubbo.prompt, &quot;&quot;)
+        data = data.decode(&quot;utf-8&quot;,
+                           errors='ignore').split('\n')[1].strip()
+
+        return data
+
+
+class DubboUtils(object):
+    def __init__(self, zk_service, interface):
+        self.zk_service = zk_service
+        self.interface = interface
+
+    def _get_dubbo(self, server_name):
+        &quot;&quot;&quot;
+        获取单个dubbo服务的
+        :param server_name:服务名
+        :return:{&quot;service&quot;: service, &quot;paths&quot;: paths, &quot;method&quot;: method}
+        &quot;&quot;&quot;
+        zk = KazooClient(hosts=&quot;{}&quot;.format(self.zk_service))
+        zk.start()
+        urls = []
+        service_list = zk.get_children(&quot;dubbo&quot;)
+        for i in service_list:
+            if server_name in i:
+                try:
+                    # 获取服务发布方
+                    providers = zk.get_children(&quot;/dubbo/{}/providers&quot;.format(i))
+                    if providers:
+                        for provider in providers:
+                            url = urllib.parse.unquote(provider)
+                            if url.startswith('dubbo:'):
+                                urls.append(url.split('dubbo://')[1])
+                except Exception as e:
+                    print(e)
+        paths = []
+        for i in urls:
+            try:
+                path, temp = i.split('/')
+                service = temp.split('?')[0]
+                method = temp.split('methods=')[1].split('&amp;')[0].split(',')
+                paths.append(path)
+            except Exception as e:
+                print(e)
+        services = {&quot;service&quot;: service, &quot;paths&quot;: paths, &quot;method&quot;: method}
+        zk.stop()
+        return services
+
+    def requests_dubbo(self, method, param):
+        &quot;&quot;&quot;
+        请求dubbo接口
+        :param method: dubbo接口的方法
+        :param param: 请求参数
+        :return:
+        &quot;&quot;&quot;
+        res = self._get_dubbo(self.interface)
+        methods = res.get(&quot;method&quot;)
+        if method not in methods:
+            raise NameError(f&quot;{method} not in {methods}&quot;)
+        ip, port = res.get(&quot;paths&quot;)[0].split(&quot;:&quot;)
+        con = Dubbo(ip, port)
+        result = con.invoke(self.interface, method, param)
+        return result
+
+
+if __name__ == '__main__':
+    d = DubboUtils(&quot;zk-dev&quot;, 'com.bnq.supplier.sp.enpower.api.service.IEnpowerPlatformServiceRPC')
+    json_data = {&quot;dtlBeanList&quot;: [
+        {&quot;cost&quot;: 100, &quot;memoSku&quot;: &quot;haha&quot;, &quot;orderUnit&quot;: &quot;EAJ&quot;, &quot;poNo&quot;: &quot;string&quot;, &quot;qty&quot;: 10, &quot;seq&quot;: &quot;1&quot;, &quot;sku&quot;: &quot;999999&quot;,
+         &quot;unitCost&quot;: 10}], &quot;mstBean&quot;: {&quot;address&quot;: &quot;string&quot;, &quot;cancelDate&quot;: &quot;2020-06-22 07:11:40.238&quot;, &quot;city&quot;: &quot;string&quot;,
+                                       &quot;comCode&quot;: &quot;ZB91&quot;, &quot;currency&quot;: &quot;string&quot;, &quot;issuedBy&quot;: &quot;string&quot;, &quot;memo&quot;: &quot;string&quot;,
+                                       &quot;orderDate&quot;: &quot;2020-06-22 07:11:40.238&quot;, &quot;orderType&quot;: 0, &quot;poNo&quot;: &quot;2801723696&quot;,
+                                       &quot;province&quot;: &quot;string&quot;, &quot;receiver&quot;: &quot;string&quot;, &quot;receiverPhone&quot;: &quot;string&quot;,
+                                       &quot;refPoNo&quot;: &quot;string&quot;, &quot;refStoreCode&quot;: &quot;2588&quot;, &quot;region&quot;: &quot;string&quot;, &quot;serviceFee&quot;: 0,
+                                       &quot;status&quot;: 0, &quot;storeCode&quot;: &quot;2588&quot;, &quot;street&quot;: &quot;string&quot;, &quot;totalPrice&quot;: 0,
+                                       &quot;vendorCode&quot;: &quot;string&quot;}}
+
+    print(d.requests_dubbo(&quot;saveChannelOrder&quot;, json_data))
+
+</code></pre>
+<p>优点<br>
+● 先连接zookeeper注册中心，通过zookeeper注册中心获取到dubbo服务的ip和port，保证每次获取到的ip和port均是正确可用的，便于与脚本进行集成<br>
+缺点<br>
+● 可能是因为需要先连接zk注册中心，然后获取dubbo服务，耗时比直接使用telnet命令时间稍长，约1s(对于测试脚本来说速度完全可以接受)</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://grassroadsz.github.io/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/">
+              <h3 class="post-title">
+                以太坊入门-1 基础准备
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '7d56338c9b683c1db453',
+    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+    repo: 'grassroadsZ.github.io',
+    owner: 'grassroadsZ',
+    admin: ['grassroadsZ'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

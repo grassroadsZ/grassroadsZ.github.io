@@ -1,0 +1,507 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UI自动化文件上传 | Gridea</title>
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653723095734">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="UI自动化文件上传 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+原文链接 https://www.cnblogs.com/linuxchao/p/linuxchao-selenium-upload_file.html#4520068
+
+前言
+实施UI自动化测试的时候，经常会遇见上传文件的操作，那么对于..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://grassroadsz.github.io">
+  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653723095734" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              UI自动化文件上传
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-05-28
+              </span>
+              <span>
+                11 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<p>原文链接 https://www.cnblogs.com/linuxchao/p/linuxchao-selenium-upload_file.html#4520068</p>
+</blockquote>
+<h2 id="前言">前言</h2>
+<p>实施UI自动化测试的时候，经常会遇见上传文件的操作，那么对于上传文件你知道几种方法呢？今天我们就总结一下几种常用的上传文件的方法，并分析一下每个方法的优点和缺点以及哪种方法效率，稳定性更高</p>
+<h2 id="被测html代码">被测HTML代码</h2>
+<figure data-type="image" tabindex="1"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-html">&lt;!--upload_file.html--&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;上传文件&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input id=&quot;upload_file&quot; type=&quot;file&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<p>第一种方法：使用webdriver api 提供的方法send_keys上传文件</p>
+<h2 id="send_keys方法">send_keys方法</h2>
+<h3 id="实例">实例</h3>
+<figure data-type="image" tabindex="3"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">
+&quot;&quot;&quot; 
+from selenium import webdriver
+import time
+
+
+driver = webdriver.Firefox()
+driver.get(r'file:///e:/CnblogCode/upload_file.html')
+upload_element = driver.find_element_by_xpath('//*[@id=&quot;upload_file&quot;]')
+time.sleep(3)  # 为了看效果
+upload_element.send_keys(r'E:CnblogCodeupload_file.html')
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<h3 id="执行过程">执行过程</h3>
+<figure data-type="image" tabindex="5"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718141749877-90060948.gif" alt="" loading="lazy"></figure>
+<p>可以看到执行过程很顺利，且代码实现简单，也没有报错</p>
+<p>但是往往现实是残酷的，因为有的网站的上传文件并不是采用 input标签来定义的上传文件按钮，所以就无法使用send_keys方法上传，这也是这个方法的限制</p>
+<h2 id="autoit工具">AutoIt工具</h2>
+<p>第二种方法是AutoIT工具，它是一个类似脚本语言的软件，利用此软件我们可以方便的实现模拟键盘、鼠标、窗口等操作，实现自动化</p>
+<h3 id="安装">安装</h3>
+<p>官网地址：<a href="https://www.autoitscript.com/site/autoit/downloads/">https://www.autoitscript.com/site/autoit/downloads/</a></p>
+<figure data-type="image" tabindex="6"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718145953994-1855651642.png" alt="" loading="lazy"></figure>
+<p>安装完后可以找到如下一些工具</p>
+<figure data-type="image" tabindex="7"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718150114641-2141840187.png" alt="" loading="lazy"></figure>
+<h3 id="使用">使用</h3>
+<ol>
+<li>
+<p>打开被测试的HTML页面，并点击上传文件，弹出上传文件窗口，并保持当前窗口</p>
+</li>
+<li>
+<p>打开AutoIt Window Info(x86/x64)工具</p>
+</li>
+<li>
+<p>点击工具中Finder Tool标签下的按钮，开始分别定位上传文件的【输入框】和【打开】按钮，并记录Title，Class，Instance（图中红色窗口中的信息）</p>
+</li>
+</ol>
+<p>注意：不同的浏览器抓取的Title是不一样的（Firefox：文件上传，Chrome：打开，IE：选择要加载的文件)</p>
+<figure data-type="image" tabindex="8"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718150637174-380718539.png" alt="" loading="lazy"></figure>
+<ol start="4">
+<li>打开 SciTE Script Editor<img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718153911035-1870937893.png" alt="" loading="lazy"><br>
+工具开始编写脚本(注意脚本中的Edit1是class 和 instance 拼接的)</li>
+</ol>
+<figure data-type="image" tabindex="9"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-shell">;first make sure the number of arguments passed into the scripts is more than 1 If $CmdLine[0]&lt;2 Then Exit EndIf ;if parmas num &lt;2 ,then break ;$CmdLine[0] ;参数的数量
+;$CmdLine[1] ;第一个参数 (脚本名称后面)
+;$CmdLine[2] ;第二个参数
+;都是从cmd传入参数
+ handleUpload($CmdLine[1],$CmdLine[2])
+
+;定义上传函数，有两个参数，第一个是浏览器名字，第二参数是文件路径
+ Func handleUpload($browser, $uploadfile)
+     Dim $title                          ;定义一个title变量
+            ;根据弹窗的title来判断是什么浏览器
+            If $browser=&quot;ie&quot; Then                          ; 代表IE浏览器
+                  $title=&quot;选择要加载的文件&quot; ElseIf $browser=&quot;chrome&quot; Then               ; 代表谷歌浏览器
+                 $title=&quot;打开&quot; ElseIf    $browser=&quot;firefox&quot; Then             ; 代表火狐浏览器
+                  $title=&quot;文件上传&quot; EndIf if WinWait($title,&quot;&quot;,4) Then ;等待弹出出现，最大等待时间是4秒
+                   WinActivate($title)                  ;找到弹出窗口之后，激活当前窗口
+                   ControlSetText($title,&quot;&quot;,&quot;Edit1&quot;,$uploadfile)   ;把文件路径放入输入框，此”Edit1“是用FinderTool获取到的
+                   ControlClick($title,&quot;&quot;,&quot;Button1&quot;)                ;点击保存或者打开或者上传按钮，此“Button1”使用FinderTool获取到的
+            Else
+            Return False
+            EndIf
+ EndFunc
+</code></pre>
+<figure data-type="image" tabindex="10"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<ol start="5">
+<li>编译脚本为exe可执行文件</li>
+</ol>
+<p>编写完脚本之后，保存文件并打开Compile Script to .exe(x64/x86)工具 <img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718153828567-1147124643.png" alt="" loading="lazy"><br>
+，将保存后的脚本.au3文件转换为.exe可执行文件</p>
+<ol start="6">
+<li>执行转换后的脚本</li>
+</ol>
+<p>在执行脚本之前，先确保上传文件的窗口已经打开，接下来打开cmd执行exe程序  C:Usersv-xugDesktop&gt;upload_file_new.exe firefox E:CnblogCodeupload_file.html</p>
+<ol start="7">
+<li>执行效果</li>
+</ol>
+<figure data-type="image" tabindex="11"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718161454802-676243340.gif" alt="" loading="lazy"></figure>
+<ol start="8">
+<li>编写selenium脚本</li>
+</ol>
+<h3 id="实例-2">实例</h3>
+<figure data-type="image" tabindex="12"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">
+from selenium.webdriver.common.action_chains import ActionChains 
+import os
+from selenium import webdriver
+import time 
+
+class Base(object):
+
+    @staticmethod def upload_file(exe, browser, filename): &quot;&quot;&quot; 使用autoIt上传文件
+        :param exe: 上传文件的exe程序所在目录
+        :param browser: 浏览器类型： firefox chrome ie
+        :param filename: 待上传文件路径
+        :return: none &quot;&quot;&quot; cmd = exe + ' ' + browser + ' ' + filename
+        os.system(cmd) if __name__ == '__main__':
+    driver = webdriver.Firefox()
+    driver.get(r'file:///e:/CnblogCode/upload_file.html')  # 打开被测html
+    upload_element = driver.find_element_by_xpath('//*[@id=&quot;upload_file&quot;]')
+    action = ActionChains(driver)
+    action.move_to_element(upload_element).click().perform()  # 点击上传文件弹出上传文件窗口
+    action.release()
+    time.sleep(3)  # 为了看效果
+    Base.upload_file(r'E:CnblogCodeupload_file_new.exe', 'firefox', r'E:CnblogCodeupload_file.html')  # 上传文件
+
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://common.cnblogs.com/images/copycode.gif" alt="" loading="lazy"></figure>
+<h3 id="执行过程-2">执行过程</h3>
+<figure data-type="image" tabindex="14"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718170623032-66535341.gif" alt="" loading="lazy"></figure>
+<p>以上就是使用AutoId工具完成上传文件的过程，其实还是挺复杂的， 但是配置一次之后，以后就可以重复使用编译生成的exe文件了，执行效果还是不错的 没出什么错误，执行效率也还可以</p>
+<h2 id="模拟键盘">模拟键盘</h2>
+<p>第三种方法：模拟键盘的粘贴与回车操作并结合剪切板的操作来完成上传文件，基本原理是向剪切板中发送文件(文件路径字符串)，然后再从剪切板中获取到文件，最后通过模拟键盘的ctrl+v与enter键来完成文件上传</p>
+<p>这种方法需要第三方库的支持，安装pypiwin32库： pip install pypiwin32</p>
+<h3 id="实例-3">实例</h3>
+<p>模拟键盘操作代码</p>
+<figure data-type="image" tabindex="15"><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">import win32api import win32con
+import time 
+
+class KeyBoard(object): 
+    &quot;&quot;&quot;模拟按键&quot;&quot;&quot;
+    # 键盘码
+    vk_code = { 'enter' : 0x0D, 'ctrl' : 0x11, 'v' : 0x56 }
+
+    @staticmethod def keyDown(key_name): &quot;&quot;&quot;按下键&quot;&quot;&quot; key_name = key_name.lower() try:
+            win32api.keybd_event(KeyBoard.vk_code[key_name], 0, 0, 0) except Exception as e: print('未按下enter键') raise e
+
+    @staticmethod def keyUp(key_name): &quot;&quot;&quot;抬起键&quot;&quot;&quot; key_name = key_name.lower()
+        win32api.keybd_event(KeyBoard.vk_code[key_name], 0, win32con.KEYEVENTF_KEYUP, 0)
+
+    @staticmethod def oneKey(key): &quot;&quot;&quot;模拟单个按键&quot;&quot;&quot; key = key.lower()
+        KeyBoard.keyDown(key)
+        time.sleep(2)
+        KeyBoard.keyUp(key)
+
+    @staticmethod def twoKeys(key1, key2): &quot;&quot;&quot;模拟组合按键&quot;&quot;&quot; key1 = key1.lower()
+        key2 = key2.lower()
+        KeyBoard.keyDown(key1)
+        KeyBoard.keyDown(key2)
+        KeyBoard.keyUp(key1)
+        KeyBoard.keyUp(key2) if __name__ == '__main__': pass
+</code></pre>
+<p>keyboard.py</p>
+<p>剪切板操作代码</p>
+<figure data-type="image" tabindex="16"><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">
+import win32con 
+import win32clipboard as WC 
+
+class ClipBoard(object): 
+    &quot;&quot;&quot;设置剪切板内容和获取剪切板内容&quot;&quot;&quot; 
+    
+    @staticmethod def getText(): &quot;&quot;&quot;获取剪切板的内容&quot;&quot;&quot; 
+        WC.OpenClipboard()
+        value = WC.GetClipboardData(win32con.CF_TEXT)
+        WC.CloseClipboard() return value
+
+    @staticmethod def setText(value): &quot;&quot;&quot;设置剪切板的内容&quot;&quot;&quot; 
+        WC.OpenClipboard()
+        WC.EmptyClipboard()
+        WC.SetClipboardData(win32con.CF_UNICODETEXT, value)
+        WC.CloseClipboard() 
+if __name__ == '__main__': 
+    pass
+</code></pre>
+<p>clipboard.py</p>
+<p>上传文件代码</p>
+<figure data-type="image" tabindex="17"><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">from clipboard import ClipBoard 
+from keyboard import KeyBoard 
+from selenium import webdriver 
+import time 
+from selenium.webdriver.common.action_chains import ActionChains 
+
+if __name__ == '__main__':
+    ClipBoard.setText(r'E:CnblogCodeupload_file.html')  # 待上传文件设置到剪切板
+    driver = webdriver.Firefox()
+    driver.get(r'file:///e:/CnblogCode/upload_file.html')
+    upload_element = driver.find_element_by_xpath('//*[@id=&quot;upload_file&quot;]')
+    action = ActionChains(driver)
+    action.move_to_element(upload_element).click().perform()
+    action.release()
+    time.sleep(3)  # 为了看效果
+    KeyBoard.twoKeys('ctrl', 'v')
+    KeyBoard.oneKey('enter')
+
+upload_file_board.py
+</code></pre>
+<h3 id="执行过程-3">执行过程</h3>
+<figure data-type="image" tabindex="18"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718173040775-1045026529.gif" alt="" loading="lazy"></figure>
+<p>失败</p>
+<figure data-type="image" tabindex="19"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718173123389-1294379262.gif" alt="" loading="lazy"></figure>
+<p>可以看到第二个动画上传文件未成功，这也就这个方法的弊端，只要移动了鼠标就有可能就不会成功，毕竟模拟的是enter键，这个过程你点击了别的地方，那么enter的效果就变了，所以这种方法很不稳定，也不难发现，代码量也很多，而且需要掌握模拟键盘和剪切板的操作，最不推荐使用的就是这种方法</p>
+<p>之前我的实战项目里面，用到过这种方法， 当时我已经发现了这种方法的弊端， 但是为了掌握这种模拟键盘的方法，所以才使用的，当然模拟键盘操作用到一些特殊的情况还是能解决很多实际问题的</p>
+<h2 id="winspy工具">WinSpy工具</h2>
+<p>第四种方法：这个工具其实和AutoIt工具的元素定位方式一样，但是不需要生成exe文件，其实只是个辅助工具，主要用来获取windows窗口句柄，进而通过python脚本来控制</p>
+<h3 id="winspy安装">WinSpy安装</h3>
+<p><a href="https://sourceforge.net/projects/winspyex/">https://sourceforge.net/projects/winspyex/</a></p>
+<p>下载完直接解压打开WinSpy32(64).exe即可使用</p>
+<p>使用方法和autoId一样，请按照下图的步骤操作，记录winspy-Tree中红框信息</p>
+<figure data-type="image" tabindex="20"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718174930856-1995061900.png" alt="" loading="lazy"></figure>
+<p>编写代码之前，同样需要提前安装 pypiwin32库</p>
+<h3 id="实例-4">实例</h3>
+<figure data-type="image" tabindex="21"><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="" loading="lazy"></figure>
+<pre><code class="language-python">from selenium.webdriver.common.action_chains import ActionChains
+from selenium import webdriver
+import win32con 
+import win32gui 
+import time 
+
+def upload_file(browser: str, file: str):
+    browser_type = { &quot;firefox&quot;: &quot;文件上传&quot;, &quot;chrome&quot;: &quot;打开&quot;, &quot;ie&quot;: &quot;选择要加载的文件&quot; }
+    time.sleep(2)
+    dialog = win32gui.FindWindow(&quot;#32770&quot;, browser_type[browser])  # 火狐浏览器为”文件上传“，谷歌为”打开“
+    combobox_ex32 = win32gui.FindWindowEx(dialog, 0, &quot;ComboBoxEx32&quot;, None)
+    combobox = win32gui.FindWindowEx(combobox_ex32, 0, 'ComboBox', None)
+    edit = win32gui.FindWindowEx(combobox, 0, 'Edit', None)
+    button = win32gui.FindWindowEx(dialog, 0, 'Button', None)
+    win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file)
+    win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button) if __name__ == '__main__':
+    driver = webdriver.Firefox()
+    driver.get(r'file:///e:/CnblogCode/upload_file.html')
+    upload_element = driver.find_element_by_xpath('//*[@id=&quot;upload_file&quot;]')
+    action = ActionChains(driver)
+    action.move_to_element(upload_element).click().perform()
+    action.release()
+    time.sleep(3)  # 为了看效果
+    upload_file('firefox', r'E:CnblogCodeupload_file.html')
+</code></pre>
+<p>load_file_winspy.py</p>
+<h3 id="执行过程-4">执行过程</h3>
+<figure data-type="image" tabindex="22"><img src="https://img2018.cnblogs.com/blog/1421063/201907/1421063-20190718175927417-974106887.gif" alt="" loading="lazy"></figure>
+<p>此方法也比较稳定，只要通过传递不同的浏览器参数，即可完成不同浏览器中的上传文件操作，而且相比于AutoId而言，这种方法可以直接使用python编写代码且不需要编译成exe程序，可以随时对代码进行修改，易维护</p>
+<h2 id="总结">总结</h2>
+<p>最后总结一下每个方法的优缺点</p>
+<ol>
+<li>
+<p>send_keys(): 如果所遇见的上传文件使用的是input标签且属性type=file，均可使用，也最好采用此方法，方便，简单，执行效率高</p>
+</li>
+<li>
+<p>AutoId： 需编写VBS代码并编译为exe可执行文件，过程繁琐，编写selenium测试用例时无法随时调试内部代码，但send_keys()无法使用时，可以采用此方法，执行效率较高，稳定性也算可以</p>
+</li>
+<li>
+<p>模拟键盘和剪切板： 此方法需要掌win32api，win32gui模块的使用，且代码编写繁琐，上传文件时如果鼠标点击其他地方会导致上传失败，脚本稳定性差，且效率低，但是如果用到一些特殊地方会起到比较好的效果</p>
+</li>
+<li>
+<p>WinSpay：windows窗口句柄抓取工具，不需要编译脚本为exe文件，且上传文件操作使用的脚本是python第三方库实现，易维护，执行效率也较高，推荐send_keys()不可使用时，首先考虑此方法</p>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E8%A2%AB%E6%B5%8Bhtml%E4%BB%A3%E7%A0%81">被测HTML代码</a></li>
+<li><a href="#send_keys%E6%96%B9%E6%B3%95">send_keys方法</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B">执行过程</a></li>
+</ul>
+</li>
+<li><a href="#autoit%E5%B7%A5%E5%85%B7">AutoIt工具</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B-2">实例</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-2">执行过程</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E6%8B%9F%E9%94%AE%E7%9B%98">模拟键盘</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B-3">实例</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-3">执行过程</a></li>
+</ul>
+</li>
+<li><a href="#winspy%E5%B7%A5%E5%85%B7">WinSpy工具</a>
+<ul>
+<li><a href="#winspy%E5%AE%89%E8%A3%85">WinSpy安装</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B-4">实例</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-4">执行过程</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://grassroadsz.github.io/selenium-zhi-shi-dian/">
+              <h3 class="post-title">
+                Selenium知识点
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '7d56338c9b683c1db453',
+    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+    repo: 'grassroadsZ.github.io',
+    owner: 'grassroadsZ',
+    admin: ['grassroadsZ'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

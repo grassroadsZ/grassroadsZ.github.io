@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://grassroadsz.github.io</id>
     <title>Gridea</title>
-    <updated>2022-05-28T07:06:52.779Z</updated>
+    <updated>2022-05-28T07:31:39.277Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://grassroadsz.github.io"/>
     <link rel="self" href="https://grassroadsz.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2022, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[UI自动化文件上传]]></title>
-        <id>https://grassroadsz.github.io/post/ui-zi-dong-hua-wen-jian-shang-chuan/</id>
-        <link href="https://grassroadsz.github.io/post/ui-zi-dong-hua-wen-jian-shang-chuan/">
+        <id>https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/</id>
+        <link href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
         </link>
         <updated>2022-05-28T06:52:51.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -297,8 +297,8 @@ def upload_file(browser: str, file: str):
     </entry>
     <entry>
         <title type="html"><![CDATA[Selenium知识点]]></title>
-        <id>https://grassroadsz.github.io/post/selenium-zhi-shi-dian/</id>
-        <link href="https://grassroadsz.github.io/post/selenium-zhi-shi-dian/">
+        <id>https://grassroadsz.github.io/selenium-zhi-shi-dian/</id>
+        <link href="https://grassroadsz.github.io/selenium-zhi-shi-dian/">
         </link>
         <updated>2022-05-27T15:34:25.000Z</updated>
         <content type="html"><![CDATA[<p>题目来源于网络,答案系个人浅显理解，如有错误及不足之处，欢迎指正</p>
@@ -477,9 +477,369 @@ driver.back()</p>
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[Pytest小结]]></title>
+        <id>https://grassroadsz.github.io/pytest-xiao-jie/</id>
+        <link href="https://grassroadsz.github.io/pytest-xiao-jie/">
+        </link>
+        <updated>2022-05-27T15:17:57.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="安装">安装</h1>
+<pre><code class="language-shell">pip3 install -U pytest -i http://pypi.douban.com/sample
+# html报告
+pip install pytest-HTML 
+# 失败重跑
+pip install pytest-rerunfailures
+# html 报告插件
+pip install pytest-allure-adaptor
+allure软件
+</code></pre>
+<h1 id="运行">运行</h1>
+<h2 id="文件规则">文件规则</h2>
+<pre><code>查找当前目录及其子目录以test*.py开头或者*test.py的文件，找到文件后在文件中找到以test开头函数并执行
+</code></pre>
+<h2 id="用例规则">用例规则</h2>
+<pre><code>- 测试文件以test开头或者以test结尾
+- 测试类以Test开头，且类不能带有init方法
+- 测试函数以test_开头，使用assert断言
+- 所有的包Pakeage必须有init.py 文件
+</code></pre>
+<h2 id="cmd运行">cmd运行</h2>
+<pre><code>- pytest
+
+- py.test
+
+- Python -m pytest
+</code></pre>
+<h2 id="运行参数">运行参数</h2>
+<h3 id="无参数">无参数</h3>
+<pre><code>读取dir下所有符合规则的文件、类和方法、函数并执行
+pytest dir
+</code></pre>
+<h3 id="-v打印日志详细程度">-v(打印日志详细程度)</h3>
+<pre><code>打印详细运行信息
+</code></pre>
+<h3 id="-s输出代码中的print">-s（输出代码中的print）</h3>
+<pre><code>控制台输出结果
+</code></pre>
+<h3 id="-k-跳过">-k (跳过)</h3>
+<pre><code>pytest -k '类名'
+pytest -k '方法名'
+pytest -k '类名 and 方法名'  # 运行类中所有的方法。不包含某个方法
+</code></pre>
+<h3 id="-x-遇到失败用例立即停止运行">-x （遇到失败用例立即停止运行）</h3>
+<pre><code>P0级别用例一条失败即停止用例运行
+pytest -x
+</code></pre>
+<h3 id="-maxfail-用例失败个数达到阈值即停止运行">-maxfail (用例失败个数达到阈值即停止运行)</h3>
+<pre><code>P1级别10条用例最多失败多少条即停止执行所有用例
+pytest -maxfail=num
+</code></pre>
+<h3 id="-n-并行运行">-n 并行运行</h3>
+<pre><code>pip install pytest-xdist
+</code></pre>
+<p>安装后在命令行中指定-n 进程数即可(使用参数化时需要动态参数的情况时需先将动态生成的参数生成至文件后从文件读取，保证多个worker节点的数据一致)</p>
+<h3 id="-m指定运行某个标记的用例">-m（指定运行某个标记的用例）</h3>
+<pre><code class="language-python">@pytest.mark.shopping
+def function():
+pass
+</code></pre>
+<pre><code>pytest -m shopping
+</code></pre>
+<h3 id="指定运行">指定运行</h3>
+<pre><code>- 文件级别：pytest filename.py
+- 文件内某个函数：pytest file.py::test_func
+- 文件内某个类的的某个方法：pytest file.py::TestClass::test_method
+</code></pre>
+<h3 id="pycharm">Pycharm</h3>
+<p>file -&gt; Setting -&gt; Tools -&gt; Python Intergrated Tools -&gt;projectname -&gt; Default test runner -&gt; pytest</p>
+<p>示例</p>
+<pre><code class="language-python">import pytest
+class TestClass:
+    def test_add(self):
+        assert 1 + 1 == 5
+    def test_sub(self):
+        assert 1 * 1 == 3
+if __name__ == '__main__':
+  # main 中需要传list
+    pytest.main([&quot;-q test_example_run.py&quot;])
+</code></pre>
+<h1 id="用法">用法</h1>
+<h2 id="前置后置">前置后置</h2>
+<pre><code class="language-python">class TestA(object):
+
+    @staticmethod
+    def teardown():
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @staticmethod
+    def setup():
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @classmethod
+    def setup_class(cls):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @classmethod
+    def teardown_class(cls):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    def test_01(self):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+        assert 2 == 1
+
+
+def setup_module():
+    print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+
+def teardown_module():
+    print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+
+class TestB(object):
+
+    @staticmethod
+    def teardown():
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @staticmethod
+    def setup():
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @classmethod
+    def setup_class(cls):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    @classmethod
+    def teardown_class(cls):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+
+    def test_00(self):
+        print(&quot;\n我的名字是{}&quot;.format(inspect.stack()[0][3]))
+        assert 1 == 1
+
+
+if __name__ == '__main__':
+    pytest.main(['-sqv'])
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://cdn.nlark.com/yuque/0/2020/png/739683/1590631258407-3fa87540-1d05-4ac7-8695-4c8c7806527a.png?x-oss-process=image%2Fresize%2Cw_500%2Climit_0" alt="结果" loading="lazy"></figure>
+<h3 id="conftestpy-pytestfixture">conftest.py-@pytest.fixture()</h3>
+<pre><code>写在conftest.py文件中，不同的package可以有不同的conftest.py文件
+</code></pre>
+<h3 id="作用顺序">作用顺序</h3>
+<pre><code>session &gt; module &gt; class &gt; function,
+</code></pre>
+<p>相同级别作用域的，其实例化顺序遵循它们在测试用例中被声明的顺序（也就是形参的顺序），或者fixture之间的相互调用关系；</p>
+<p>使用autouse的fixture，先于其同级别的其它fixture实例化</p>
+<pre><code class="language-python"># encoding:utf-8
+# Motto：good good study, day day up. why you so lazy ？？？
+
+import pytest
+
+@pytest.fixture(scope='module',autouse=True) # 设置为autouse=True时在测试函数上面不需要写pytest.mark.fixture()
+def open():
+    print(&quot;这里类似于setup的操作，这里出错不会执行yield的操作&quot;)
+    yield
+    print(&quot;这里类似于teardown的操作，这期间raise不会影响执行&quot;)
+# 除了使用yield 还可以使用addfinalizer，addfinalizer无论setup有无异常，均会执行类型teardown的操作
+    
+&quot;&quot;&quot;
+使用方法：
+1.可以测试类的每个测试方法都传一次调用
+2.使用usefixture
+当需要用到fixture的返回值时只能用fixture，不能用usefixtures
+&quot;&quot;&quot;
+class TestFix01:
+    def test_01(self, login):
+        pass
+
+    def test_02(self, login):
+        pass
+
+# 使用usefixtures,每个测试函数都会调用
+@pytest.mark.usefixtures(&quot;login&quot;)
+class TestFix02:
+    def test_01(self):
+        pass
+
+    def test_02(self):
+        pass
+    
+# 使用多个usefixtures,先执行的在最下面
+@pytest.mark.usefixtures(&quot;second&quot;)
+@pytest.mark.usefixtures(&quot;first&quot;)
+class TestFix03:
+    def test_01(self):
+        pass
+
+    def test_02(self):
+        pass
+</code></pre>
+<h3 id="参数化pytestmarkparametrize">参数化@pytest.mark.parametrize()</h3>
+<pre><code class="language-python">@pytest.mark.parametrize(&quot;input_name, expect&quot;, [(1, 2), (3, 4), pytest.param(3, 7, marks=pytest.mark.xfail)],indirect=True)
+# indirect=Truefixture定义的函数当成函数调用而不是参数
+def test_add(input_name, expect):
+    assert input_name == expect
+
+@pytest.mark.parametrize(&quot;x&quot;, [(1, 2), (3, 4), pytest.param((3,), marks=pytest.mark.xfail)])
+@pytest.mark.parametrize(&quot;y&quot;, [(1, 2), (3, 4), pytest.param((3,), marks=pytest.mark.xfail)])
+def test_add(x, y):
+    assert x == y
+</code></pre>
+<h3 id="标记pytestmarkmarkname">标记@pytest.mark.markname</h3>
+<pre><code class="language-python"># 只运行mark=test的
+@pytest.mark.test
+def test_mark_name():
+    print(&quot;这是测试mark标记的&quot;)
+
+def test_a():
+    print(&quot;这个么有mark&quot;)
+
+if __name__ == '__main__':
+    pytest.main([&quot;-m=test&quot;, &quot;test_mark.py&quot;])
+</code></pre>
+<h3 id="pytestini">pytest.ini</h3>
+<pre><code class="language-ini">[pytest]
+# 报告所有测试用例被跳过，预期失败，预期失败但是通过的原因
+addopt = -rsxX
+
+# 将被@pytest.mark.xfail但是实际却通过测试的用例改成失败
+xfail_strict = true
+
+# 记录标记的含义，可以使用pytest --markers查看
+markers =
+    test:测试mark标记
+
+# 直接输入pytest 默认带上下列参数
+addopts = -v --rerun 1 --html=report.html --self-contained-html
+</code></pre>
+<h3 id="pytest-html测试报告定制失败自动保存截图">pytest-html测试报告定制:失败自动保存截图</h3>
+<pre><code class="language-python"># encoding:utf-8
+# Motto：good good study, day day up. why you so lazy ？？？
+
+import pytest
+from selenium import webdriver
+from py._xmlgen import html
+
+driver = None
+
+@pytest.fixture(scope='session', autouse=True)
+def browser():
+    global driver
+    if driver is None:
+        driver = webdriver.Chrome()
+    return driver
+
+
+def _capture_screenshot():
+    return driver.get_screenshot_as_base64()
+
+
+@pytest.mark.hookwrapper
+def pytest_runtest_makereport(item):
+    &quot;&quot;&quot;
+    当测试失败的时候，自动截图，展示到html报告中
+    :param item:
+    &quot;&quot;&quot;
+    pytest_html = item.config.pluginmanager.getplugin('html')
+    outcome = yield
+    report = outcome.get_result()
+    extra = getattr(report, 'extra', [])
+
+    if report.when == 'call' or report.when == &quot;setup&quot;:
+        xfail = hasattr(report, 'wasxfail')
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            file_name = report.nodeid.replace(&quot;::&quot;, &quot;_&quot;) + &quot;.png&quot;
+            screen_img = _capture_screenshot()
+            if file_name:
+                html = '&lt;div&gt;&lt;img src=&quot;data:image/png;base64,%s&quot; alt=&quot;screenshot&quot; style=&quot;width:600px;height:300px;&quot; ' \
+                       'onclick=&quot;window.open(this.src)&quot; align=&quot;right&quot;/&gt;&lt;/div&gt;' % screen_img
+                extra.append(pytest_html.extras.html(html))
+        report.extra = extra
+        report.description = str(item.function.__doc__)
+        report.nodeid = report.nodeid.encode(&quot;utf-8&quot;).decode(&quot;unicode_escape&quot;)
+
+
+@pytest.mark.optionalhook
+def pytest_html_results_table_header(cells):
+    cells.insert(1, html.th('Description'))
+    cells.insert(2, html.th('Test_nodeid'))
+    cells.pop(2)
+
+
+@pytest.mark.optionalhook
+def pytest_html_results_table_row(report, cells):
+    cells.insert(1, html.td(report.description))
+    cells.insert(2, html.td(report.nodeid))
+    cells.pop(2)
+</code></pre>
+<h3 id="失败重跑">失败重跑</h3>
+<pre><code>pip install pytest-rerunfailures
+</code></pre>
+<p>参数：</p>
+<ul>
+<li>--reruns=num 重试次数</li>
+<li>--reruns-delay=time  失败后多少秒重新执行</li>
+</ul>
+<h3 id="命令行传参">命令行传参</h3>
+<p>demo</p>
+<pre><code class="language-python"># conftest.py
+import pytest
+
+def pytest_addoption(parser):
+    '''添加命令行参数--env'''
+    parser.addoption(
+        &quot;--env&quot;, action=&quot;store&quot;, default=&quot;local&quot;, help=&quot;env option:  local or linux&quot;
+    )
+    parser.addoption(
+        &quot;--user&quot;, action=&quot;store&quot;, default=&quot;user_1&quot;, help=&quot;env option:  user_1 or user_2&quot;
+    )
+
+@pytest.fixture(scope='session', autouse=True)
+def begin(request):
+    env = request.config.getoption(&quot;--env&quot;)
+    user = request.config.getoption(&quot;--user&quot;)
+    if env == 'local':
+        print(&quot;这是本地环境&quot;)
+    if user:
+        print(&quot;我是用户{}&quot;.format(user))
+        
+# test_addoption.py
+import pytest
+
+
+@pytest.mark.parametrize('y', list(range(2)))
+@pytest.mark.parametrize('x', list(range(2)))
+def test_add(x, y):
+    re = x + y
+    assert re == 1
+
+if __name__ == '__main__':
+    pytest.main(['-vsq', '--user=user_1'])
+</code></pre>
+<pre><code>D:\Croe\pyest-doc\venv\Scripts\python.exe D:/Croe/pyest-doc/test_addoption.py
+============================= test session starts =============================
+platform win32 -- Python 3.8.0, pytest-5.4.2, py-1.8.1, pluggy-0.13.1
+rootdir: D:\Croe\pyest-doc
+collected 4 items
+
+test_addoption.py 这是本地环境
+我是用户user_1
+F..F
+</code></pre>
+<h3 id="生成allure测试报告">生成allure测试报告</h3>
+<p>下载安装allure2，配置环境变量</p>
+<pre><code>pip3 install pytest-allure-adaptor
+# 生成allure
+pytest --alluredir=./allure_report --html=resutl.html --self-contained-html
+# 本地打开(allure_report/html目录下的index.html)
+allure generate ./allure_report -o ./allure_report/html
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[使用Python进行Dubbo服务接口测试]]></title>
-        <id>https://grassroadsz.github.io/post/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/</id>
-        <link href="https://grassroadsz.github.io/post/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
+        <id>https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/</id>
+        <link href="https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
         </link>
         <updated>2022-05-27T06:02:19.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -658,8 +1018,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[以太坊入门-1 基础准备]]></title>
-        <id>https://grassroadsz.github.io/post/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/</id>
-        <link href="https://grassroadsz.github.io/post/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/">
+        <id>https://grassroadsz.github.io/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/</id>
+        <link href="https://grassroadsz.github.io/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/">
         </link>
         <updated>2022-05-14T15:59:20.000Z</updated>
         <content type="html"><![CDATA[<ul>
@@ -671,8 +1031,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[以太坊入门开发课]]></title>
-        <id>https://grassroadsz.github.io/post/yi-tai-fang-ru-men-kai-fa-ke/</id>
-        <link href="https://grassroadsz.github.io/post/yi-tai-fang-ru-men-kai-fa-ke/">
+        <id>https://grassroadsz.github.io/yi-tai-fang-ru-men-kai-fa-ke/</id>
+        <link href="https://grassroadsz.github.io/yi-tai-fang-ru-men-kai-fa-ke/">
         </link>
         <updated>2022-05-14T15:59:20.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://forested-celsius-818.notion.site/62be43fb25c84db1965eb21f620087b0">课程学员手册</a></p>
@@ -753,8 +1113,8 @@ def bridge_arbitrum(from_address, from_address_private_key, l1_amount):
     </entry>
     <entry>
         <title type="html"><![CDATA[测试文章]]></title>
-        <id>https://grassroadsz.github.io/post/ce-shi-wen-zhang/</id>
-        <link href="https://grassroadsz.github.io/post/ce-shi-wen-zhang/">
+        <id>https://grassroadsz.github.io/ce-shi-wen-zhang/</id>
+        <link href="https://grassroadsz.github.io/ce-shi-wen-zhang/">
         </link>
         <updated>2022-05-12T23:38:51.000Z</updated>
         <content type="html"><![CDATA[<p>测试文章</p>

@@ -1,0 +1,276 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>以太坊入门开发课 | Gridea</title>
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653723095734">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="以太坊入门开发课 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="课程学员手册
+以太坊入门-1 基础准备
+
+添加测试网Rinkeby 地址,使用 chainlink: https://chainlist.quantclass.cn/
+默认的测试网选项没有打开，需要使用设置 --&gt; 高级 -- &gt..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://grassroadsz.github.io">
+  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653723095734" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              以太坊入门开发课
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-05-14
+              </span>
+              <span>
+                14 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><a href="https://forested-celsius-818.notion.site/62be43fb25c84db1965eb21f620087b0">课程学员手册</a></p>
+<h2 id="以太坊入门-1-基础准备">以太坊入门-1 基础准备</h2>
+<ul>
+<li>添加测试网Rinkeby 地址,使用 chainlink: <a href="https://chainlist.quantclass.cn/">https://chainlist.quantclass.cn/</a></li>
+<li>默认的测试网选项没有打开，需要使用设置 --&gt; 高级 -- &gt; 显示测试网络</li>
+<li>测试币领取<a href="https://faucet.rinkeby.io/">https://faucet.rinkeby.io/</a><br>
+打开<code>https://twitter.com/intent/tweet?text=Requesting%20faucet%20funds%20into%200x0000000000000000000000000000000000000000%20on%20the%20%23Rinkeby%20%23Ethereum%20test%20network.</code> 将 其中的 000 改成自己的地址 ，发送twitter 后将twitter 地址copy 到 领水地址 进行领水</li>
+</ul>
+<h2 id="arbitrum">Arbitrum</h2>
+<ul>
+<li>
+<p>跨链桥：<code>https://bridge.arbitrum.io/</code></p>
+<p>合约交互代码</p>
+<pre><code class="language-python">def connect_web3_instance(network=&quot;mainnet&quot;):
+  # 使用dotenv 进行配置的管理 此处只需要使用 Infura 的project_id 即可
+  INFURA_PROJECT_ID = os.getenv('INFURA_PROJECT_ID')
+  INFURA_MAIN_NETWORK = f'https://{network}.infura.io/v3/{INFURA_PROJECT_ID}'
+
+  web3_instance = Web3(Web3.HTTPProvider(endpoint_uri=INFURA_MAIN_NETWORK))
+  print(web3_instance.isConnected())
+  return web3_instance
+
+
+def bridge_arbitrum(from_address, from_address_private_key, l1_amount):
+  &quot;&quot;&quot;
+  Arbitrum 测试网跨链桥
+  &quot;&quot;&quot;
+  ArbitrumProxyContract = &quot;0x578BAde599406A8fE3d24Fd7f7211c0911F5B29e&quot;
+  ArbitrumProxyContractAbi = '[{&quot;anonymous&quot;:false,&quot;inputs&quot;:[{&quot;indexed&quot;:true,&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;messageNum&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;indexed&quot;:false,&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;InboxMessageDelivered&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:[{&quot;indexed&quot;:true,&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;messageNum&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;name&quot;:&quot;InboxMessageDeliveredFromOrigin&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:[{&quot;indexed&quot;:false,&quot;internalType&quot;:&quot;bool&quot;,&quot;name&quot;:&quot;enabled&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;name&quot;:&quot;PauseToggled&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:[{&quot;indexed&quot;:false,&quot;internalType&quot;:&quot;bool&quot;,&quot;name&quot;:&quot;enabled&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;name&quot;:&quot;RewriteToggled&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:[{&quot;indexed&quot;:false,&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;newSource&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;WhitelistSourceUpdated&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;bridge&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;contract IBridge&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;l2CallValue&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxSubmissionCost&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;excessFeeRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;callValueRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;createRetryableTicket&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;l2CallValue&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxSubmissionCost&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;excessFeeRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;callValueRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;createRetryableTicketNoRefundAliasRewrite&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxSubmissionCost&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;name&quot;:&quot;depositEth&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;contract IBridge&quot;,&quot;name&quot;:&quot;_bridge&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;_whitelist&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;initialize&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;isCreateRetryablePaused&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;bool&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;isMaster&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;bool&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;pauseCreateRetryables&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;amount&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendContractTransaction&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendL1FundedContractTransaction&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;nonce&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendL1FundedUnsignedTransaction&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;messageData&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendL2Message&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;messageData&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendL2MessageFromOrigin&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;nonce&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;amount&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;sendUnsignedTransaction&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;shouldRewriteSender&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;bool&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;startRewriteAddress&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;stopRewriteAddress&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;unpauseCreateRetryables&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;destAddr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;l2CallValue&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxSubmissionCost&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;excessFeeRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;callValueRefundAddress&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;maxGas&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;gasPriceBid&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;internalType&quot;:&quot;bytes&quot;,&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;bytes&quot;}],&quot;name&quot;:&quot;unsafeCreateRetryableTicket&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;uint256&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;newSource&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;updateWhitelistSource&quot;,&quot;outputs&quot;:[],&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[],&quot;name&quot;:&quot;whitelist&quot;,&quot;outputs&quot;:[{&quot;internalType&quot;:&quot;address&quot;,&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;}]'
+  web3_instance = connect_web3_instance(&quot;rinkeby&quot;)
+
+  # 通过合约地址 以及abi 实例化的 对象才可以使用abi中的方法进行调用
+  ArbitrumProxyContractInstance = web3_instance.eth.contract(address=Web3.toChecksumAddress(ArbitrumProxyContract),
+                                                             abi=ArbitrumProxyContractAbi)
+
+  l1_amount = web3_instance.toWei(l1_amount, &quot;ether&quot;)
+  from_address_balance = web3_instance.eth.get_balance(web3_instance.toChecksumAddress(from_address))
+  print(f&quot;{from_address} 的 地址余额 为 {float(from_address_balance / 1e18)} ETH,转账 {l1_amount / 1e18} ETH&quot;)
+
+  function_instance = ArbitrumProxyContractInstance.functions.depositEth(maxSubmissionCost=l1_amount)
+
+  params = {
+
+      'gas': 250000,
+      'nonce': web3_instance.eth.getTransactionCount(web3_instance.toChecksumAddress(from_address)),
+      'from': web3_instance.toChecksumAddress(from_address),
+      'value': l1_amount,
+      # 'gasPrice': w3.toWei('5', 'gwei'),
+      'maxFeePerGas': web3_instance.toWei(5, 'gwei'),
+      'maxPriorityFeePerGas': web3_instance.toWei(5, 'gwei'),
+      'chainId': 4,
+
+  }
+  try:
+      # 构建tx
+      tx = function_instance.buildTransaction(params)
+      # 签名
+      sign_tx = web3_instance.eth.account.signTransaction(tx, private_key=from_address_private_key)
+      # 发送交易
+      txn = web3_instance.eth.sendRawTransaction(sign_tx.rawTransaction)
+      from_address_balance = web3_instance.eth.get_balance(web3_instance.toChecksumAddress(from_address))
+      print(f&quot;{from_address} 的 地址余额 为 {float(from_address_balance / 1e18)} ETH&quot;)
+
+      return {'status': 'succeed', 'txn_hash': web3_instance.toHex(txn), 'task': 'Bridge ETH'}
+
+  except Exception as e:
+      return {'status': 'failed', 'error': e, 'task': 'Bridge ETH'}
+</code></pre>
+</li>
+</ul>
+<pre><code>
+
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%85%A5%E9%97%A8-1-%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87">以太坊入门-1 基础准备</a></li>
+<li><a href="#arbitrum">Arbitrum</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://grassroadsz.github.io/ce-shi-wen-zhang/">
+              <h3 class="post-title">
+                测试文章
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '7d56338c9b683c1db453',
+    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+    repo: 'grassroadsZ.github.io',
+    owner: 'grassroadsZ',
+    admin: ['grassroadsZ'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
