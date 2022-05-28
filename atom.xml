@@ -1,15 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://grassroadsz.github.io</id>
-    <title>Gridea</title>
-    <updated>2022-05-28T07:51:29.862Z</updated>
+    <title>grassroadsZ</title>
+    <updated>2022-05-28T08:09:20.599Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://grassroadsz.github.io"/>
     <link rel="self" href="https://grassroadsz.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://grassroadsz.github.io/images/avatar.png</logo>
     <icon>https://grassroadsz.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2022, Gridea</rights>
+    <rights>All rights reserved 2022, grassroadsZ</rights>
+    <entry>
+        <title type="html"><![CDATA[Git 命令]]></title>
+        <id>https://grassroadsz.github.io/kHeewF6F8/</id>
+        <link href="https://grassroadsz.github.io/kHeewF6F8/">
+        </link>
+        <updated>2022-05-28T08:06:00.000Z</updated>
+        <content type="html"><![CDATA[<p>名词</p>
+<p>master：默认开发分支</p>
+<p>origin：默认远程版本库</p>
+<p>Index/stage:暂缓区</p>
+<p>Workspace：工作区</p>
+<p>Repository：仓库区（本地仓库）</p>
+<p>Remote：远程仓库</p>
+<p>一. 新建代码库</p>
+<h1 id="在当前目录新建一个代码仓库">在当前目录新建一个代码仓库</h1>
+<pre><code>git init
+</code></pre>
+<h1 id="新建一个目录将其初始化为-git仓库">新建一个目录，将其初始化为    git仓库</h1>
+<pre><code>git init [project-name]
+</code></pre>
+<h1 id="下载一个项目和它的整个代码历史">下载一个项目和它的整个代码历史</h1>
+<pre><code>git clone[url]
+</code></pre>
+<p>二.配置</p>
+<pre><code>git的设置文件为.    gitconfig,它可以在用户主目录下（全局配置）
+</code></pre>
+<h1 id="显示当前的-git配置">显示当前的    git配置</h1>
+<pre><code>git config --list
+</code></pre>
+<h1 id="编辑-git配置文件">编辑    git配置文件</h1>
+<pre><code>git config -e [--global]
+</code></pre>
+<h1 id="设置提交代码时的用户信息">设置提交代码时的用户信息</h1>
+<pre><code>git config [--global]
+</code></pre>
+<h1 id="设置提交代码时的用户信息-2">设置提交代码时的用户信息</h1>
+<pre><code>git config [--global] user.name &quot;[name]&quot;
+
+git config [--global] user.email &quot;email address&quot;
+</code></pre>
+<p>三.增加/删除/修改文件</p>
+<h1 id="查看状态">查看状态</h1>
+<pre><code>git status
+</code></pre>
+<h1 id="查看变更内容">查看变更内容</h1>
+<pre><code>git diff
+</code></pre>
+<h1 id="添加指定文件到暂存区">添加指定文件到暂存区</h1>
+<pre><code>git add [file1] [file2]
+</code></pre>
+<h1 id="添加指定目录到暂缓区包括子目录">添加指定目录到暂缓区，包括子目录</h1>
+<pre><code>git add .
+</code></pre>
+<h1 id="添加每个变化前都会要求确认">添加每个变化前，都会要求确认</h1>
+<p>#对于同一个文件的多处变化，可以实现分次提交</p>
+<pre><code>git add -p
+</code></pre>
+<h1 id="删除工作区文件并且将这次删除放入暂缓区">删除工作区文件，并且将这次删除放入=暂缓区</h1>
+<pre><code>git rm[file1] [file2]...
+</code></pre>
+<h1 id="停止追踪指定文件但该文件会保留在工作区">停止追踪指定文件，但该文件会保留在工作区</h1>
+<pre><code>git rm --cached [file]
+</code></pre>
+<h1 id="改名文件并且将这个改名放入暂存区">改名文件，并且将这个改名放入暂存区</h1>
+<pre><code>git mv [file-oigin] [file-renamed]
+</code></pre>
+<p>代码提交</p>
+<h1 id="提交暂缓区至仓库区">提交暂缓区至仓库区</h1>
+<pre><code>git commit -m [message]
+</code></pre>
+<h1 id="提交暂缓区的指定文件到仓库区">提交暂缓区的指定文件到仓库区</h1>
+<pre><code>git commit [file1] [file2]...m [message]
+</code></pre>
+<h1 id="提交工作区自上次commit之后的变化直接到仓库区">提交工作区自上次commit之后的变化，直接到仓库区</h1>
+<pre><code>git commit -a
+</code></pre>
+<h1 id="使用一次新的commit替代上一次提交">使用一次新的commit，替代上一次提交</h1>
+<h1 id="如果代码没有任何新变化则用来改写上一次commit的提交信息">如果代码没有任何新变化，则用来改写上一次commit的提交信息</h1>
+<pre><code>git commit --amend -m [message]
+</code></pre>
+<h1 id="重做上一次commit并包括指定文件的新变化">重做上一次commit，并包括指定文件的新变化</h1>
+<pre><code>git commit --amend [file1] [file2]...
+</code></pre>
+<p>五.分支</p>
+<h1 id="显示所有的本地分支">显示所有的本地分支</h1>
+<pre><code>git branch
+</code></pre>
+<h1 id="列出所有的远程分支">列出所有的远程分支</h1>
+<pre><code>git branch -r
+</code></pre>
+<h1 id="列出所有的本地分支和远程分支">列出所有的本地分支和远程分支</h1>
+<pre><code>git branch -a
+</code></pre>
+<h1 id="新建一个分支但是依然停留在当前分支">新建一个分支，但是依然停留在当前分支</h1>
+<pre><code>git branch [branch-name]
+</code></pre>
+<h1 id="新建一个分支并与指定的远程分支建立追踪关系">新建一个分支，并与指定的远程分支建立追踪关系</h1>
+<pre><code>git branch --track [branck] [remote-name]
+</code></pre>
+<h1 id="删除远程分支">删除远程分支</h1>
+<pre><code>git push origin --delete [branch-name]
+
+git branch -dr [remote/branch]
+</code></pre>
+<h1 id="新建一个分支并切换到该分支">新建一个分支，并切换到该分支</h1>
+<pre><code>git checkout -b [branch]
+</code></pre>
+<h1 id="切换到指定分支并更新工作区">切换到指定分支，并更新工作区</h1>
+<pre><code>git checkout [branch-name]
+</code></pre>
+<h1 id="切换到上一个分支">切换到上一个分支</h1>
+<pre><code>git checkout -
+</code></pre>
+<h1 id="建立追踪关系在现有分支与指定的远程分支之间">建立追踪关系，在现有分支与指定的远程分支之间</h1>
+<pre><code>git branch --set-upstream [branch] [remote-branch]
+</code></pre>
+<h1 id="合并指定分支到当前分支">合并指定分支到当前分支</h1>
+<pre><code>git merge [branch]
+</code></pre>
+<h1 id="衍合指定分支到当前分支">衍合指定分支到当前分支</h1>
+<pre><code>git rebase &lt;branch&gt;
+</code></pre>
+<h1 id="选择一个commit合并到当前分支">选择一个commit，合并到当前分支</h1>
+<pre><code>git cherry-pick [commit]
+</code></pre>
+<p>六. 标签</p>
+<h1 id="列出所有本地标签">列出所有本地标签</h1>
+<pre><code>git tag
+</code></pre>
+<h1 id="基于最新提交创建的标签">基于最新提交创建的标签</h1>
+<pre><code>git tag &lt;tagname&gt;
+</code></pre>
+<h1 id="删除标签">删除标签</h1>
+<pre><code>git tag -d &lt;tagname&gt;
+</code></pre>
+<h1 id="删除远程tag">删除远程tag</h1>
+<pre><code>git push origin ：refs/tages/[tagename]
+</code></pre>
+<h1 id="查看tag信息">查看tag信息</h1>
+<pre><code>git show [tag]
+</code></pre>
+<h1 id="提交指定tag">提交指定tag</h1>
+<pre><code>git  push [remote] [tag]
+</code></pre>
+<h1 id="提交所有tag">提交所有tag</h1>
+<pre><code>git push [remote] --[tag]
+</code></pre>
+<h1 id="新建一个分支指向某个tag">新建一个分支，指向某个tag</h1>
+<pre><code>git checkout -b [branch] [tag]
+</code></pre>
+<p>七.查看信息</p>
+<h1 id="显示有变更的文件">显示有变更的文件</h1>
+<pre><code>git status 
+</code></pre>
+<h1 id="显示当前分支的版本历史">显示当前分支的版本历史</h1>
+<pre><code>git log
+</code></pre>
+<h1 id="显示commit历史以及每次commit发生变更的文件">显示commit历史，以及每次commit发生变更的文件</h1>
+<pre><code>git log --stat
+</code></pre>
+<h1 id="搜索提交历史根据关键词">搜索提交历史，根据关键词</h1>
+<pre><code>git log -s [keyword]
+</code></pre>
+<h1 id="显示某个commit之后的所有变动每个commit占据一行">显示某个commit之后的所有变动，每个commit占据一行</h1>
+<pre><code>git log [tag] HEAD --pretty=format:%s
+</code></pre>
+<h1 id="显示某个commit之后的所有变动其提交说明必须符合搜索条件">显示某个commit之后的所有变动，其“提交说明”必须符合搜索条件</h1>
+<pre><code>git log [tag] HEAD --grep feature
+</code></pre>
+<h1 id="显示某个文件的版本历史包括文件改名">显示某个文件的版本历史，包括文件改名</h1>
+<pre><code>git log --follow [file]
+git whatchanged [file]
+</code></pre>
+<h1 id="显示指定文件相关的每一次diff">显示指定文件相关的每一次diff</h1>
+<pre><code>git log -p [file]
+</code></pre>
+<h1 id="显示过去的5次提交">显示过去的5次提交</h1>
+<pre><code>git log -5 --pretty --oneline
+</code></pre>
+<h1 id="显示所有提交过的用户按提交次数排序">显示所有提交过的用户，按提交次数排序</h1>
+<pre><code>git shortlog -sn
+</code></pre>
+<h1 id="显示指定文件是什么人在什么时间修改过">显示指定文件是什么人在什么时间修改过</h1>
+<pre><code>git blame [file]
+</code></pre>
+<h1 id="显示暂缓区和工作区的差异">显示暂缓区和工作区的差异</h1>
+<pre><code>git diff
+</code></pre>
+<h1 id="显示暂缓区和上一个commit的差异">显示暂缓区和上一个commit的差异</h1>
+<pre><code>git diff HEAD
+</code></pre>
+<h1 id="显示两次提交之间的差异">显示两次提交之间的差异</h1>
+<pre><code>git diff [first-branch]...[second-branch]
+</code></pre>
+<h1 id="显示某次提交发生变化的文件">显示某次提交发生变化的文件</h1>
+<pre><code>git show --name-only [commit]
+</code></pre>
+<p>远程操作</p>
+<h1 id="下载远程仓库的所有变动">下载远程仓库的所有变动</h1>
+<pre><code>git fetch [remote]
+</code></pre>
+<h1 id="取回远程仓库的变化并与本地分支合并">取回远程仓库的变化，并与本地分支合并</h1>
+<pre><code>git pull [remote] [branch]
+</code></pre>
+<h1 id="显示所有的远程仓库">显示所有的远程仓库</h1>
+<pre><code>git remote -v 
+</code></pre>
+<h1 id="显示某个远程仓库的信息">显示某个远程仓库的信息</h1>
+<pre><code>git remote show [remote]
+</code></pre>
+<h1 id="增加一个新的远程仓库并命名">增加一个新的远程仓库，并命名</h1>
+<pre><code>git remote add [shortname] [url]
+</code></pre>
+<h1 id="上传本地指定分支到远程仓库">上传本地指定分支到远程仓库</h1>
+<pre><code>git push [remote] [branch]
+</code></pre>
+<h1 id="强行推送当前分支到远程仓库即使有冲突">强行推送当前分支到远程仓库，即使有冲突</h1>
+<pre><code>git push [remote] --force
+</code></pre>
+<h1 id="推送所有的分支到远程仓库">推送所有的分支到远程仓库</h1>
+<pre><code>git push [remote] --all
+</code></pre>
+<p>九.撤销</p>
+<h1 id="撤销工作目录中所有未提交文件的修改内容">撤销工作目录中所有未提交文件的修改内容</h1>
+<pre><code>git reset --hard HEAD
+</code></pre>
+<h1 id="撤销指定的未提交文件的修改内容">撤销指定的未提交文件的修改内容</h1>
+<pre><code>git  checkout HEAD [file]
+</code></pre>
+<h1 id="撤销指定的提交">撤销指定的提交</h1>
+<pre><code>git revert &lt;commit&gt;</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[文章迁移]]></title>
+        <id>https://grassroadsz.github.io/iRCjGGW61/</id>
+        <link href="https://grassroadsz.github.io/iRCjGGW61/">
+        </link>
+        <updated>2022-05-28T08:03:09.000Z</updated>
+        <content type="html"><![CDATA[<p>由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[UI自动化文件上传]]></title>
         <id>https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/</id>
@@ -293,6 +535,222 @@ def upload_file(browser: str, file: str):
 <p>WinSpay：windows窗口句柄抓取工具，不需要编译脚本为exe文件，且上传文件操作使用的脚本是python第三方库实现，易维护，执行效率也较高，推荐send_keys()不可使用时，首先考虑此方法</p>
 </li>
 </ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Selenium知识点]]></title>
+        <id>https://grassroadsz.github.io/selenium-zhi-shi-dian/</id>
+        <link href="https://grassroadsz.github.io/selenium-zhi-shi-dian/">
+        </link>
+        <updated>2022-05-27T15:34:25.000Z</updated>
+        <content type="html"><![CDATA[<p>题目来源于网络,答案系个人浅显理解，如有错误及不足之处，欢迎指正</p>
+<p>• Selenium是否支持桌面应用软件的自动化测试</p>
+<pre><code>Selenium不支持桌面应用软件的自动化测试，Selenium是通过操作HTML页面中的DOM树上的节点进行模拟用户行为，暂时不支持桌面应用
+</code></pre>
+<p>• Selenium是否支持用例的执行的引擎。</p>
+<pre><code>selenium只是一个用来操作HTML页面元素的库，并不支持用例的执行引擎，python中需要使用unittest 或pytest 等测试框架完成用例的执行的引擎。
+</code></pre>
+<p>• Seleinum是否有读取excel文件的库</p>
+<pre><code>selenium无读取excel文件的库，我一般使用openpyxl 库进行excel的读写操作
+</code></pre>
+<p>• Selenium有哪些组件?</p>
+<pre><code>Selenium的组件有Selenium Grid（用于调度），webdriver（用于生成对应的浏览器实例，进行模拟用户浏览操作），Selenium IDE（浏览器录制回放）
+</code></pre>
+<p>• Selenium有什么限制或者缺陷</p>
+<pre><code>Selenium只能完成浏览器或者移动端基于DOM元素的操作，无报告，用例执行引擎等功能
+</code></pre>
+<p>• 在selenium中，有哪些不同定位元素方法</p>
+<pre><code>id/xpath/name/link_text/className/PartialLinkText/CSS selector，测试脚本编写过程中使用最多的xpath，css这两种
+</code></pre>
+<p>• 什么是imlicitlyWait (隐式等待)</p>
+<pre><code>全局只需设置一次，元素或脚本执行的结果在设定的最长时间内出现则返回，未出现则在最长时间后抛出找不到元素的异常
+</code></pre>
+<p>• 什么是expliciteWait (显式等待)</p>
+<pre><code>一般设置两个参数，一个为最长时间，一个为间隔轮询时间，例如WebDriverWait(10,0.5).until(...),则代表每间隔0.5s查询一次元素是否出现，出现则返回，未出现则间隔0.5s后再查找一次。10s后仍未找到则抛出找不到元素异常
+</code></pre>
+<p>• 什么是线程等待(硬式等待)</p>
+<pre><code>time.sleep(3) 强制当前线程等待3s后再继续执行。
+</code></pre>
+<p>• 什么是pollingEvery</p>
+<pre><code>python 的selenium中未发现这个，可能是指WebDriverWait中的poll_frequency参数
+</code></pre>
+<p>• 你写的测试脚本能在不同浏览器上运行吗，支持跨浏览器平台吗</p>
+<pre><code>支持，在初始化driver的时候使用不同的Webdriver即可，我使用pytest做自动化测试时通过定义addoption方法，在pytest启动时根据传参不同，调用不同的浏览器
+</code></pre>
+<p>• 什么是POM,为什么要使用它</p>
+<pre><code>PageObjectModel,页面对象模型，将页面映射成代码中的类，页面上的元素映射成类中的属性，页面上的操作映射成类的方法，使用POM在进行测试用例编写时只需要调用在页面类中定义好的方法即可，页面发生变动只需修改维护对应页面类中的属性或方法即可，无需修改测试用例，减少因页面频繁变动而造成的大量维护成本。
+</code></pre>
+<p>• 在你做自动化过程中，遇到了什么问题吗?举例下</p>
+<pre><code>在做UI自动化时，数据的前置我通过接口进行生成，接口返回成功了，但是真正到页面上可查询存在一个时间差，导致case运行失败，我通过参考显示等待的方式，在页面上操作接口生成的数据无法找到时，同样使用类似轮询的机制，未找到，则刷新页面再找，直到超时时间内找到未知，再继续执行后续的case操作
+
+有些手工操作时单击的操作通过代码单击会报元素不可点击，使用双击解决
+
+UI运行受客户端环境影响较大，我使用docker selenium,保证了每次运行的浏览器实例都是新的无污染。
+</code></pre>
+<p>• 举例一下你遇到过那些异常，在selenium自动化测试</p>
+<pre><code>超时，元素不可点击，未找到元素，元素没有某个属性
+</code></pre>
+<p>• 如何处理alert弹窗</p>
+<pre><code class="language-python">a =driver.switch_to.alert
+a.accept()
+a.dismiss()
+a.text
+
+• 在selenium中如何处理多窗口?
+
+driver.window_handles 获取窗口列表
+driver.switch_to.windows(windows_name)
+</code></pre>
+<p>• 你查找元素遇到过在Frame里面吗?你是如何处理</p>
+<pre><code>暂时没遇到，driver.switch_to.fram(id/name/索引)
+</code></pre>
+<p>• Frame里面元素定位的?</p>
+<pre><code>切换至Frame内后继续操作即可
+</code></pre>
+<p>• 怎么验证勾选框是enable/disabled/checked/Unchecked/ displayed/not displayed?</p>
+<pre><code class="language-python">    ele=driver.find_element((locator,value))
+    ele.is_displayed()
+    ele.is_enabled()
+    ele.is_selected()
+</code></pre>
+<p>• 如何处理下拉菜单?</p>
+<pre><code>我的项目中下拉框是div+li组成的下拉框，无法使用selenium中的select类提供的方法，我通过点击下拉框，唤出菜单，然后使用xpath，定位文本内容进行内容选择点击操作
+</code></pre>
+<p>• 在日历这种web表单你是如何处理的?</p>
+<pre><code>日历表单如果可点击，可以使用点击操作，如果不可点击可使用driver.execute(js代码)，进行赋值操作(据反馈目前一些日历表单可能需要键盘操作配合才可以)
+</code></pre>
+<p>• 关闭浏览器中quit和close的区别</p>
+<pre><code>close只是关闭窗口，session连接并没有关闭，浏览器进程仍然处于运行状态，quit是断开session连接，浏览器进程关闭
+</code></pre>
+<p>• 在Selenium中如何实现截图，如何实现用例执行失败才截图</p>
+<pre><code>driver.get_screenshot_as_png()
+在用例执行时进行try expect 异常捕获，expect时截图
+</code></pre>
+<p>• 在Selenium中如何实现拖拽滚动条?</p>
+<pre><code>使用js进行拖拽，
+滚动至顶部：driver.execute(&quot;windows.scrollTo(0,0)&quot;)
+</code></pre>
+<p>• 如何实现文件上传?<br>
+<a href="https://grassroadsz.github.io/post/ui-zi-dong-hua-wen-jian-shang-chuan/">参考链接</a></p>
+<p>文件上传若是input类型的可尝试使用send_keys() 方法(据反馈VUE组件中input类型为file的以无法使用send_keys方法)<br>
+其它类型需使用借助第三方实现.</p>
+<p>• 如何处理“不受信任的证书”的问题?<br>
+<a href="https://stackoverflow.com/questions/24507078/how-to-deal-with-certificates-using-selenium">参考链接</a></p>
+<pre><code class="language-python"># Firfox
+profile = webdriver.FirefoxProfile()
+profile.accept_untrusted_certs = True
+driver = webdriver.Firefox(firefox_profile=profile)
+# Chrome
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+driver = webdriver.Chrome(chrome_options=options)
+# IE
+capabilities = webdriver.DesiredCapabilities().INTERNETEXPLORER
+capabilities['acceptSslCerts'] = True
+driver = webdriver.Ie(capabilities=capabilities)
+</code></pre>
+<p>• 如何实现鼠标悬停,键盘事件和拖拽动作?</p>
+<pre><code>使用ActionChains类的方法
+
+click(on_element=None) ——单击鼠标左键
+click_and_hold(on_element=None) ——点击鼠标左键，不松开
+context_click(on_element=None) ——点击鼠标右键
+double_click(on_element=None) ——双击鼠标左键
+drag_and_drop(source, target) ——拖拽到某个元素然后松开
+drag_and_drop_by_offset(source, xoffset, yoffset) ——拖拽到某个坐标然后松开
+key_down(value, element=None) ——按下某个键盘上的键
+key_up(value, element=None) ——松开某个键
+move_by_offset(xoffset, yoffset) ——鼠标从当前位置移动到某个坐标
+move_to_element(to_element) ——鼠标移动到某个元素
+move_to_element_with_offset(to_element, xoffset, yoffset) ——移动到距某个元素（左上角坐标）多少距离的位置
+perform() ——执行链中的所有动作
+release(on_element=None) ——在某个元素位置松开鼠标左键
+send_keys(*keys_to_send) ——发送某个键到当前焦点的元素
+send_keys_to_element(element, *keys_to_send) ——发送某个键到指定元素
+
+使用Keys类实现键盘事件：ele.send_keys(Keys.CONTROL,'x') 实现&quot;CTRL + X&quot;
+</code></pre>
+<p>• 如何获取页面标题，悬浮文本和错误文本，并验证?</p>
+<pre><code>assert driver.title == 'xx标题'
+悬浮文本和错误文本可以使用ActionChains().move_to_element() 然后ele.text
+</code></pre>
+<p>• 在selenium自动化测试中，你-般完成什么类型的测试?</p>
+<pre><code>回归测试
+</code></pre>
+<p>• 你是如何管理你的测试用例并执行?</p>
+<pre><code>测试用例按照业务模块划分成以test开头的py文件，pytest测试框架可识别以test开头或结尾的测试类或方法或文件，运行在根目录执行pytest 即可，当需要指定较多的参数或需要其他操作时定义run入口文件，直接运行run文件即可
+</code></pre>
+<p>• 关于自动化测试报告生成?</p>
+<pre><code>使用的是pytest-html库生成html报告及allure
+</code></pre>
+<p>• 你如何用Selenium测试?</p>
+<pre><code>将基础通用操作封装成base类，然后页面对象模型继承Base类。
+</code></pre>
+<p>• 如何解决问题?</p>
+<pre><code>针对UI自动化中遇到的问题，先查看报错信息，定位是自己封装问题则修改封装，非自己代码问题则先看实现相关功能模块依赖库的官方说明文档，官方文档中未解决问题，若是开源库则对应github参考查看issue栏目，最后再百度或谷歌
+</code></pre>
+<p>• 你是怎么开发测试框架的?<br>
+<img src="https://www.yuque.com/api/filetransfer/images?url=http%3A%2F%2Fblogimage.grassroadsz.top%2F20200403202457.png&amp;sign=c0829bb7cb2ed78db82d522cbecb36c8cb8664e49607290b0d128a55a63397dd" alt="" loading="lazy"><br>
+• 做自动化测试的目的?</p>
+<pre><code>接口自动化测试可尽快介入项目测试，在联调前发现编码中的问题，在版本更新发布后即进行接口自动化可对既有功能进行验证，保证此次新功能或bug修复对原有功能无影响。UI自动化可减少手工操作，进行兼容性测试。加快版本更新发布进度
+</code></pre>
+<p>• 如何判断case是否通过?</p>
+<pre><code>接口的case 根据规定的响应状态码 + 接口响应的值 + db 中对应的数据变化进行判断
+UI的case 根据业务场景进行后页面上的变动及相关特定提示语 ，也同样可根据db中的数据状态进行判断
+</code></pre>
+<p>• 你项目中有多少case,通过率怎么样?</p>
+<pre><code>UI的case 单次运行目前通过率大约在95% 以上，通过加入失败重试机制后大约98%-99%左右
+</code></pre>
+<p>• 失败截图的原理是什么?</p>
+<pre><code>我在框架中使用driver.get_screenshot_as_png() 方法在Base类中使用try expect在expect时即调用截图方法
+
+具体实现没看出来
+</code></pre>
+<p>• 报告哪里来，主要统计什么?</p>
+<pre><code>使用第三方库实现，统计用例成功失败，跳过，条数，运行时间、环境等
+</code></pre>
+<p>• testNG中注解有哪些</p>
+<p>• TestNG有哪些优点</p>
+<p>• 什么是web自动化</p>
+<p>• 写出selenium中你最熟悉的接口或者类</p>
+<pre><code>WebDriverWait：显示等待的类
+webdrier.Chrome：实例化Chrome driver实例
+</code></pre>
+<p>• Xpath是什么?</p>
+<pre><code>一门查找XML文档中信息的语言
+</code></pre>
+<p>• findElement()和findElements()方法有什么区别</p>
+<pre><code>前者返回一个WebElement对象，后者返回一个由WebElement 组成的list
+</code></pre>
+<p>• 登录按钮除了click方法还有其他方式吗?</p>
+<pre><code>driver.submit()
+</code></pre>
+<p>• 怎么对含有验证码的功能进行自动化测试</p>
+<pre><code>简单验证码使用PIL库进行解决，过于复杂，识别难度过高与开发沟通使用通用验证码，或者使用第三方服务提供的图片识别服务
+</code></pre>
+<p>• 举一个WebDriver中方 法重载的例子</p>
+<pre><code>webdriver.Chrome() 的__init__方法即重载了RemoteWebDriver的__init__方法
+</code></pre>
+<p>• 你如何模拟浏览器的前后移动?</p>
+<pre><code>driver.forward()
+driver.back()
+</code></pre>
+<p>• 你如何获得当前页面的URL?</p>
+<pre><code>driver.current_url
+</code></pre>
+<p>• 如何在WebDriver中实现同步?<br>
+selenium 与request 同步的话 可以把cookies 拿出来共享，对应的将cookies 放入对应的数据结果中即可<br>
+• 如何从文本框中获取打字文本?</p>
+<pre><code>ele.text
+</code></pre>
+<p>• 你如何清除中文本框的内容?</p>
+<pre><code>ele.clear()
+</code></pre>
+<p>• 如何在webdriver中调用应用程序?</p>
+<pre><code>os.system()
+</code></pre>
+<p>• 如何获取页面上的帧数?<br>
+暂时未用到，但是应该可以使用js 获取到</p>
 ]]></content>
     </entry>
     <entry>

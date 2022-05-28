@@ -1,207 +1,258 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridea</title>
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653724268593">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+    <meta charset="utf-8" >
+
+<title>grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653725339271">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="温故而知新" />
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="温故而知新">
+    
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://grassroadsz.github.io">
-  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653724268593" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
+    <div id="app" class="main">
 
-    
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
-        <h2 class="post-title">UI自动化文件上传</h2>
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1653725339271" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
       </a>
-      <div class="post-info">
-        <span>
-          2022-05-28
-        </span>
-        <span>
-          11 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/pytest-xiao-jie/">
-        <h2 class="post-title">Pytest小结</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2022-05-27
-        </span>
-        <span>
-          10 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
-        <h2 class="post-title">使用Python进行Dubbo服务接口测试</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2022-05-27
-        </span>
-        <span>
-          7 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/">
-        <h2 class="post-title">以太坊入门-1 基础准备</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2022-05-14
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/yi-tai-fang-ru-men-kai-fa-ke/">
-        <h2 class="post-title">以太坊入门开发课</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2022-05-14
-        </span>
-        <span>
-          14 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://grassroadsz.github.io/ce-shi-wen-zhang/">
-        <h2 class="post-title">测试文章</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2022-05-13
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-</div>
-
-    
-        <div class="pagination-container">
-  
-  
-</div>
-
-    
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
       </div>
     </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/iRCjGGW61/">
+                  <h2 class="post-title">文章迁移</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-28
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/kHeewF6F8/">
+                  <h2 class="post-title">Git 命令</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-28
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
+                  <h2 class="post-title">UI自动化文件上传</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-28
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/selenium-zhi-shi-dian/">
+                  <h2 class="post-title">Selenium知识点</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-27
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/pytest-xiao-jie/">
+                  <h2 class="post-title">Pytest小结</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-27
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
+                  <h2 class="post-title">使用Python进行Dubbo服务接口测试</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-27
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/yi-tai-fang-ru-men-1-ji-chu-zhun-bei/">
+                  <h2 class="post-title">以太坊入门-1 基础准备</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-14
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/yi-tai-fang-ru-men-kai-fa-ke/">
+                  <h2 class="post-title">以太坊入门开发课</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-14
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/ce-shi-wen-zhang/">
+                  <h2 class="post-title">测试文章</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-13
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
   </body>
 </html>

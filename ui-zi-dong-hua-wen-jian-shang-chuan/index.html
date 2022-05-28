@@ -1,13 +1,26 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>UI自动化文件上传 | Gridea</title>
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653724268593">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+    <meta charset="utf-8" >
+
+<title>UI自动化文件上传 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653725339271">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="UI自动化文件上传 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
@@ -17,82 +30,81 @@
 前言
 实施UI自动化测试的时候，经常会遇见上传文件的操作，那么对于..." />
     <meta name="keywords" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://grassroadsz.github.io">
-  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653724268593" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1653725339271" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="/" class="menu">
-          首页
-        </a>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              UI自动化文件上传
-            </h2>
-            <div class="post-info">
-              <span>
-                2022-05-28
-              </span>
-              <span>
-                11 min read
-              </span>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">UI自动化文件上传</h2>
+            <div class="post-date">2022-05-28</div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <blockquote>
+            <div class="post-content" v-pre>
+              <blockquote>
 <p>原文链接 https://www.cnblogs.com/linuxchao/p/linuxchao-selenium-upload_file.html#4520068</p>
 </blockquote>
 <h2 id="前言">前言</h2>
@@ -370,138 +382,74 @@ def upload_file(browser: str, file: str):
 </li>
 </ol>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E8%A2%AB%E6%B5%8Bhtml%E4%BB%A3%E7%A0%81">被测HTML代码</a></li>
-<li><a href="#send_keys%E6%96%B9%E6%B3%95">send_keys方法</a>
-<ul>
-<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B">执行过程</a></li>
-</ul>
-</li>
-<li><a href="#autoit%E5%B7%A5%E5%85%B7">AutoIt工具</a>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
-<li><a href="#%E5%AE%9E%E4%BE%8B-2">实例</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-2">执行过程</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A8%A1%E6%8B%9F%E9%94%AE%E7%9B%98">模拟键盘</a>
-<ul>
-<li><a href="#%E5%AE%9E%E4%BE%8B-3">实例</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-3">执行过程</a></li>
-</ul>
-</li>
-<li><a href="#winspy%E5%B7%A5%E5%85%B7">WinSpy工具</a>
-<ul>
-<li><a href="#winspy%E5%AE%89%E8%A3%85">WinSpy安装</a></li>
-<li><a href="#%E5%AE%9E%E4%BE%8B-4">实例</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B-4">执行过程</a></li>
-</ul>
-</li>
-<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/selenium-zhi-shi-dian/">
+                  <h3 class="post-title">
+                    Selenium知识点
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://grassroadsz.github.io/pytest-xiao-jie/">
-              <h3 class="post-title">
-                Pytest小结
-              </h3>
-            </a>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
           </div>
-        
 
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '7d56338c9b683c1db453',
-    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
-    repo: 'grassroadsZ.github.io',
-    owner: 'grassroadsZ',
-    admin: ['grassroadsZ'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+        </div>
       </div>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
-      hljs.initHighlightingOnLoad()
 
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
 
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
-
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
-
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
-            }
-          } else {
-            link.classList.remove("current");
-          }
-        });
-      });
+      gitalk.render('gitalk-container')
 
     </script>
+  
+
+  
+
+
+
+
   </body>
 </html>

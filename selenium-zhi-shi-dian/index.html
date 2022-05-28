@@ -1,13 +1,26 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Selenium知识点 | Gridea</title>
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653723095734">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+    <meta charset="utf-8" >
+
+<title>Selenium知识点 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653725339271">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Selenium知识点 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
@@ -15,82 +28,81 @@
 • Selenium是否支持桌面应用软件的自动化测试
 Selenium不支持桌面应用软件的自动化测试，Selenium是通过操作HTML页面中的DOM树上的节点进行模拟用户行..." />
     <meta name="keywords" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://grassroadsz.github.io">
-  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653723095734" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1653725339271" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="/" class="menu">
-          首页
-        </a>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Selenium知识点
-            </h2>
-            <div class="post-info">
-              <span>
-                2022-05-27
-              </span>
-              <span>
-                10 min read
-              </span>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Selenium知识点</h2>
+            <div class="post-date">2022-05-27</div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>题目来源于网络,答案系个人浅显理解，如有错误及不足之处，欢迎指正</p>
+            <div class="post-content" v-pre>
+              <p>题目来源于网络,答案系个人浅显理解，如有错误及不足之处，欢迎指正</p>
 <p>• Selenium是否支持桌面应用软件的自动化测试</p>
 <pre><code>Selenium不支持桌面应用软件的自动化测试，Selenium是通过操作HTML页面中的DOM树上的节点进行模拟用户行为，暂时不支持桌面应用
 </code></pre>
@@ -154,9 +166,13 @@ driver.switch_to.windows(windows_name)
 <p>• Frame里面元素定位的?</p>
 <pre><code>切换至Frame内后继续操作即可
 </code></pre>
-<p>• 怎么验证勾选框是enable/disabled/checked/Unchecked/ displayed/not displayed?<br>
-<code>python ele=driver.find_element((locator,value)) ele.is_displayed() ele.is_enabled() ele.is_selected()</code><br>
-• 如何处理下拉菜单?</p>
+<p>• 怎么验证勾选框是enable/disabled/checked/Unchecked/ displayed/not displayed?</p>
+<pre><code class="language-python">    ele=driver.find_element((locator,value))
+    ele.is_displayed()
+    ele.is_enabled()
+    ele.is_selected()
+</code></pre>
+<p>• 如何处理下拉菜单?</p>
 <pre><code>我的项目中下拉框是div+li组成的下拉框，无法使用selenium中的select类提供的方法，我通过点击下拉框，唤出菜单，然后使用xpath，定位文本内容进行内容选择点击操作
 </code></pre>
 <p>• 在日历这种web表单你是如何处理的?</p>
@@ -174,197 +190,195 @@ driver.switch_to.windows(windows_name)
 滚动至顶部：driver.execute(&quot;windows.scrollTo(0,0)&quot;)
 </code></pre>
 <p>• 如何实现文件上传?<br>
-参考链接</p>
+<a href="https://grassroadsz.github.io/post/ui-zi-dong-hua-wen-jian-shang-chuan/">参考链接</a></p>
 <p>文件上传若是input类型的可尝试使用send_keys() 方法(据反馈VUE组件中input类型为file的以无法使用send_keys方法)<br>
 其它类型需使用借助第三方实现.</p>
 <p>• 如何处理“不受信任的证书”的问题?<br>
-参考链接</p>
-<h1 id="firfox">Firfox</h1>
-<p>profile = webdriver.FirefoxProfile()<br>
-profile.accept_untrusted_certs = True<br>
-driver = webdriver.Firefox(firefox_profile=profile)</p>
-<h1 id="chrome">Chrome</h1>
-<p>options = webdriver.ChromeOptions()<br>
-options.add_argument('--ignore-certificate-errors')<br>
-driver = webdriver.Chrome(chrome_options=options)</p>
-<h1 id="ie">IE</h1>
-<p>capabilities = webdriver.DesiredCapabilities().INTERNETEXPLORER<br>
-capabilities['acceptSslCerts'] = True<br>
-driver = webdriver.Ie(capabilities=capabilities)</p>
+<a href="https://stackoverflow.com/questions/24507078/how-to-deal-with-certificates-using-selenium">参考链接</a></p>
+<pre><code class="language-python"># Firfox
+profile = webdriver.FirefoxProfile()
+profile.accept_untrusted_certs = True
+driver = webdriver.Firefox(firefox_profile=profile)
+# Chrome
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+driver = webdriver.Chrome(chrome_options=options)
+# IE
+capabilities = webdriver.DesiredCapabilities().INTERNETEXPLORER
+capabilities['acceptSslCerts'] = True
+driver = webdriver.Ie(capabilities=capabilities)
+</code></pre>
 <p>• 如何实现鼠标悬停,键盘事件和拖拽动作?</p>
-<p>使用ActionChains类的方法</p>
-<p>click(on_element=None) ——单击鼠标左键<br>
-click_and_hold(on_element=None) ——点击鼠标左键，不松开<br>
-context_click(on_element=None) ——点击鼠标右键<br>
-double_click(on_element=None) ——双击鼠标左键<br>
-drag_and_drop(source, target) ——拖拽到某个元素然后松开<br>
-drag_and_drop_by_offset(source, xoffset, yoffset) ——拖拽到某个坐标然后松开<br>
-key_down(value, element=None) ——按下某个键盘上的键<br>
-key_up(value, element=None) ——松开某个键<br>
-move_by_offset(xoffset, yoffset) ——鼠标从当前位置移动到某个坐标<br>
-move_to_element(to_element) ——鼠标移动到某个元素<br>
-move_to_element_with_offset(to_element, xoffset, yoffset) ——移动到距某个元素（左上角坐标）多少距离的位置<br>
-perform() ——执行链中的所有动作<br>
-release(on_element=None) ——在某个元素位置松开鼠标左键<br>
-send_keys(*keys_to_send) ——发送某个键到当前焦点的元素<br>
-send_keys_to_element(element, *keys_to_send) ——发送某个键到指定元素</p>
-<p>使用Keys类实现键盘事件：ele.send_keys(Keys.CONTROL,'x') 实现&quot;CTRL + X&quot;</p>
+<pre><code>使用ActionChains类的方法
+
+click(on_element=None) ——单击鼠标左键
+click_and_hold(on_element=None) ——点击鼠标左键，不松开
+context_click(on_element=None) ——点击鼠标右键
+double_click(on_element=None) ——双击鼠标左键
+drag_and_drop(source, target) ——拖拽到某个元素然后松开
+drag_and_drop_by_offset(source, xoffset, yoffset) ——拖拽到某个坐标然后松开
+key_down(value, element=None) ——按下某个键盘上的键
+key_up(value, element=None) ——松开某个键
+move_by_offset(xoffset, yoffset) ——鼠标从当前位置移动到某个坐标
+move_to_element(to_element) ——鼠标移动到某个元素
+move_to_element_with_offset(to_element, xoffset, yoffset) ——移动到距某个元素（左上角坐标）多少距离的位置
+perform() ——执行链中的所有动作
+release(on_element=None) ——在某个元素位置松开鼠标左键
+send_keys(*keys_to_send) ——发送某个键到当前焦点的元素
+send_keys_to_element(element, *keys_to_send) ——发送某个键到指定元素
+
+使用Keys类实现键盘事件：ele.send_keys(Keys.CONTROL,'x') 实现&quot;CTRL + X&quot;
+</code></pre>
 <p>• 如何获取页面标题，悬浮文本和错误文本，并验证?</p>
-<p>assert driver.title == 'xx标题'<br>
-悬浮文本和错误文本可以使用ActionChains().move_to_element() 然后ele.text</p>
+<pre><code>assert driver.title == 'xx标题'
+悬浮文本和错误文本可以使用ActionChains().move_to_element() 然后ele.text
+</code></pre>
 <p>• 在selenium自动化测试中，你-般完成什么类型的测试?</p>
-<p>回归测试</p>
+<pre><code>回归测试
+</code></pre>
 <p>• 你是如何管理你的测试用例并执行?</p>
-<p>测试用例按照业务模块划分成以test开头的py文件，pytest测试框架可识别以test开头或结尾的测试类或方法或文件，运行在根目录执行pytest 即可，当需要指定较多的参数或需要其他操作时定义run入口文件，直接运行run文件即可</p>
+<pre><code>测试用例按照业务模块划分成以test开头的py文件，pytest测试框架可识别以test开头或结尾的测试类或方法或文件，运行在根目录执行pytest 即可，当需要指定较多的参数或需要其他操作时定义run入口文件，直接运行run文件即可
+</code></pre>
 <p>• 关于自动化测试报告生成?</p>
-<p>使用的是pytest-html库生成html报告及allure</p>
+<pre><code>使用的是pytest-html库生成html报告及allure
+</code></pre>
 <p>• 你如何用Selenium测试?</p>
-<p>将基础通用操作封装成base类，然后页面对象模型继承Base类。</p>
+<pre><code>将基础通用操作封装成base类，然后页面对象模型继承Base类。
+</code></pre>
 <p>• 如何解决问题?</p>
-<p>针对UI自动化中遇到的问题，先查看报错信息，定位是自己封装问题则修改封装，非自己代码问题则先看实现相关功能模块依赖库的官方说明文档，官方文档中未解决问题，若是开源库则对应github参考查看issue栏目，最后再百度或谷歌</p>
-<p>• 你是怎么开发测试框架的?</p>
-<p>• 做自动化测试的目的?</p>
-<p>接口自动化测试可尽快介入项目测试，在联调前发现编码中的问题，在版本更新发布后即进行接口自动化可对既有功能进行验证，保证此次新功能或bug修复对原有功能无影响。UI自动化可减少手工操作，进行兼容性测试。加快版本更新发布进度</p>
+<pre><code>针对UI自动化中遇到的问题，先查看报错信息，定位是自己封装问题则修改封装，非自己代码问题则先看实现相关功能模块依赖库的官方说明文档，官方文档中未解决问题，若是开源库则对应github参考查看issue栏目，最后再百度或谷歌
+</code></pre>
+<p>• 你是怎么开发测试框架的?<br>
+<img src="https://www.yuque.com/api/filetransfer/images?url=http%3A%2F%2Fblogimage.grassroadsz.top%2F20200403202457.png&amp;sign=c0829bb7cb2ed78db82d522cbecb36c8cb8664e49607290b0d128a55a63397dd" alt="" loading="lazy"><br>
+• 做自动化测试的目的?</p>
+<pre><code>接口自动化测试可尽快介入项目测试，在联调前发现编码中的问题，在版本更新发布后即进行接口自动化可对既有功能进行验证，保证此次新功能或bug修复对原有功能无影响。UI自动化可减少手工操作，进行兼容性测试。加快版本更新发布进度
+</code></pre>
 <p>• 如何判断case是否通过?</p>
-<p>接口的case 根据规定的响应状态码 + 接口响应的值 + db 中对应的数据变化进行判断<br>
-UI的case 根据业务场景进行后页面上的变动及相关特定提示语 ，也同样可根据db中的数据状态进行判断</p>
+<pre><code>接口的case 根据规定的响应状态码 + 接口响应的值 + db 中对应的数据变化进行判断
+UI的case 根据业务场景进行后页面上的变动及相关特定提示语 ，也同样可根据db中的数据状态进行判断
+</code></pre>
 <p>• 你项目中有多少case,通过率怎么样?</p>
-<p>UI的case 单次运行目前通过率大约在95% 以上，通过加入失败重试机制后大约98%-99%左右</p>
+<pre><code>UI的case 单次运行目前通过率大约在95% 以上，通过加入失败重试机制后大约98%-99%左右
+</code></pre>
 <p>• 失败截图的原理是什么?</p>
-<p>我在框架中使用driver.get_screenshot_as_png() 方法在Base类中使用try expect在expect时即调用截图方法</p>
-<p>具体实现没看出来</p>
+<pre><code>我在框架中使用driver.get_screenshot_as_png() 方法在Base类中使用try expect在expect时即调用截图方法
+
+具体实现没看出来
+</code></pre>
 <p>• 报告哪里来，主要统计什么?</p>
-<p>使用第三方库实现，统计用例成功失败，跳过，条数，运行时间、环境等</p>
+<pre><code>使用第三方库实现，统计用例成功失败，跳过，条数，运行时间、环境等
+</code></pre>
 <p>• testNG中注解有哪些</p>
 <p>• TestNG有哪些优点</p>
 <p>• 什么是web自动化</p>
 <p>• 写出selenium中你最熟悉的接口或者类</p>
-<p>WebDriverWait：显示等待的类<br>
-webdrier.Chrome：实例化Chrome driver实例</p>
+<pre><code>WebDriverWait：显示等待的类
+webdrier.Chrome：实例化Chrome driver实例
+</code></pre>
 <p>• Xpath是什么?</p>
-<p>一门查找XML文档中信息的语言</p>
+<pre><code>一门查找XML文档中信息的语言
+</code></pre>
 <p>• findElement()和findElements()方法有什么区别</p>
-<p>前者返回一个WebElement对象，后者返回一个由WebElement 组成的list</p>
+<pre><code>前者返回一个WebElement对象，后者返回一个由WebElement 组成的list
+</code></pre>
 <p>• 登录按钮除了click方法还有其他方式吗?</p>
-<p>driver.submit()</p>
+<pre><code>driver.submit()
+</code></pre>
 <p>• 怎么对含有验证码的功能进行自动化测试</p>
-<p>简单验证码使用PIL库进行解决，过于复杂，识别难度过高与开发沟通使用通用验证码，或者使用第三方服务提供的图片识别服务</p>
+<pre><code>简单验证码使用PIL库进行解决，过于复杂，识别难度过高与开发沟通使用通用验证码，或者使用第三方服务提供的图片识别服务
+</code></pre>
 <p>• 举一个WebDriver中方 法重载的例子</p>
-<p>webdriver.Chrome() 的__init__方法即重载了RemoteWebDriver的__init__方法</p>
+<pre><code>webdriver.Chrome() 的__init__方法即重载了RemoteWebDriver的__init__方法
+</code></pre>
 <p>• 你如何模拟浏览器的前后移动?</p>
-<p>driver.forward()<br>
-driver.back()</p>
+<pre><code>driver.forward()
+driver.back()
+</code></pre>
 <p>• 你如何获得当前页面的URL?</p>
-<p>driver.current_url</p>
-<p>• 如何在WebDriver中实现同步?</p>
-<p>• 如何从文本框中获取打字文本?</p>
-<p>ele.text</p>
+<pre><code>driver.current_url
+</code></pre>
+<p>• 如何在WebDriver中实现同步?<br>
+selenium 与request 同步的话 可以把cookies 拿出来共享，对应的将cookies 放入对应的数据结果中即可<br>
+• 如何从文本框中获取打字文本?</p>
+<pre><code>ele.text
+</code></pre>
 <p>• 你如何清除中文本框的内容?</p>
-<p>ele.clear()</p>
+<pre><code>ele.clear()
+</code></pre>
 <p>• 如何在webdriver中调用应用程序?</p>
-<p>• 如何获取页面上的帧数?</p>
+<pre><code>os.system()
+</code></pre>
+<p>• 如何获取页面上的帧数?<br>
+暂时未用到，但是应该可以使用js 获取到</p>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#firfox">Firfox</a></li>
-<li><a href="#chrome">Chrome</a></li>
-<li><a href="#ie">IE</a></li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/pytest-xiao-jie/">
+                  <h3 class="post-title">
+                    Pytest小结
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://grassroadsz.github.io/pytest-xiao-jie/">
-              <h3 class="post-title">
-                Pytest小结
-              </h3>
-            </a>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
           </div>
-        
 
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '7d56338c9b683c1db453',
-    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
-    repo: 'grassroadsZ.github.io',
-    owner: 'grassroadsZ',
-    admin: ['grassroadsZ'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+        </div>
       </div>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
-      hljs.initHighlightingOnLoad()
 
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
 
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
-
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
-
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
-            }
-          } else {
-            link.classList.remove("current");
-          }
-        });
-      });
+      gitalk.render('gitalk-container')
 
     </script>
+  
+
+  
+
+
+
+
   </body>
 </html>

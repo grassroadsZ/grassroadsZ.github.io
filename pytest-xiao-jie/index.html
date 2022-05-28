@@ -1,13 +1,26 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pytest小结 | Gridea</title>
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653724268593">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+    <meta charset="utf-8" >
+
+<title>Pytest小结 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1653725339271">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Pytest小结 | Gridea - Atom Feed" href="https://grassroadsz.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
@@ -18,82 +31,81 @@ pip install pytest-HTML
 # 失败重跑
 pip install pytest-r..." />
     <meta name="keywords" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://grassroadsz.github.io">
-  <img class="avatar" src="https://grassroadsz.github.io/images/avatar.png?v=1653724268593" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1653725339271" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="/" class="menu">
-          首页
-        </a>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Pytest小结
-            </h2>
-            <div class="post-info">
-              <span>
-                2022-05-27
-              </span>
-              <span>
-                10 min read
-              </span>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Pytest小结</h2>
+            <div class="post-date">2022-05-27</div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="安装">安装</h1>
+            <div class="post-content" v-pre>
+              <h1 id="安装">安装</h1>
 <pre><code class="language-shell">pip3 install -U pytest -i http://pypi.douban.com/sample
 # html报告
 pip install pytest-HTML 
@@ -446,143 +458,74 @@ pytest --alluredir=./allure_report --html=resutl.html --self-contained-html
 allure generate ./allure_report -o ./allure_report/html
 </code></pre>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8C">运行</a>
-<ul>
-<li><a href="#%E6%96%87%E4%BB%B6%E8%A7%84%E5%88%99">文件规则</a></li>
-<li><a href="#%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99">用例规则</a></li>
-<li><a href="#cmd%E8%BF%90%E8%A1%8C">cmd运行</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8C%E5%8F%82%E6%95%B0">运行参数</a>
-<ul>
-<li><a href="#%E6%97%A0%E5%8F%82%E6%95%B0">无参数</a></li>
-<li><a href="#-v%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97%E8%AF%A6%E7%BB%86%E7%A8%8B%E5%BA%A6">-v(打印日志详细程度)</a></li>
-<li><a href="#-s%E8%BE%93%E5%87%BA%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84print">-s（输出代码中的print）</a></li>
-<li><a href="#-k-%E8%B7%B3%E8%BF%87">-k (跳过)</a></li>
-<li><a href="#-x-%E9%81%87%E5%88%B0%E5%A4%B1%E8%B4%A5%E7%94%A8%E4%BE%8B%E7%AB%8B%E5%8D%B3%E5%81%9C%E6%AD%A2%E8%BF%90%E8%A1%8C">-x （遇到失败用例立即停止运行）</a></li>
-<li><a href="#-maxfail-%E7%94%A8%E4%BE%8B%E5%A4%B1%E8%B4%A5%E4%B8%AA%E6%95%B0%E8%BE%BE%E5%88%B0%E9%98%88%E5%80%BC%E5%8D%B3%E5%81%9C%E6%AD%A2%E8%BF%90%E8%A1%8C">-maxfail (用例失败个数达到阈值即停止运行)</a></li>
-<li><a href="#-n-%E5%B9%B6%E8%A1%8C%E8%BF%90%E8%A1%8C">-n 并行运行</a></li>
-<li><a href="#-m%E6%8C%87%E5%AE%9A%E8%BF%90%E8%A1%8C%E6%9F%90%E4%B8%AA%E6%A0%87%E8%AE%B0%E7%9A%84%E7%94%A8%E4%BE%8B">-m（指定运行某个标记的用例）</a></li>
-<li><a href="#%E6%8C%87%E5%AE%9A%E8%BF%90%E8%A1%8C">指定运行</a></li>
-<li><a href="#pycharm">Pycharm</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%94%A8%E6%B3%95">用法</a>
-<ul>
-<li><a href="#%E5%89%8D%E7%BD%AE%E5%90%8E%E7%BD%AE">前置后置</a>
-<ul>
-<li><a href="#conftestpy-pytestfixture">conftest.py-@pytest.fixture()</a></li>
-<li><a href="#%E4%BD%9C%E7%94%A8%E9%A1%BA%E5%BA%8F">作用顺序</a></li>
-<li><a href="#%E5%8F%82%E6%95%B0%E5%8C%96pytestmarkparametrize">参数化@pytest.mark.parametrize()</a></li>
-<li><a href="#%E6%A0%87%E8%AE%B0pytestmarkmarkname">标记@pytest.mark.markname</a></li>
-<li><a href="#pytestini">pytest.ini</a></li>
-<li><a href="#pytest-html%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A%E5%AE%9A%E5%88%B6%E5%A4%B1%E8%B4%A5%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98%E6%88%AA%E5%9B%BE">pytest-html测试报告定制:失败自动保存截图</a></li>
-<li><a href="#%E5%A4%B1%E8%B4%A5%E9%87%8D%E8%B7%91">失败重跑</a></li>
-<li><a href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82">命令行传参</a></li>
-<li><a href="#%E7%94%9F%E6%88%90allure%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A">生成allure测试报告</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
+                  <h3 class="post-title">
+                    使用Python进行Dubbo服务接口测试
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://grassroadsz.github.io/shi-yong-python-jin-xing-dubbo-fu-wu-jie-kou-ce-shi/">
-              <h3 class="post-title">
-                使用Python进行Dubbo服务接口测试
-              </h3>
-            </a>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
           </div>
-        
 
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '7d56338c9b683c1db453',
-    clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
-    repo: 'grassroadsZ.github.io',
-    owner: 'grassroadsZ',
-    admin: ['grassroadsZ'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+        </div>
       </div>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
-      hljs.initHighlightingOnLoad()
 
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
 
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
-
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
-
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
-            }
-          } else {
-            link.classList.remove("current");
-          }
-        });
-      });
+      gitalk.render('gitalk-container')
 
     </script>
+  
+
+  
+
+
+
+
   </body>
 </html>
