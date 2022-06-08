@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>客户端自动化 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654656129427">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content=" pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywinauto
+
+&quot;&quot;&quot;
+from pywinauto.application import..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654656129427" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">客户端自动化</h2>
+            <div class="post-date">2022-05-28</div>
+            
+            <div class="post-content" v-pre>
+              <pre><code class="language-shell"> pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywinauto
+</code></pre>
+<pre><code class="language-python">&quot;&quot;&quot;
+from pywinauto.application import Application
+# 打开指定的应用程序
+
+# 1. 打开windows自带的应用
+# app = Application(backend='uia').start(&quot;chrome.exe --force-renderer-accessibility --incognito &quot;)
+
+# 2. 打开任意一个应用程序
+app = Application(backend='uia').start(r&quot;C:\\Users\grassroadsZ\AppData\Local\Google\Chrome\Application\chrome.exe&quot;)
+# 选择指定窗口
+# 1.通过窗口类型来选择
+dlg = app[&quot;TNavicatMainForm&quot;]
+
+# 2.通过窗口标题来选择
+dlg = app[&quot;Navicat for MySQL&quot;]
+
+
+# 方式二：app.类名
+dlg =app.TNavicatMainForm
+
+dlg.print_control_identifiers()
+
+
+# 操作窗口
+# 窗口最大化
+dlg.maximize()
+
+# 窗口最小化
+dlg.minimize()
+
+# 窗口恢复正常大小
+dlg.restore()
+
+# 查找窗口显示状态，最大化为1，正常为0
+status = dlg.get_show_state()
+
+# 获取当前窗口的坐标位置
+rect = dlg.rectangle()
+print(rect)# （L548,T194,R1768,B1043）
+
+# 关闭窗口
+dlg.close()
+
+# 选择控件
+# 选择控件
+
+# menu = dlg.Menu
+menu = dlg[&quot;Menu&quot;]
+print(menu.print_control_identifiers()) # 查看Menu上的控件
+
+
+file = menu.child_window(title=&quot;文件&quot;, control_type=&quot;MenuItem&quot;)
+file.print_control_identifiers()
+控件的分类
+
+状态栏 StatusBar
+按钮 Button
+单选框 RadioButton
+组合框 ComboBox
+编辑栏 Edit
+列表框 ListBox
+弹出菜单 PopupMenu
+工具栏 Toolbar
+树状视图 Tree View
+菜单项 MenuItem
+静态内容 Static
+复选框 CheckBox
+组框 GroupBox
+对话框 Dialog
+头部内容 Header
+列表显示控件 ListView
+选项卡控件 TabControl
+工具提示 ToolTips
+菜单 Menu
+窗格 Pane
+&quot;&quot;&quot;
+
+import pywinauto
+from pywinauto import mouse
+from pywinauto.keyboard import send_keys
+
+
+class NavicatTest:
+
+    def __init__(self, path=None, precess=None):
+        # 初始化一个应用程序对象
+        if path:
+            self.app = pywinauto.Application(backend=&quot;uia&quot;).start(path)
+        else:
+            self.app = pywinauto.Application(backend=&quot;uia&quot;).connect(process=precess)
+        # 选择主窗口
+        self.dlg = self.app[&quot;Navicat for MySQL&quot;]
+
+    def new_connect(self, title, host, port, user, password):
+        &quot;&quot;&quot;
+            新建连接
+        &quot;&quot;&quot;
+        # 选择菜单栏
+        menu = self.dlg[&quot;Menu&quot;]
+        # 点击文件
+        menu.child_window(title=&quot;文件&quot;, control_type=&quot;MenuItem&quot;).click_input()
+        # 点击新建连接
+        menu.item_by_path(&quot;文件-&gt;新建连接...&quot;).click_input()
+        # 选择新建连接窗口
+        new_dlg = self.app[&quot;新建连接&quot;]
+        # 连接名称输入框
+        new_dlg[&quot;常规&quot;].Edit5.type_keys(title)
+        # ip输入框
+        new_dlg[&quot;常规&quot;].Edit1.type_keys(host)
+        # 端口输入框
+        new_dlg[&quot;常规&quot;].Edit4.type_keys(port)
+        # 用户名输入框
+        new_dlg[&quot;常规&quot;].Edit3.type_keys(user)
+        # 密码输入框
+        new_dlg[&quot;常规&quot;].Edit2.type_keys(password)
+        # 点击确定按钮
+        new_dlg[&quot;确定&quot;].click()
+
+    def open_connect(self, title):
+        &quot;&quot;&quot;
+        打开连接或者数据库
+        :param title: 连接名或者数据库名
+        :return:
+        &quot;&quot;&quot;
+        # 获取控制坐标中心点，进行点击，打开连接
+        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
+        rect = db_name.rectangle().mid_point()
+        print(rect.x, rect.y)
+        mouse.double_click(coords=(rect.x, rect.y))
+
+    def del_connect(self, title):
+        &quot;&quot;&quot;删除连接&quot;&quot;&quot;
+        # 获取控件中心点位置
+        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
+        rect = db_name.rectangle().mid_point()
+        # 鼠标在控件中心点，右击
+        mouse.right_click(coords=(rect.x, rect.y))
+        # 删除连接
+        self.app[&quot;上下文&quot;][&quot;MenuItem5&quot;].click_input()
+        # 选择删除窗口
+        self.app[&quot;确认删除&quot;][&quot;删除&quot;].click()
+
+    def close_coonnect(self, title):
+        &quot;&quot;&quot;
+        关闭连接或者数据库
+        :param title: 连接名或者数据库名
+        :return:
+        &quot;&quot;&quot;
+        # 获取控件中心点位置
+        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
+        rect = db_name.rectangle().mid_point()
+        # 鼠标在控件中心点，右击
+        mouse.right_click(coords=(rect.x, rect.y))
+        # 删除连接
+        self.app[&quot;上下文&quot;][&quot;MenuItem2&quot;].click_input()
+
+    def del_database(self, database):
+        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=database, control_type=&quot;TreeItem&quot;)
+        rect = db_name.rectangle().mid_point()
+        mouse.right_click(coords=(rect.x, rect.y))
+        self.app[&quot;上下文&quot;][&quot;MenuItem4&quot;].click_input()
+        # 选择删除窗口
+        self.app[&quot;确认删除&quot;][&quot;删除&quot;].click()
+
+    def new_database(self, title, database, charset=&quot;utf8 -- UTF-8 Unicode&quot;):
+        &quot;&quot;&quot;新建数据库&quot;&quot;&quot;
+        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
+        rect = db_name.rectangle().mid_point()
+        mouse.right_click(coords=(rect.x, rect.y))
+
+        dlg = self.app[&quot;上下文&quot;]
+        # 点击新建连接
+        dlg.MenuItem8.click_input()
+        # 获取新建连接的窗口
+        # self.app[&quot;新建数据库&quot;].print_control_identifiers()
+        # 数据数据库名
+        self.app[&quot;新建数据库&quot;][&quot;常规&quot;].Edit3.type_keys(database)
+        self.app[&quot;新建数据库&quot;][&quot;常规&quot;].Edit2.type_keys(charset)
+        # 键盘回车键，点击确定
+        send_keys(&quot;{VK_RETURN}&quot;)
+
+    def new_find_dlg(self):
+        &quot;&quot;&quot;新建查询窗口&quot;&quot;&quot;
+        find = self.dlg[&quot;TTreeView&quot;].child_window(title=&quot;查询&quot;, control_type=&quot;TreeItem&quot;)
+        # 获取查询的左边
+        rect = find.rectangle().mid_point()
+        # 鼠标右击
+        mouse.right_click(coords=(rect.x, rect.y))
+        # 选择出现的小窗口
+        dlg = self.app[&quot;上下文&quot;]
+        # 点击新建连接
+        dlg.MenuItem1.click_input()
+
+    def find_sql(self, database, title, sql):
+        &quot;&quot;&quot;查询sql&quot;&quot;&quot;
+        title = &quot;无标题 @{} ({}) - 查询&quot;.format(database, title)
+        find_dlg = self.app[title]
+        find_dlg[&quot;TabControl&quot;].print_control_identifiers()
+        # 获取编辑框
+        edit = find_dlg[&quot;TabControl&quot;].Pane4
+        # 获取编辑窗口控件位置
+        rect = edit.rectangle().mid_point()
+        mouse.click(coords=(rect.x, rect.y))
+        sql = &quot;^a{}&quot;.format(sql.replace(&quot; &quot;, &quot;{VK_SPACE}&quot;)) + &quot;;&quot;
+        send_keys(sql)
+        # 使用运行快捷键
+        send_keys(&quot;^r&quot;)
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/kHeewF6F8/">
+                  <h3 class="post-title">
+                    Git 命令
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

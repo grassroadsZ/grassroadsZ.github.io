@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>测试文章 | grassroadsZ</title>
+<title>docker安装与卸载 | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,8 +24,12 @@
 
 
 
-    <meta name="description" content="测试文章
-" />
+    <meta name="description" content="安装方式一（推荐）
+# 卸载旧版本
+$ sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -97,14 +101,93 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">测试文章</h2>
-            <div class="post-date">2022-05-13</div>
+            <h2 class="post-title">docker安装与卸载</h2>
+            <div class="post-date">2022-05-29</div>
             
             <div class="post-content" v-pre>
-              <p>测试文章</p>
+              <h2 id="安装方式一推荐">安装方式一（推荐）</h2>
+<pre><code class="language-shell"># 卸载旧版本
+$ sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+  
+# 安装依赖                  
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+# 换源
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+# 换源后更新yum缓存
+sudo yum makecache fast
+
+# 安装docker
+yum install docker -y
+
+# 启动并测试是否安装成功
+sudo systemctl start docker
+docker run hello-world
+
+</code></pre>
+<h2 id="方式二使用脚本快捷安装docker-ce版不推荐">方式二：使用脚本快捷安装docker CE版(不推荐)</h2>
+<pre><code class="language-shell">$ curl -fsSL get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh --mirror Aliyun
+
+# 安装后启动docker CE
+
+$ sudo systemctl enable docker
+$ sudo systemctl start docker
+
+# 安装镜像加速
+vim /etc/docker/daemon.json
+
+{
+  &quot;registry-mirrors&quot;: [
+    &quot;https://registry.docker-cn.com&quot;
+  ]
+}
+# 之后重新启动
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+</code></pre>
+<p>解决CE版的如下警告</p>
+<pre><code class="language-shell">WARNING: bridge-nf-call-iptables is disabled
+WARNING: bridge-nf-call-ip6tables is disabled
+</code></pre>
+<pre><code class="language-shell">$ sudo tee -a /etc/sysctl.conf &lt;&lt;-EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+</code></pre>
+<p>然后重新加载</p>
+<p>$ sudo sysctl -p</p>
+<h2 id="卸载">卸载</h2>
+<p>先停止镜像的container，然后删除container，再删除镜像(删除的时候镜像名写全)</p>
+<pre><code class="language-shell">docker image ls
+docker stop container_name
+docker rm container_name 
+docker image rm &lt;image_name&gt;
+</code></pre>
 
             </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/ANGbPIaE6/">
+                  <h3 class="post-title">
+                    Linux 常用命令
+                  </h3>
+                </a>
+              </div>
             
 
             

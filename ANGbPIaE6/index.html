@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>测试文章 | grassroadsZ</title>
+<title>Linux 常用命令 | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,13 @@
 
 
 
-    <meta name="description" content="测试文章
-" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="文件
+查找目录下.mp4格式的文件
+find 目录 -name &quot;*.mp4&quot;
+
+查找home目录下name包含mp4的60分钟前的文件
+find /home -name &quot;*.mp4&quot; -type ..." />
+    <meta name="keywords" content="测试经验" />
   </head>
   <body>
     <div id="app" class="main">
@@ -97,14 +101,66 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">测试文章</h2>
-            <div class="post-date">2022-05-13</div>
+            <h2 class="post-title">Linux 常用命令</h2>
+            <div class="post-date">2022-05-29</div>
             
             <div class="post-content" v-pre>
-              <p>测试文章</p>
+              <h1 id="文件">文件</h1>
+<h2 id="查找目录下mp4格式的文件">查找目录下.mp4格式的文件</h2>
+<pre><code class="language-shell">find 目录 -name &quot;*.mp4&quot;
+</code></pre>
+<h2 id="查找home目录下name包含mp4的60分钟前的文件">查找home目录下name包含mp4的60分钟前的文件</h2>
+<pre><code class="language-shell">find /home -name &quot;*.mp4&quot; -type f -mmin +60 -exec ls {} \;
+</code></pre>
+<h2 id="查找home目录下name包含mp4的60分钟前的文件并删除">查找home目录下name包含mp4的60分钟前的文件并删除</h2>
+<pre><code class="language-shell">find /home -name &quot;*.mp4&quot; -type f -mmin +60 -exec rm {} \;
+</code></pre>
+<h2 id="查找当前目录下大于10m的文件">查找当前目录下大于10m的文件</h2>
+<pre><code class="language-shell">find . -size +10M
+</code></pre>
+<h1 id="网络与进程">网络与进程</h1>
+<h2 id="查看端口占用">查看端口占用</h2>
+<pre><code class="language-shell">netstat -anp|grep port
+</code></pre>
+<h2 id="获取进程名-进程号以及用户-id">获取进程名、进程号以及用户 ID</h2>
+<pre><code class="language-shell">netstat -tlnp
+</code></pre>
+<h2 id="统计当前机器连接数">统计当前机器连接数</h2>
+<pre><code class="language-shell">netstat -tnp|wc -l
+
+</code></pre>
+<h2 id="实时监控阿里云盾的cpu与内存使用情况">实时监控阿里云盾的cpu与内存使用情况</h2>
+<pre><code class="language-shell">#top -b 指定为非交互模式下-p 指定pid -n指定行号
+ while true;do sleep 1 ;top -b -p 10960 -n 1|tail -n 1|awk '{print $9,$10}';done
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6c88vnqbv7c0.webp" alt="image" loading="lazy"></figure>
+<h2 id="统计nginx日志中访问量前三的ip">统计nginx日志中访问量前三的ip</h2>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.56g0fmlkevk0.webp" alt="image" loading="lazy"></figure>
+<pre><code class="language-shell"># awk取第一列的ip：awk '{print $1}' /var/log/nginx/access.log,排序后去重统计：sort|uniq -c,排序去重统计结果再排序取前三：sort -rn|head -n 3
+
+awk '{print $1}' /var/log/nginx/access.log|sort|uniq -c|sort -rn|head -n 3
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2aftii7iqbk0.webp" alt="image" loading="lazy"></figure>
 
             </div>
             
+              <div class="tag-container">
+                
+                  <a href="https://grassroadsz.github.io/tag/KlZQBekQp/" class="tag">
+                    测试经验
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/0pbx98OrS/">
+                  <h3 class="post-title">
+                    工作中使用的shell脚本
+                  </h3>
+                </a>
+              </div>
             
 
             

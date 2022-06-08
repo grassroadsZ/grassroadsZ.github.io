@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Shell 基础 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654656129427">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一、简介
+shell是什么
+
+命令解释器
+shell就是在操作系统和应用程序之间的一个命令翻译工具
+
+shell分类
+
+
+Windows
+
+
+
+cmd命令行
+
+
+
+Linux
+
+
+
+Sh / bash / zsh /
+
+
+
+二、常用命令
+1..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654656129427" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Shell 基础</h2>
+            <div class="post-date">2022-05-28</div>
+            
+            <div class="post-content" v-pre>
+              <p>一、简介</p>
+<p>shell是什么</p>
+<ul>
+<li>命令解释器</li>
+<li>shell就是在操作系统和应用程序之间的一个命令翻译工具</li>
+</ul>
+<p>shell分类</p>
+<ul>
+<li>
+<p>Windows</p>
+</li>
+<li>
+<ul>
+<li>cmd命令行</li>
+</ul>
+</li>
+<li>
+<p>Linux</p>
+</li>
+<li>
+<ul>
+<li>Sh / bash / zsh /</li>
+</ul>
+</li>
+</ul>
+<p>二、常用命令</p>
+<p>1.head</p>
+<ul>
+<li>默认获取文件的前10 行</li>
+</ul>
+<p>2.tail</p>
+<ul>
+<li>默认获取最后10行</li>
+<li>取文件第6到第9行：head -9 file |tail -n 4</li>
+</ul>
+<p>3.cut</p>
+<ul>
+<li>取出文本指定的列</li>
+<li>-d 指定分隔符</li>
+<li>-f 指定行</li>
+</ul>
+<p>4.uniq</p>
+<ul>
+<li>去重（需先排序）</li>
+<li>-d 打印重复行</li>
+<li>-c 统计出现的次数</li>
+</ul>
+<p>5.sort</p>
+<ul>
+<li>将文件排序，默认以ASCII 码从小到大排序</li>
+<li>-r 反序</li>
+<li>-n 以数字类型排序</li>
+<li>-t 指定分隔符</li>
+<li>-k 指定排序的列号</li>
+</ul>
+<p>将文件最后一列取出进行排序去重cut -d 分隔符 -f 行号 file|sort|uniq</p>
+<p>6.wc(word count)</p>
+<p>统计文件</p>
+<ul>
+<li>-l 行号</li>
+<li>-w 单词数</li>
+<li>-c 字节数</li>
+<li>-L 最长行的字节数</li>
+</ul>
+<p>三、变量</p>
+<p>定义变量</p>
+<p>本地变量</p>
+<p>只在当前bash生效</p>
+<p>username='grassroadsZ'<br>
+username=&quot;grassdoadsZ&quot;</p>
+<p>单引号和双引号的区别：单引号里面是什么就会输出什么，双引号可以做变量替换</p>
+<p>输出:</p>
+<p>echo $username</p>
+<p>等号两侧不能有空格</p>
+<ul>
+<li>将linux 命令赋值给变量<br>
+one_var=$(pwd)<br>
+echo $one_var</li>
+</ul>
+<p>全局变量</p>
+<p>所有的bash都能用（临时全局变量）</p>
+<ul>
+<li>方法一：<br>
+变量=值<br>
+export 变量</li>
+<li>方法二:<br>
+export 变量=值</li>
+</ul>
+<p>env ：查看当前的环境变量（永久变量）</p>
+<ul>
+<li>新建全局变量</li>
+</ul>
+<p>vim ~/.bashrc<br>
+export username=&quot;grassroadsZ&quot;</p>
+<p>查看变量</p>
+<p>echo $变量名</p>
+<p>echo &quot;$变量名&quot;</p>
+<p>echo &quot;${变量名}&quot;（shell脚本中较常用）</p>
+<p>内置变量</p>
+<ul>
+<li>$0:   获取当前执行shell的文件名</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>:</mo><mi mathvariant="normal">获</mi><mi mathvariant="normal">取</mi><mi mathvariant="normal">当</mi><mi mathvariant="normal">前</mi><mi mathvariant="normal">执</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">的</mi><mi>s</mi><mi>h</mi><mi>e</mi><mi>l</mi><mi>l</mi><mi mathvariant="normal">脚</mi><mi mathvariant="normal">本</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">第</mi><mi>n</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">参</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">值</mi><mi mathvariant="normal">，</mi><mi>n</mi><mo>=</mo><mn>1..9</mn><mi mathvariant="normal">如</mi><mi mathvariant="normal">果</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">于</mi><mn>9</mn><mi mathvariant="normal">就</mi><mi mathvariant="normal">要</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">括</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">括</mi><mi mathvariant="normal">起</mi><mi mathvariant="normal">来</mi></mrow><annotation encoding="application/x-tex">n:   获取当前执行的shell脚本的第n个参数值，n=1..9如果大于9就要用大括号括起来</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord cjk_fallback">获</span><span class="mord cjk_fallback">取</span><span class="mord cjk_fallback">当</span><span class="mord cjk_fallback">前</span><span class="mord cjk_fallback">执</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">脚</span><span class="mord cjk_fallback">本</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">第</span><span class="mord mathdefault">n</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">参</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">值</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">.</span><span class="mord">9</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">于</span><span class="mord">9</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">括</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">括</span><span class="mord cjk_fallback">起</span><span class="mord cjk_fallback">来</span></span></span></span>{10}</li>
+<li>$#:   获取当前shell命令中的参数总个数</li>
+<li>$?:    获取上一条命令的执行结果，echo $?为0的话代表上一条命令执行成功，非0为失败</li>
+<li>$*: 获取所有参数</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-shell">#! /bin/bash
+
+echo &quot;当前脚本名为：$0&quot;
+echo &quot;第一个参数为：$1&quot;
+# ...
+echo &quot;第十一个参数为：${11}&quot;
+
+echo &quot;参数总数为：$#&quot;
+echo &quot;一次性获取所有的参数：$*&quot;
+</code></pre>
+<p>四、数值运算</p>
+<p>方式一</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>(</mo><mi mathvariant="normal">算</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">表</mi><mi mathvariant="normal">达</mi><mi mathvariant="normal">式</mi><mo>)</mo><mo>)</mo><mi mathvariant="normal">，</mi><mi mathvariant="normal">变</mi><mi mathvariant="normal">量</mi><mi mathvariant="normal">可</mi><mi mathvariant="normal">以</mi><mi mathvariant="normal">不</mi><mi mathvariant="normal">加</mi></mrow><annotation encoding="application/x-tex">((算数表达式))，变量可以不加</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord cjk_fallback">算</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">达</span><span class="mord cjk_fallback">式</span><span class="mclose">)</span><span class="mclose">)</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">不</span><span class="mord cjk_fallback">加</span></span></span></span></p>
+<p>方式二</p>
+<p>expr 表达式,此处变量的$不可以省略</p>
+<p>实例:</p>
+<pre><code class="language-shell">one=10
+two=20
+# 求和
+$(($one + $two)) # 或者写为$((one + two))
+# 乘法
+result=$(expr $one * $two)
+# 比较大小,需转义,两个括号时不需要转义，如果大于不成立返回0，大于成立返回1
+result=$(expr $one \&gt; $two) # 或者写为$(($one &gt; $two))
+</code></pre>
+<p>五、条件表达式</p>
+<p>返回值</p>
+<ul>
+<li>条件成立，返回0</li>
+<li>条件不成立，返回1</li>
+</ul>
+<p>逻辑表达式</p>
+<p>&amp;&amp; 和||和！</p>
+<p>one_word=1</p>
+<h1 id="如果one_word1输出one_word是1否则输出one_word不是1">如果one_word=1输出one_word是1否则输出one_word不是1</h1>
+<h1 id="写法一空格-表达式-空格">写法一：[空格 表达式 空格]</h1>
+<p>[ &quot;${one_word}&quot;==1 ] &amp;&amp; echo 'one_word是1'|| echo &quot;one_word不是1&quot;</p>
+<h1 id="写法二">写法二：</h1>
+<p>test &quot;${one_word}&quot; == 1 &amp;&amp; echo &quot;one_word是1&quot;|| echo &quot;one_word不是1&quot;</p>
+<p>文件表达式</p>
+<ul>
+<li>-f 判断输入的内容是否是一个文件</li>
+<li>-d 是否是目录</li>
+<li>-x 是否可执行</li>
+<li>-e 是否存在</li>
+</ul>
+<p>实例</p>
+<p>[ -f anaconda-ks.cfg ] &amp;&amp; echo '是文件'|| echo &quot;不是文件&quot;<br>
+[ -d anaconda-ks.cfg ] &amp;&amp; echo '是目录'|| echo &quot;不是目录&quot;<br>
+[ -x anaconda-ks.cfg ] &amp;&amp; echo '可执行'|| echo &quot;不可执行&quot;<br>
+[ -e anaconda-ks.cfg ] &amp;&amp; echo '存在'|| echo &quot;不存在&quot;</p>
+<p>数值操作符</p>
+<ul>
+<li>n1 -eq n2 相等</li>
+<li>n1 -gt n2 大于</li>
+<li>n1 -lt n2 小于</li>
+<li>n1 -ne n2 不等于</li>
+<li>n1 -ge  n2 大于等于</li>
+</ul>
+<p>字符串比较</p>
+<ul>
+<li>str1 == str2 是否相等</li>
+<li>str1 != str2 是否不相等</li>
+</ul>
+<p>六、shell脚本格式</p>
+<p>shell脚本调试: bash -x file.sh</p>
+<p>格式要求</p>
+<ul>
+<li>首行指定执行shell的程序<br>
+#! /bin/bash<br>
+echo &quot;你好, ${USER}&quot;</li>
+<li>命名见名知意</li>
+</ul>
+<p>注释</p>
+<h1 id="单行注释">单行注释</h1>
+<p>:&lt;&lt;!<br>
+这是多行注释<br>
+!</p>
+<p>七、函数</p>
+<p>格式</p>
+<h1 id="格式一">格式一:</h1>
+<p>函数名()</p>
+<p>{</p>
+<p>命令1</p>
+<p>命令2</p>
+<p>}</p>
+<h1 id="格式二">格式二:</h1>
+<p>function 函数名</p>
+<p>{</p>
+<p>命令1</p>
+<p>}</p>
+<p>#!/bin/bash</p>
+<h1 id="description定义函数两种方法demo">Description:定义函数两种方法demo</h1>
+<h1 id="方式一">方式一：</h1>
+<p>hello()<br>
+{<br>
+echo &quot;你好! <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>U</mi><mi>S</mi><mi>E</mi><mi>R</mi></mrow><mo separator="true">,</mo><mi mathvariant="normal">今</mi><mi mathvariant="normal">天</mi><mi mathvariant="normal">是</mi></mrow><annotation encoding="application/x-tex">{USER},今天是</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">今</span><span class="mord cjk_fallback">天</span><span class="mord cjk_fallback">是</span></span></span></span>(date)&quot;<br>
+}</p>
+<h1 id="方式二">方式二:</h1>
+<p>function hello<br>
+{<br>
+echo &quot;你好!&quot;<br>
+}</p>
+<h1 id="调用函数">调用函数</h1>
+<h1 id="直接使用函数名进行调用">直接使用函数名进行调用</h1>
+<p>hello</p>
+<p>参数</p>
+<pre><code class="language-shell">#! /bin/bash
+echo &quot;$1 $2&quot;
+function your_info()
+{
+	echo &quot;你的姓名：$1, age为：$2&quot;
+}
+your_info grassroadsZ 18
+</code></pre>
+<h1 id="参数为一一对应your_info-2-1-对应的2-对应的为11对应的为2">参数为一一对应your_info $2 $1 --&gt; 对应的$2 对应的为$1,$1对应的为$2</h1>
+<h1 id="执行结果">执行结果</h1>
+<p>[root@Centos7 bin]# bash file.sh 10 20<br>
+10,20<br>
+你的姓名是：grassroadsZ，你的年龄为18</p>
+<p>接受用户参数</p>
+<pre><code class="language-shell">#! /bin/bash
+read -p &quot;请输入姓名: &quot;空格name
+read -p &quot;请输入年龄: &quot; age
+# 如果不使用变量接收，默认变量为REPLY
+read -p &quot;请输入年龄: &quot;
+
+function your_info
+{
+	echo &quot;你的姓名：${name}, age为：${age}&quot;
+	# 换行
+	echo -e &quot;你的姓名：${name}, \n你的age为：${age}&quot;
+	echo &quot;你的姓名：${name}, age为：${REPLY}&quot;
+}
+</code></pre>
+<p>八、流程控制</p>
+<pre><code class="language-shell">if
+
+if [条件]
+then
+	指令1
+elif [条件2]
+then
+	指令2
+else
+	指令3
+fi
+</code></pre>
+<p>实例1</p>
+<pre><code class="language-shell">#! /bin/bash
+#Description:判断是否可以上网
+read -p &quot;姓名&quot; name
+read -p &quot;年龄&quot; age
+if [ &quot;${age}&quot; -ge 70 ]
+then
+	echo &quot;${name},大于等于70岁&quot;
+elif [ &quot;${age}&quot; -ge 18 ]
+then
+	echo &quot;${name}大于18&quot;
+else
+	echo &quot;${name}小于18岁&quot;
+fi
+</code></pre>
+<p>实例2</p>
+<pre><code class="language-shell">#! /bin/bash
+#Description:根据命令启动停止服务
+if [! &quot;$1&quot; -eq 1]; then
+	echo &quot;Usage: $0 [start | stop |restart]&quot;
+	exit 1
+fi
+
+if [ &quot;$1&quot;==&quot;start&quot; ]; then
+	echo &quot;服务启动中。。。。&quot;
+elif [ &quot;$1&quot;==&quot;restart&quot; ]; then
+	echo &quot;服务重启中。。。&quot;
+else
+	echo &quot;服务暂停中。。。&quot;
+fi
+
+exit 0
+</code></pre>
+<p>for</p>
+<h1 id="格式一-2">格式一</h1>
+<pre><code>for v in 列表
+do
+    执行语句
+done
+</code></pre>
+<h1 id="格式二-2">格式二</h1>
+<pre><code>max=10
+for ((i=1;i&lt;=max;i++))
+do
+    echo &quot;$i&quot;
+done
+</code></pre>
+<p>实例</p>
+<pre><code class="language-shell">#! /bin/bash
+#Description:for循环
+dirs=$(ls /)
+for dir in ${dirs}
+do
+	echo &quot;${dir}&quot;
+done
+</code></pre>
+<p>while</p>
+<pre><code class="language-shell">#! /bin/bash
+#Description:while循环
+i=1
+max=10
+while [ &quot;${i}&quot; -lt &quot;${max}&quot; ]
+do
+ echo &quot;${i}&quot;
+ i=$((i+1))
+done
+</code></pre>
+<p>case</p>
+<p>case 变量名 in<br>
+值1）<br>
+指令1<br>
+;;<br>
+值2)<br>
+指令2<br>
+;;<br>
+值3）<br>
+指令3<br>
+;;</p>
+<p>实例</p>
+<pre><code class="language-shell">#! /bin/bash
+#Description:case计算器
+
+function shwo_error
+{
+	echo &quot;Usage: $0 num 1[+ | - |\*|/] num2&quot;
+}
+
+
+if [! &quot;$1&quot; -eq 1]; then
+	show_error
+	exit 1
+fi
+
+case &quot;$2&quot; in
+	+)
+		echo &quot;$1 + $3 = $(($1 + $3))&quot;
+		;;
+	-)
+		echo &quot;$1 - $3 = $(($1 - $3))&quot;
+		;;
+	\*)
+		echo &quot;$1 * $3 = $(($1 * $3))&quot;
+		;;
+	-)
+		echo &quot;$1 / $3 = $(($1 / $3))&quot;
+		;;
+	*)
+      echo &quot;非法输入&quot;
+      show_error
+      ;;
+esac
+exit 0
+</code></pre>
+<p>九、文本处理三剑客</p>
+<p>grep</p>
+<ul>
+<li>两种形式
+<ul>
+<li>grep [option] pattern [file1,file2....]</li>
+<li>Some command | grep [option]</li>
+</ul>
+</li>
+</ul>
+<p>[root@Centos7 ~]# grep root /etc/passwd<br>
+root❌0:0:root:/root:/bin/bash<br>
+operator❌11:0:operator:/root:/sbin/nologin</p>
+<p>sed</p>
+<ul>
+<li>流文件编辑器</li>
+<li>两种形式</li>
+<li>不加任何参数数时，默认会将匹配到的内容打印两次
+<ul>
+<li>sed [option] &quot;partten command&quot; file</li>
+<li>Some conmmand |sed [option] &quot;parttern command&quot;</li>
+</ul>
+</li>
+</ul>
+<h1 id="只打印password中的oo">只打印password中的oo</h1>
+<p>sed -n &quot;/oo/ p&quot; /etc/password</p>
+<h1 id="只打印第6行">只打印第6行</h1>
+<p>sed -n '6 p' /etc/password</p>
+<h1 id="打印38行">打印3,8行</h1>
+<p>sed -n &quot;3,8 p&quot; /etc/password</p>
+<h1 id="打印以h开头到o开头">打印以h开头到o开头</h1>
+<p>sed -n &quot;/<sup>h/,/</sup>o/ p&quot; /etc/password</p>
+<p>command命令</p>
+<ul>
+<li>p打印</li>
+<li>新增
+<ul>
+<li>a （after）在匹配行后新增</li>
+<li>i （insert）在匹配行前新增</li>
+<li>r （read）外部文件读入，行后新增</li>
+<li>w （write）匹配行写入外部文件</li>
+</ul>
+</li>
+<li>删除
+<ul>
+<li>d 删除</li>
+</ul>
+</li>
+<li>修改
+<ul>
+<li>s/old/new/	(只修改匹配中的一个old)</li>
+<li>s/old/new/g  （修改匹配行中所有的old）</li>
+<li>s/old/new/ig   （修改忽略大小写）</li>
+</ul>
+</li>
+</ul>
+<p>实例</p>
+<h1 id="在password的第9行前面新增hello-word">在password的第9行前面新增hello word</h1>
+<p>sed '9 i &quot;hello world&quot;' password（# 内存修改，未提交）<br>
+sed -i '9 i &quot;hello world&quot;' password（# 真实修改文件）</p>
+<h1 id="在password的中以mail开头的后面前面新增hello-word">在password的中以mail开头的后面前面新增hello word</h1>
+<p>sed -i '/^mail/ a 新增的hello word' password</p>
+<h1 id="在sbinnologin后新增hello">在/sbin/nologin后新增hello</h1>
+<p>sed -i '//sbin/nologin a 新增 hello' password</p>
+<h1 id="将filetxt的内容新增到password中出现两个o的行">将file.txt的内容新增到password中出现两个o的行</h1>
+<p>sed -ir '/o{2}/ r file.txt' password</p>
+<h1 id="将69行的内容写入到-twotxt">将6,9行的内容写入到 two.txt</h1>
+<p>sed  '6,9 w two.txt' password</p>
+<h1 id="以s开头的行进行删除">以s开头的行进行删除</h1>
+<p>sed -i '/^s/ d' password</p>
+<h1 id="将含有bin的行改写为bin">将含有bin的行改写为BIN</h1>
+<p>sed -i 's/bin/BIN/' password	# (一行中多个只修改一次)<br>
+sed -i 's/bin/BIN/g' password	# （修改所有）<br>
+sed -i 's/bin/BIN/ig' password	# （修改所有）</p>
+<h1 id="第1到10行的修改为">第1到10行的：修改为？</h1>
+<p>sed -i '1,10 s/😕?/g' password</p>
+<h1 id="删除-开头的注释">删除# 开头的注释</h1>
+<p>sed -i '/^#/d' file</p>
+<h1 id="删除空行">删除空行</h1>
+<p>sed -i '/^$/d' file</p>
+<p>awk</p>
+<ul>
+<li>文本处理，处理数据并生成结果报告</li>
+<li>两种形式
+<ul>
+<li>awk 'BEGIN{} pattern {commands} END{}' file</li>
+<li>Some command | awk 'BEGIN{} pattern {commands} END{}</li>
+</ul>
+</li>
+</ul>
+<h1 id="默认分隔符为空格">默认分隔符为空格</h1>
+<h1 id="打印整行">打印整行</h1>
+<p>awk '{print $0}' file</p>
+<h1 id="打印第一列">打印第一列</h1>
+<p>awk '{print $1}' file</p>
+<h1 id="打印最后一列无论规则与否">打印最后一列，无论规则与否</h1>
+<p>awk '{print $NF}' file</p>
+<h1 id="如果当前行号大于1则打印当前行">如果当前行号大于1则打印当前行</h1>
+<p>awk ' NR &gt; 1 {print $0}' file</p>
+<h1 id="指定分隔符">指定分隔符</h1>
+<p>awk 'BEGIN {FS=&quot;:&quot;} {print $1}' file</p>
+<h1 id="指定为分隔符将第3列数值大于100的行的第一列打印">指定:为分隔符将第3列数值大于100的行的第一列打印</h1>
+<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {print $1}' password</p>
+<h1 id="指定为分隔符将第3列数值大于100的行的第一列及总处理的行数">指定:为分隔符将第3列数值大于100的行的第一列及总处理的行数</h1>
+<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {i++; print $1} END{print i}' password</p>
+<h1 id="填充格式与python中的字符串输出一样">填充格式与python中的字符串输出一样</h1>
+<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {printf &quot;%s\n&quot; $1}' pwd</p>
+<h1 id="输出带表头的内容">输出带表头的内容</h1>
+<p>awk 'BEGIN{FS=&quot;:&quot;;printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;} $3&gt;100 {printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF}' pwd</p>
+<h1 id="输出带表头的内容-2">输出带表头的内容</h1>
+<p>awk 'BEGIN{FS=&quot;:&quot;;printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;} $3&gt;100 {count++; printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF} END{printf &quot;%-18s%-6s\n&quot; &quot;Toal&quot;, count}' pwd</p>
+<p>awk长命令脚本化</p>
+<h1 id="begin-块">BEGIN 块</h1>
+<p>BEGIN{<br>
+FS=&quot;:&quot;;<br>
+printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;<br>
+}</p>
+<h1 id="command块">command块</h1>
+<p>{<br>
+if ($3&gt;100){<br>
+count++;<br>
+printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF<br>
+}<br>
+}</p>
+<h1 id="end块">END块</h1>
+<p>END{<br>
+printf &quot;%-18s%-6s\n&quot; &quot;Toal&quot;, count}</p>
+<p>调用：awk -f file.awk file</p>
+<p>实例</p>
+<p>Linux 系统截图</p>
+<p>描述如下基础命令的作用</p>
+<ul>
+<li>ls: 列出当前目录所有文件(不包含隐藏文件，指定参数-a可显示隐藏文件)</li>
+<li>pwd:当前所在路径</li>
+<li>cd:进入到某一个目录</li>
+<li>touch:新建文件</li>
+<li>mkdir：创建目录</li>
+<li>rm：删除文件或目录</li>
+<li>mv:移动文件</li>
+<li>cp：复制文件</li>
+<li>cat:查看文件</li>
+<li>more: 分段查看文件</li>
+<li>tar：tar格式的文件解压缩</li>
+<li>which：输出命令的位置</li>
+</ul>
+<p>获取/etc/passwd文件的第4~7行</p>
+<p>head -n 7 /etc/passwd|tail -n 4</p>
+<p>在必做题第3题的基础上，以第4列的数字大小进行排序</p>
+<p>root@Centos7 bin]# head -n 7 /etc/passwd|tail -n 4 |sort -t&quot;:&quot; -k4 -n -r<br>
+lp❌4:7:lp:/var/spool/lpd:/sbin/nologin<br>
+adm❌3:4:adm:/var/adm:/sbin/nologin<br>
+sync❌5:0:sync:/sbin:/bin/sync<br>
+shutdown❌6:0:shutdown:/sbin:/sbin/shutdown</p>
+<p>linux中“$?”标记有什么作用?</p>
+<p>可以用来判断上一条命令是否执行成功</p>
+<p>如何调试shell脚本 ?</p>
+<p>脚本调试使用bash -x file.sh</p>
+<p>查看系统当前进程连接数？</p>
+<p>判断当前linux系统的发布版，是Ubuntu、Centos、Fedora、SUSE等</p>
+<p>echo &quot;$(grep -i &quot;^name&quot; /etc/os-release)&quot;</p>
+<h1 id="将namecentos-linux-双引号中的内容取出更佳">将NAME=&quot;CentOS Linux&quot; 双引号中的内容取出更佳</h1>
+<p>从命令行接收两个数，以及逻辑运算符（&gt;、&gt;=、&lt;、&lt;=、==、!=），打印判断结果，例如: bash 脚本名  数字1 &lt;= 数字2</p>
+<pre><code class="language-shell">#! /bin/bash
+
+function check_num()
+{
+    read -p &quot;请输入数字1:&quot; num1
+    read -p &quot;请输入比较符号:&quot; check
+    read -p &quot;请输入数字2:&quot; num2
+
+    if [ $check = '&gt;=' ]    
+    then    
+        check='-ge'
+
+    elif [ $check = '&lt;=' ]  
+    then
+        check='-le'
+
+    elif [ $check = '!=' ]  
+    then    
+        check='-ne'
+    else
+        echo &quot;输入的比较符号${check}错误&quot;
+        exit 1
+    fi
+    if [ ${num1} ${check} ${num2} ]
+    then    
+        echo &quot;当前文件名：$0 ${num1} ${check} ${num2} 正确&quot;
+    else    
+        echo &quot;当前文件名：$0 ${num1} ${check} ${num2} 错误&quot;
+    fi
+
+}
+
+check_num
+</code></pre>
+<p>输入4个大于0小于等于20的数字，统计它们的和、最小的数字和最大的数字 b.要求有异常数字校验</p>
+<pre><code class="language-shell">#! /bin/bash
+# 四个数字求和
+
+function num_sum
+{
+    num=0
+    while [ $num -lt 4 ]
+    do
+        echo &quot;please input a num &gt;0 and &lt;=20:&quot;
+        read line
+        if [ $line -le 20 -a $line -gt 0 ];then
+                num_list[$num]=$line
+                let num=$num+1
+        else
+            echo &quot;输入的不符合要求&quot;
+                
+        fi
+    done
+
+    arr=(${num_list[*]})
+
+    let min=${arr[0]}
+    let max=${min}
+    sum=0
+    # #来获取数组元素的个数
+    for (( i=0;i&lt;${#arr[*]};i++))
+    do
+            [[ ${min} -gt ${arr[$i]} ]] &amp;&amp; min=${arr[$i]}
+            [[ ${max} -lt ${arr[$i]} ]] &amp;&amp; max=${arr[$i]}
+            let sum=sum+${arr[$i]}
+    done
+    echo &quot;最小值：$min&quot;
+    echo &quot;最大值：$max&quot;
+    echo &quot;求和：$sum&quot;
+    
+}
+
+num_sum
+</code></pre>
+<p>日志分析</p>
+<p>使用shell脚本分析执行用例的日志：</p>
+<p>a.统计每位测试人员执行用例的总数</p>
+<h1 id="日志模板">日志模板</h1>
+<h1 id="2019-08-17-161951025-info-keke-pass-手机号为空-generate_logspy-42">2019-08-17 16:19:51,025 INFO keke Pass 手机号为空 generate_logs.py 42</h1>
+<h1 id="2019-08-17-161951026-critical-lemon-pass-密码-多于18位-generate_logspy-42">2019-08-17 16:19:51,026 CRITICAL lemon Pass 密码-多于18位 generate_logs.py 42</h1>
+<pre><code class="language-shell"># 统计每位测试人员执行用例的总数
+
+BEGIN{
+    # 格式化输入表头，左对齐
+    printf &quot;%-10s%-10s\n&quot;,&quot;Tester&quot;,&quot;TotalTestcases&quot;
+}
+
+{   # 定义用户类字典
+    USERS[$4] += 1
+}
+
+END{
+    # for循环用户列表类字典及总数
+    for (u in USERS){
+        printf &quot;%-10s%-10s\n&quot;, u, USERS[u]
+    }
+}
+</code></pre>
+<p>b.分别统计每位测试人员执行用例成功和失败的总数</p>
+<pre><code class="language-shell"># 分别统计每位测试人员执行用例成功和失败的总数 
+
+BEGIN{
+    # 格式化输入表头，左对齐
+    printf &quot;%-15s%-15s%-15s\n&quot;,&quot;Tester&quot;,&quot;Passtotal&quot;,&quot;FAIL&quot;
+}
+
+{   # 定义用户为key的字典
+    if($5 ~ &quot;Pass&quot;){
+        SUCCESS[$4] += 1
+    } else if($5 ~ &quot;Fail&quot;){
+        FAIL[$4] +=1
+    }
+    USERS[$4] += 1
+    
+}
+
+END{
+    for (u in USERS){
+        printf &quot;%-15s%-15s%-15s\n&quot;, u , SUCCESS[u], FAIL[u]
+    }
+}
+</code></pre>
+<p>c.将1、2合并，同时分别统计每位测试人员执行用例CRITICAL、ERROR日志等级数以及所有测试人员每项总数</p>
+<h1 id="日志模板-2">日志模板</h1>
+<h1 id="2019-08-17-161951025-info-keke-pass-手机号为空-generate_logspy-42-2">2019-08-17 16:19:51,025 INFO keke Pass 手机号为空 generate_logs.py 42</h1>
+<h1 id="2019-08-17-161951026-critical-lemon-pass-密码-多于18位-generate_logspy-42-2">2019-08-17 16:19:51,026 CRITICAL lemon Pass 密码-多于18位 generate_logs.py 42</h1>
+<pre><code class="language-shell">BEGIN{
+    # 格式化输入表头，左对齐
+    printf &quot;%-15s%-15s%-15s%-15s\n&quot;,&quot;Tester&quot;,&quot;ERROR&quot;,&quot;CRITICAL&quot;,&quot;TOTAL&quot;
+}
+
+{
+    # 定义用户为key的字典
+    if($3 ~ &quot;CRITICAL&quot;){
+        CRITICAL[$4] +=1
+        CRITICALTotal +=1
+    } else if($3 ~ &quot;ERROR&quot;){
+        ERROR[$4] +=1
+        ErrorTotal +=1
+    }
+
+    USERS[$4] += 1
+}
+
+END{
+    for (u in USERS){
+        printf &quot;%-15s%-15s%-15s%-15s\n&quot;, u ,ERROR[u],CRITICAL[u], CRITICAL[u] + ERROR[u]
+    }
+    print &quot;\n&quot;
+    printf &quot;%-15s&quot;, &quot;ErrorTotal&quot;
+    printf &quot;%-15s\n&quot;,ErrorTotal
+    printf &quot;%-30s&quot;,&quot;CRITICALTotal&quot;
+    printf &quot;%-15s\n&quot;,CRITICALTotal
+    
+}
+</code></pre>
+<p>d.使用shell脚本来实现，并显示菜单，选择不同的选项则打印不同的内容</p>
+<pre><code class="language-shell">#!/bin/bash
+
+# 定义待处理的日志文件路径
+# 指定每个选项需要的awk表达式文件路径
+# 显示菜单
+# 用户输入执行不同的函数，输入0时，退出。exit 1
+# 显示帮助信息
+
+
+function show_error
+{   
+    echo &quot;输入错误&quot;
+	echo &quot;Usage: $0 1 | 2 | 3&quot;
+}
+
+
+logfile_path=&quot;/root/shell_05/&quot;
+total=&quot;${logfile_path}awk/user_total.awk&quot;
+pass_fail=&quot;${logfile_path}awk/pass_fail.awk&quot;
+critical_error=&quot;${logfile_path}/awk/critical_error.awk&quot;
+
+logfile=&quot;${logfile_path}testcases.log&quot;
+
+echo -e &quot;1.统计每位测试人员执行用例的总数\n2.统计每位测试人员执行用例成功和失败的总数\n3.统计详情\n0.退出&quot;
+echo &quot;请输入操作选项：&quot;
+
+read num
+if [[ $num -ge 0 &amp;&amp; $num -le 3 ]];then 
+    case &quot;$num&quot; in
+	1)
+        echo &quot;你输入的是$num,开始统计每位测试人员执行用例的总数 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+		awk -f $total $logfile
+        
+		;;
+	2)
+		echo &quot;你输入的是$num,开始统计每位测试人员执行用例成功和失败的总数 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+        awk -f $pass_fail $logfile
+		;;
+	3)
+		echo &quot;你输入的是$num,统计每位测试人员执行用例CRITICAL、ERROR日志等级数以及所有测试人员每项总数&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+		awk -f $critical_error $logfile
+        ;;
+	0)
+		echo &quot;你输入的是$num,正在退出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
+        exit 1
+		;;
+	*)
+      echo &quot;非法输入&quot;
+      show_error
+      ;;
+    esac
+    exit 0
+else 
+    show_error
+    exit 1
+fi 
+}
+
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/Mbkh7VQ2l/">
+                  <h3 class="post-title">
+                    客户端自动化
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

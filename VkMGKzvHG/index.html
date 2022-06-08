@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>K8S 单集群部署 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654656129427">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="使用kubeadm安装的步骤：
+
+
+1. master：安装kubelet，kubeadm，docker，kubeclt客户端，然后初始化，生成令牌，供node端加入
+2. node01：安装kubelet，kubeadm，docker后，..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654656129427" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">K8S 单集群部署</h2>
+            <div class="post-date">2022-05-29</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="使用kubeadm安装的步骤">使用kubeadm安装的步骤：</h2>
+<pre><code class="language-text">
+
+1. master：安装kubelet，kubeadm，docker，kubeclt客户端，然后初始化，生成令牌，供node端加入
+2. node01：安装kubelet，kubeadm，docker后，join 直接加入集群即可
+3. node02：安装kubelet，kubeadm，docker后，join 直接加入集群即可
+
+</code></pre>
+<p>PS：在CentOS中安装K8S只能在Centos7的系统上进行安装，原因是Linux 内核的版本必须是 3.10 以上</p>
+<h2 id="master-node机器初始化">master、node机器初始化</h2>
+<h3 id="关防火墙关swap">关防火墙，关swap</h3>
+<pre><code class="language-shell"># 关闭selinux
+setenforce  0
+sed -i &quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/sysconfig/selinux
+
+# 关闭防火墙
+systemctl stop firewalld
+systemctl disable firewalld
+
+# 关闭swap
+swapoff -a
+# 修改/etc/fstab文件，注释掉SWAP的自动挂载，使用free -m确认swap已经关闭
+sed -i 's/.*swap.*/#&amp;/' /etc/fstab
+</code></pre>
+<h3 id="改ip改hostname改hosts关机">改IP，改hostname，改hosts，关机</h3>
+<pre><code class="language-shell">##### -----------------master:-------------------
+
+echo &quot;master&quot; &gt; /etc/hostname
+cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
+192.168.1.151 master
+192.168.1.152 node01
+192.168.1.153 node02
+EOF
+sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.207#g /etc/sysconfig/network-scripts/ifcfg-ens33
+sed -i s/UUID/#UUID/g /etc/sysconfig/network-scripts/ifcfg-ens33
+reboot
+
+
+##### -----------------node01:-------------------
+
+echo &quot;node01&quot; &gt; /etc/hostname
+cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
+192.168.1.151 master
+192.168.1.152 node01
+192.168.1.153 node02
+EOF
+sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.208#g /etc/sysconfig/network-scripts/ifcfg-ens33
+sed -i s/UUID/#UUID/g  /etc/sysconfig/network-scripts/ifcfg-ens33
+reboot
+
+
+##### -----------------node02:-------------------
+
+echo &quot;node02&quot; &gt; /etc/hostname
+cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
+192.168.1.151 master
+192.168.1.152 node01
+192.168.1.153 node02
+EOF
+sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.209#g /etc/sysconfig/network-scripts/ifcfg-ens33
+sed -i s/UUID/#UUID/g /etc/sysconfig/network-scripts/ifcfg-ens33
+reboot
+
+
+master节点
+# 下载yum源
+cd /etc/yum.repos.d/
+wget  https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum -y install docker-ce-18.06.1.ce-3.el7
+systemctl enable docker&amp;&amp; systemctl start docker
+
+# kubernetes的yum源
+cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+
+# kubelet是k8s的管理工具
+# kubeadm是k8s的安装工具
+# kubectl是k8s的客户端
+# ----V1.13.3版本----
+yum install -y kubelet-1.13.3 kubeadm-1.13.3 kubectl-1.13.3 kubernetes-cni-0.6.0 
+# ----V1.15版本------
+yum install -y kubelet kubeadm kubectl
+
+# 忽略swap报错
+cat &lt;&lt;EOF &gt; /etc/sysconfig/kubelet
+KUBELET_EXTRA_ARGS=&quot;--fail-swap-on=false&quot;
+EOF
+
+# 更加转发等功能
+cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+# 让配置生效
+sysctl --system
+
+# 开机自启动kubelet
+systemctl enable kubelet
+
+
+# -----------------1.13.3版本----------------
+kubeadm init \
+  --apiserver-advertise-address=192.168.1.151 \
+  --image-repository registry.aliyuncs.com/google_containers \
+  --kubernetes-version v1.13.3 \
+  --service-cidr=10.1.0.0/16 \
+  --pod-network-cidr=10.2.0.0/16 \
+  --service-dns-domain=cluster.local \
+  --ignore-preflight-errors=Swap \
+  --ignore-preflight-errors=NumCPU
+
+# ----------------1.15.0版本---------------
+kubeadm init \
+  --apiserver-advertise-address=192.168.1.151 \
+  --image-repository registry.aliyuncs.com/google_containers \
+  --kubernetes-version v1.15.0 \
+  --service-cidr=10.1.0.0/16 \
+  --pod-network-cidr=10.2.0.0/16 \
+  --service-dns-domain=cluster.local \
+  --ignore-preflight-errors=Swap \
+  --ignore-preflight-errors=NumCPU
+
+
+
+# ----------------------参数说明-------------------------
+--apiserver-advertise-address：指定用 Master 的哪个IP地址与 Cluster的其他节点通信。
+
+--service-cidr：指定Service网络的范围，即负载均衡VIP使用的IP地址段。
+
+--pod-network-cidr：指定Pod网络的范围，即Pod的IP地址段。
+
+--image-repository：Kubenetes默认Registries地址是k8s.gcr.io，在国内并不能访问 gcr.io，在1.13版本中我们可以增加-image-repository参数，默认值是k8s.gcr.io，将其指定为阿里云镜像地址：registry.aliyuncs.com/google_containers。
+
+--kubernetes-version=v1.13.3：指定要安装的版本号。
+
+--ignore-preflight-errors=：忽略运行时的错误，例如上面目前存在[ERROR NumCPU]和[ERROR Swap]，忽略这两个报错就是增加--ignore-preflight-errors=NumCPU 和--ignore-preflight-errors=Swap的配置即可
+
+
+------------------------------kubeadm init干了什么？--------------------
+[init]：指定版本进行初始化操作
+
+[preflight] ：初始化前的检查和下载所需要的Docker镜像文件
+
+[kubelet-start] ：生成kubelet的配置文件”/var/lib/kubelet/config.yaml”，没有这个文件kubelet无法启动，所以初始化之前的kubelet实际上启动失败。
+
+[certificates]：生成Kubernetes使用的证书，存放在/etc/kubernetes/pki目录中。
+
+[kubeconfig] ：生成 KubeConfig 文件，存放在/etc/kubernetes目录中，组件之间通信需要使用对应文件。
+
+[control-plane]：使用/etc/kubernetes/manifest目录下的YAML文件，安装 Master 组件。
+
+[etcd]：使用/etc/kubernetes/manifest/etcd.yaml安装Etcd服务。
+
+[wait-control-plane]：等待control-plan部署的Master组件启动。
+
+[apiclient]：检查Master组件服务状态。
+
+[uploadconfig]：更新配置
+
+[kubelet]：使用configMap配置kubelet。
+
+[patchnode]：更新CNI信息到Node上，通过注释的方式记录。
+
+[mark-control-plane]：为当前节点打标签，打了角色Master，和不可调度标签，这样默认就不会使用Master节点来运行Pod。
+
+[bootstrap-token]：生成token记录下来，后边使用kubeadm join往集群中添加节点时会用到
+
+[addons]：安装附加组件CoreDNS和kube-proxy
+
+
+
+# 系统提示步骤
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+# 打通网络
+cd ~
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+[github地址](https://github.com/coreos/flannel),直接新建这个文件也可以，镜像可能有墙比较慢
+
+# 创建密钥
+kubeadm token create --print-join-command
+</code></pre>
+<h3 id="node节点">node节点</h3>
+<pre><code class="language-shell"># 安装docker的yum源
+cd /etc/yum.repos.d/
+wget  https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum -y install docker-ce-18.06.1.ce-3.el7
+systemctl enable docker&amp;&amp; systemctl start docker
+
+# 写入k8s的yum源
+cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+# 下载k8s的组件
+----V1.13.3版本----
+yum install -y kubelet-1.13.3 kubeadm-1.13.3 kubectl-1.13.3 kubernetes-cni-0.6.0 
+----V1.15版本------
+yum install -y kubelet kubeadm kubectl
+
+# 忽略swap错误
+cat &lt;&lt;EOF &gt; /etc/sysconfig/kubelet
+KUBELET_EXTRA_ARGS=&quot;--fail-swap-on=false&quot;
+EOF
+
+# 开启系统转发
+cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+# 让配置生效
+sysctl --system
+
+# 设置服务开机自启动
+systemctl enable kubelet
+
+
+# 加入集群（令牌过期作废）
+kubeadm join 192.168.3.207:6443 --token a4645k.pq7e5e34y9sl9g53 --discovery-token-ca-cert-hash sha256:abd02c82cdefbcc2d17a2f53ec9b376e31d123ef33af880608d97f64b12a65f5  --ignore-preflight-errors=Swap
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/SYEUK_VDx/">
+                  <h3 class="post-title">
+                    docker搭建私有仓库
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
