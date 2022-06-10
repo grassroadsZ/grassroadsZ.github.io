@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Docker 命令 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="docker run ：创建一个新的容器并运行一个命令
+
+语法
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+docker 命令
+docker启动后日志会在以下位置
+/var/lib/dock..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Docker 命令</h2>
+            <div class="post-date">2022-06-09</div>
+            
+            <div class="post-content" v-pre>
+              <pre><code class="language-shell">docker run ：创建一个新的容器并运行一个命令
+
+语法
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+</code></pre>
+<h2 id="docker-命令">docker 命令</h2>
+<p>docker启动后日志会在以下位置<br>
+/var/lib/docker/containers/容器ID/容器ID-json.log</p>
+<ul>
+<li>-a stdin: 指定标准输入输出内容类型，可选STDIN/STDOUT/STDERR 三项；</li>
+<li>-d: 后台运行容器，并返回容器ID；</li>
+<li>-i: 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li>-P: 随机端口映射，容器内部端口随机映射到主机的高端口</li>
+<li>-p: 指定端口映射，格式为：主机(宿主)端口:容器端口</li>
+<li>-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li>--name=&quot;nginx-lb&quot;: 为容器指定一个名称；</li>
+<li>--dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；</li>
+<li>--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；</li>
+<li>-h &quot;mars&quot;: 指定容器的hostname；</li>
+<li>-e username=&quot;ritchie&quot;: 设置环境变量；</li>
+<li>--env-file=[]: 从指定文件读入环境变量；</li>
+<li>--cpuset=&quot;0-2&quot; or --cpuset=&quot;0,1,2&quot;: 绑定容器到指定CPU运行；</li>
+<li>-m :设置容器使用内存最大值；</li>
+<li>--net=&quot;bridge&quot;: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
+<li>--link=[]: 添加链接到另一个容器；</li>
+<li>--expose=[]: 开放一个端口或一组端口；</li>
+<li>--volume , -v: 绑定一个卷</li>
+</ul>
+<h2 id="docker-compose命令">docker-compose命令</h2>
+<ul>
+<li>docker-compose build：在docker-compose.yml与dockerfile文件目录编译包</li>
+<li>docker-compose up：在docker-compose.yml与dockerfile文件目录启动编译的镜像</li>
+<li>docker-compose down：在docker-compose.yml与dockerfile文件目录停止启动的镜像</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>日志位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ubuntu(14.04)</td>
+<td>/var/log/upstart/docker.log</td>
+</tr>
+<tr>
+<td>Ubuntu(16.04)</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>CentOS 7/RHEL 7/Fedora</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>CoreOS</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>OpenSuSE</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>OSX</td>
+<td>~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/log/d‌ocker.log</td>
+</tr>
+<tr>
+<td>Debian GNU/Linux 7</td>
+<td>/var/log/daemon.log</td>
+</tr>
+<tr>
+<td>Debian GNU/Linux 8</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>Boot2Docker</td>
+<td>/var/log/docker.log</td>
+</tr>
+</tbody>
+</table>
+<p>容器日志</p>
+<p>容器的日志 则可以通过 docker logs 命令来访问，而且可以像 tail -f 一样，使用 docker logs -f 来实时查看。如果使用 Docker Compose，则可以通过 docker-compose logs &lt;服务名&gt; 来查看。</p>
+<p>如果深究其日志位置，每个容器的日志默认都会以 json-file 的格式存储于 /var/lib/docker/containers/&lt;容器id&gt;/&lt;容器id&gt;-json.log 下，不过并不建议去这里直接读取内容，因为 Docker 提供了更完善地日志收集方式 - Docker 日志收集驱动。</p>
+<p>关于日志收集，Docker 内置了很多日志驱动，可以通过类似于 fluentd, syslog 这类服务收集日志。无论是 Docker 引擎，还是容器，都可以使用日志驱动。比如，如果打算用 fluentd 收集某个容器日志，可以这样启动容器：</p>
+<pre><code class="language-shell">$ docker run -d \
+--log-driver=fluentd \
+--log-opt fluentd-address=10.2.3.4:24224 \
+--log-opt tag=&quot;docker.{{.Name}}&quot; \
+nginx
+</code></pre>
+<p>其中 10.2.3.4:24224 是 fluentd 服务地址，实际环境中应该换成真实的地址。</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/imJ86Pjx1/">
+                  <h3 class="post-title">
+                    Jenkins定时任务
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

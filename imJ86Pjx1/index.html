@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文章迁移 | grassroadsZ</title>
+<title>Jenkins定时任务 | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,11 @@
 
 
 
-    <meta name="description" content="由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。
-" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="
+每隔15分钟 H/15 * * * *
+每前半小时中每隔10分钟。 (3次, 或许:04, :14, :24) H(0-29)/10 * * * *
+每个工作日从早上9点45分开始到下午3点45分结束这段时间内每间隔2小时的45分钟那一刻..." />
+    <meta name="keywords" content="测试经验" />
   </head>
   <body>
     <div id="app" class="main">
@@ -97,20 +99,34 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">文章迁移</h2>
-            <div class="post-date">2022-05-28</div>
+            <h2 class="post-title">Jenkins定时任务</h2>
+            <div class="post-date">2022-06-09</div>
             
             <div class="post-content" v-pre>
-              <p>由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。</p>
+              <ul>
+<li>每隔15分钟 <code>H/15 * * * *</code></li>
+<li>每前半小时中每隔10分钟。 (3次, 或许:04, :14, :24) <code>H(0-29)/10 * * * *</code></li>
+<li>每个工作日从早上9点45分开始到下午3点45分结束这段时间内每间隔2小时的45分钟那一刻。<code>45 9-16/2 * * 1-5</code></li>
+<li>每个工作日从早上9点到下午5点这段时间内每间隔2小时之间的某刻。(或许在上午10:38, 下午12:38, 下午2:38 , 下午4:38) <code>H H(9-16)/2 * * 1-5</code></li>
+<li>每月（除了12月）从1号到15号这段时间内某刻。<code>H H 1,15 1-11 *</code></li>
+</ul>
 
             </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://grassroadsz.github.io/tag/KlZQBekQp/" class="tag">
+                    测试经验
+                  </a>
+                
+              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
+                <a href="https://grassroadsz.github.io/9-CCXyDrY/">
                   <h3 class="post-title">
-                    UI自动化文件上传
+                    UI自动化部署(Python3+Pytest+ selenium-docker + allure)
                   </h3>
                 </a>
               </div>

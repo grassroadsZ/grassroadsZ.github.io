@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://grassroadsz.github.io</id>
     <title>grassroadsZ</title>
-    <updated>2022-06-08T02:42:51.661Z</updated>
+    <updated>2022-06-10T00:51:21.546Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://grassroadsz.github.io"/>
     <link rel="self" href="https://grassroadsz.github.io/atom.xml"/>
@@ -10,6 +10,825 @@
     <logo>https://grassroadsz.github.io/images/avatar.png</logo>
     <icon>https://grassroadsz.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, grassroadsZ</rights>
+    <entry>
+        <title type="html"><![CDATA[DjangoAdmin-2-自定义后台管理页面字段的展示相关]]></title>
+        <id>https://grassroadsz.github.io/Pwu_lJk-i/</id>
+        <link href="https://grassroadsz.github.io/Pwu_lJk-i/">
+        </link>
+        <updated>2022-06-09T02:37:08.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.66ze4xspj0c0.webp" alt="image" loading="lazy"></figure>
+<h2 id="jobsadminpy">jobs/admin.py</h2>
+<pre><code class="language-python">from django.contrib import admin
+from .models import Job
+
+
+# Register your models here.
+
+
+class JobAdmin(admin.ModelAdmin):
+    # 列表页展示字段
+    list_display = [&quot;job_name&quot;, &quot;job_type&quot;, &quot;city&quot;, &quot;creator&quot;, &quot;create_time&quot;]
+
+    # 定义后台列表页中不显示的字段
+    exclude = [&quot;creator&quot;]
+
+    # 保存模型类对象之前进行的操作
+    def save_model(self, request, obj, form, change):
+        obj.creator = request.user
+        super().save_model(request, obj, form, change)
+
+# 注册model类
+admin.site.register(Job, JobAdmin)
+
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.12j6dmpt8bio.webp" alt="image" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker 命令]]></title>
+        <id>https://grassroadsz.github.io/mAhzwkCca/</id>
+        <link href="https://grassroadsz.github.io/mAhzwkCca/">
+        </link>
+        <updated>2022-06-09T02:21:53.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-shell">docker run ：创建一个新的容器并运行一个命令
+
+语法
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+</code></pre>
+<h2 id="docker-命令">docker 命令</h2>
+<p>docker启动后日志会在以下位置<br>
+/var/lib/docker/containers/容器ID/容器ID-json.log</p>
+<ul>
+<li>-a stdin: 指定标准输入输出内容类型，可选STDIN/STDOUT/STDERR 三项；</li>
+<li>-d: 后台运行容器，并返回容器ID；</li>
+<li>-i: 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li>-P: 随机端口映射，容器内部端口随机映射到主机的高端口</li>
+<li>-p: 指定端口映射，格式为：主机(宿主)端口:容器端口</li>
+<li>-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li>--name=&quot;nginx-lb&quot;: 为容器指定一个名称；</li>
+<li>--dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；</li>
+<li>--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；</li>
+<li>-h &quot;mars&quot;: 指定容器的hostname；</li>
+<li>-e username=&quot;ritchie&quot;: 设置环境变量；</li>
+<li>--env-file=[]: 从指定文件读入环境变量；</li>
+<li>--cpuset=&quot;0-2&quot; or --cpuset=&quot;0,1,2&quot;: 绑定容器到指定CPU运行；</li>
+<li>-m :设置容器使用内存最大值；</li>
+<li>--net=&quot;bridge&quot;: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
+<li>--link=[]: 添加链接到另一个容器；</li>
+<li>--expose=[]: 开放一个端口或一组端口；</li>
+<li>--volume , -v: 绑定一个卷</li>
+</ul>
+<h2 id="docker-compose命令">docker-compose命令</h2>
+<ul>
+<li>docker-compose build：在docker-compose.yml与dockerfile文件目录编译包</li>
+<li>docker-compose up：在docker-compose.yml与dockerfile文件目录启动编译的镜像</li>
+<li>docker-compose down：在docker-compose.yml与dockerfile文件目录停止启动的镜像</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>日志位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ubuntu(14.04)</td>
+<td>/var/log/upstart/docker.log</td>
+</tr>
+<tr>
+<td>Ubuntu(16.04)</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>CentOS 7/RHEL 7/Fedora</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>CoreOS</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>OpenSuSE</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>OSX</td>
+<td>~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/log/d‌ocker.log</td>
+</tr>
+<tr>
+<td>Debian GNU/Linux 7</td>
+<td>/var/log/daemon.log</td>
+</tr>
+<tr>
+<td>Debian GNU/Linux 8</td>
+<td>journalctl -u docker.service</td>
+</tr>
+<tr>
+<td>Boot2Docker</td>
+<td>/var/log/docker.log</td>
+</tr>
+</tbody>
+</table>
+<p>容器日志</p>
+<p>容器的日志 则可以通过 docker logs 命令来访问，而且可以像 tail -f 一样，使用 docker logs -f 来实时查看。如果使用 Docker Compose，则可以通过 docker-compose logs &lt;服务名&gt; 来查看。</p>
+<p>如果深究其日志位置，每个容器的日志默认都会以 json-file 的格式存储于 /var/lib/docker/containers/&lt;容器id&gt;/&lt;容器id&gt;-json.log 下，不过并不建议去这里直接读取内容，因为 Docker 提供了更完善地日志收集方式 - Docker 日志收集驱动。</p>
+<p>关于日志收集，Docker 内置了很多日志驱动，可以通过类似于 fluentd, syslog 这类服务收集日志。无论是 Docker 引擎，还是容器，都可以使用日志驱动。比如，如果打算用 fluentd 收集某个容器日志，可以这样启动容器：</p>
+<pre><code class="language-shell">$ docker run -d \
+--log-driver=fluentd \
+--log-opt fluentd-address=10.2.3.4:24224 \
+--log-opt tag=&quot;docker.{{.Name}}&quot; \
+nginx
+</code></pre>
+<p>其中 10.2.3.4:24224 是 fluentd 服务地址，实际环境中应该换成真实的地址。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Jenkins定时任务]]></title>
+        <id>https://grassroadsz.github.io/imJ86Pjx1/</id>
+        <link href="https://grassroadsz.github.io/imJ86Pjx1/">
+        </link>
+        <updated>2022-06-09T01:56:14.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>每隔15分钟 <code>H/15 * * * *</code></li>
+<li>每前半小时中每隔10分钟。 (3次, 或许:04, :14, :24) <code>H(0-29)/10 * * * *</code></li>
+<li>每个工作日从早上9点45分开始到下午3点45分结束这段时间内每间隔2小时的45分钟那一刻。<code>45 9-16/2 * * 1-5</code></li>
+<li>每个工作日从早上9点到下午5点这段时间内每间隔2小时之间的某刻。(或许在上午10:38, 下午12:38, 下午2:38 , 下午4:38) <code>H H(9-16)/2 * * 1-5</code></li>
+<li>每月（除了12月）从1号到15号这段时间内某刻。<code>H H 1,15 1-11 *</code></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[UI自动化部署(Python3+Pytest+ selenium-docker + allure)]]></title>
+        <id>https://grassroadsz.github.io/9-CCXyDrY/</id>
+        <link href="https://grassroadsz.github.io/9-CCXyDrY/">
+        </link>
+        <updated>2022-06-09T01:42:42.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="本地运行">本地运行</h2>
+<pre><code class="language-shell">pip install -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com -r requirements.txt
+python run_local.py
+</code></pre>
+<ul>
+<li>allure 报告需本地安装allure</li>
+<li>请保证存在名为TarsUIAuto的应用存在</li>
+<li>请保证存在名为ABCD的服务存在</li>
+</ul>
+<h2 id="服务器centos部署">服务器(Centos)部署</h2>
+<h3 id="java安装">java安装</h3>
+<pre><code class="language-shell">yum install java
+</code></pre>
+<h3 id="maven安装">Maven安装</h3>
+<pre><code class="language-shell">wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+tar -xvf  apache-maven-3.3.9-bin.tar.gz
+
+sudo mv -f apache-maven-3.3.9 /usr/local/
+
+sudo vim /etc/profile
+# 添加到最后两行
+export MAVEN_HOME=/usr/local/apache-maven-3.3.9
+export PATH=${PATH}:${MAVEN_HOME}/bin
+
+source /etc/profile
+mvn -v
+</code></pre>
+<h3 id="jenkins安装">Jenkins安装</h3>
+<pre><code class="language-shell">sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+yum install jenkins -y
+</code></pre>
+<p><strong>修改端口(未被占用可不修改)</strong></p>
+<pre><code class="language-shell">vi /etc/sysconfig/jenkins
+:/PORT
+# 改为其它未被占用的端口8088
+
+sudo systemctl daemon-reload
+</code></pre>
+<p>启动/停止/重启</p>
+<pre><code class="language-shell">service jenkins start/stop/restart
+</code></pre>
+<p>查看安装密码</p>
+<pre><code class="language-shell">cat /var/lib/jenkins/secrets/initialAdminPassword
+</code></pre>
+<p>修改jenkins执行命令的用户</p>
+<pre><code class="language-shell">vim /etc/sysconfig/jenkins
+# 将$JENKINS_USER=&quot;jenkins&quot;修改为$JENKINS_USER=&quot;root&quot;
+
+# 修改目录权限
+chown -R root:root /var/lib/jenkins
+chown -R root:root /var/cache/jenkins
+chown -R root:root /var/log/jenkins
+
+# 将jenkins加入docker 的用户组
+
+sudo gpasswd -a jenkins docker &amp;&amp; sudo service jenkins restart
+</code></pre>
+<p>修改docker 运行容器的host地址</p>
+<pre><code class="language-shell">vi /etc/hosts
+#添加如下
+193.112.207.190 www.tars.test2.com
+</code></pre>
+<p>确保域名可被请求<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.65httgaobcg0.webp" alt="image" loading="lazy"></p>
+<p>安装jenkins的allure插件</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.386yphytrg40.webp" alt="image" loading="lazy"></figure>
+<p>TarsUI项目jenkins配置参考<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3ulaagmcmx20.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3b981di7rec.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tc5lw75d800.webp" alt="image" loading="lazy"></figure>
+<h3 id="必要条件">必要条件</h3>
+<p>虚拟环境命令</p>
+<pre><code class="language-shell">yum install python3
+python3 -m venv 路径/虚拟环境名
+
+docker pull elgalu/selenium
+
+docker pull dosel/zalenium
+</code></pre>
+<h3 id="jenkins_startsh解析">jenkins_start.sh解析</h3>
+<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1wg2t339odfk.webp" alt="image" loading="lazy"></figure>
+<p>运行过程中的屏幕录制存放在docker run 命令指定的video路径中，理论上通过外网ip+端口是可以访问控制台的，可以直接看回放的，但是在安全组放开，防火墙关闭状态下仍然无法访问，待解决</p>
+<h3 id="注意">注意</h3>
+<p>关于jenkins 相关的配置请尽量原封不动，否则会遇到如下问题</p>
+<p>● jenkins无法启动docker容器的问题（通过将jenkins加docker组，实际改成root这步可以忽略）<br>
+● jenkins的执行用户尽量改成root，否则pip依赖包时可能加sudo依然会存在无权限无法安装依赖包<br>
+● 建议jenkins中在tarsUI的工程上加一个stop selenium的docker容器命令在TarsUI项目构建完成后再进行容器停止</p>
+<p><a href="https://opensource.zalando.com/zalenium/#faq">selenium docker 容器启动参数参考</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git命令]]></title>
+        <id>https://grassroadsz.github.io/Lfz4yX5Y1/</id>
+        <link href="https://grassroadsz.github.io/Lfz4yX5Y1/">
+        </link>
+        <updated>2022-06-08T08:53:38.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="名词">名词</h1>
+<p>master：默认开发分支</p>
+<p>origin：默认远程版本库</p>
+<p>Index/stage:暂缓区</p>
+<p>Workspace：工作区</p>
+<p>Repository：仓库区（本地仓库）</p>
+<p>Remote：远程仓库</p>
+<h2 id="一-新建代码库">一. 新建代码库</h2>
+<pre><code class="language-shell"># 在当前目录新建一个代码仓库
+
+git init
+
+# 新建一个目录，将其初始化为Git仓库
+
+git init [project-name]
+
+# 下载一个项目和它的整个代码历史
+
+git clone[url]
+</code></pre>
+<h2 id="二配置">二.配置</h2>
+<p>git的设置文件为.gitconfig,它可以在用户主目录下（全局配置）</p>
+<pre><code class="language-shell"># 显示当前的Git配置
+
+git config --list
+
+# 编辑Git配置文件
+
+git config -e [--global]
+
+# 设置提交代码时的用户信息
+
+git config [--global]
+
+# 设置提交代码时的用户信息
+
+git config [--global] user.name &quot;[name]&quot;
+
+git config [--global] user.email &quot;email address&quot;
+</code></pre>
+<h2 id="三增加删除修改文件">三.增加/删除/修改文件</h2>
+<pre><code class="language-shell"># 查看状态
+
+git status
+
+# 查看变更内容
+
+git diff
+
+# 添加指定文件到暂存区
+
+git add [file1] [file2]
+
+# 添加指定目录到暂缓区，包括子目录
+
+git add .
+
+# 添加每个变化前，都会要求确认
+
+#对于同一个文件的多处变化，可以实现分次提交
+
+git add -p
+
+# 删除工作区文件，并且将这次删除放入=暂缓区
+
+git rm[file1] [file2]...
+
+# 停止追踪指定文件，但该文件会保留在工作区
+
+git rm --cached [file]
+
+# 改名文件，并且将这个改名放入暂存区
+
+git mv [file-oigin] [file-renamed]
+</code></pre>
+<h2 id="四-代码提交">四、代码提交</h2>
+<pre><code class="language-shell"># 提交暂缓区至仓库区
+
+git commit -m [message]
+
+# 提交暂缓区的指定文件到仓库区
+
+git commit [file1] [file2]...m [message]
+
+# 提交工作区自上次commit之后的变化，直接到仓库区
+
+git commit -a
+
+# 使用一次新的commit，替代上一次提交
+
+# 如果代码没有任何新变化，则用来改写上一次commit的提交信息
+
+git commit --amend -m [message]
+
+# 重做上一次commit，并包括指定文件的新变化
+
+git commit --amend [file1] [file2]...
+
+</code></pre>
+<h2 id="五分支">五.分支</h2>
+<pre><code class="language-shell"># 显示所有的本地分支
+
+git branch
+
+# 列出所有的远程分支
+
+git branch -r
+
+# 列出所有的本地分支和远程分支
+
+git branch -a
+
+# 新建一个分支，但是依然停留在当前分支
+
+git branch [branch-name]
+
+# 新建一个分支，并与指定的远程分支建立追踪关系
+
+git branch --track [branck] [remote-name]
+
+# 删除远程分支
+
+git push origin --delete [branch-name]
+
+git branch -dr [remote/branch]
+
+# 新建一个分支，并切换到该分支
+
+git checkout -b [branch]
+
+# 切换到指定分支，并更新工作区
+
+git checkout [branch-name]
+
+# 切换到上一个分支
+
+git checkout -
+
+# 建立追踪关系，在现有分支与指定的远程分支之间
+
+git branch --set-upstream [branch] [remote-branch]
+
+# 合并指定分支到当前分支
+
+git merge [branch]
+
+# 衍合指定分支到当前分支
+
+git rebase &lt;branch&gt;
+
+# 选择一个commit，合并到当前分支
+
+git cherry-pick [commit]
+
+</code></pre>
+<h2 id="六-标签">六. 标签</h2>
+<pre><code class="language-shell">
+# 列出所有本地标签
+
+git tag
+
+# 基于最新提交创建的标签
+
+git tag &lt;tagname&gt;
+
+# 删除标签
+
+git tag -d &lt;tagname&gt;
+
+# 删除远程tag
+
+git push origin ：refs/tages/[tagename]
+
+# 查看tag信息
+
+git show [tag]
+
+# 提交指定tag
+
+git  push [remote] [tag]
+
+# 提交所有tag
+
+git push [remote] --[tag]
+
+# 新建一个分支，指向某个tag
+
+git checkout -b [branch] [tag]
+
+</code></pre>
+<h2 id="七查看信息">七.查看信息</h2>
+<pre><code class="language-shell"># 显示有变更的文件
+
+git status 
+
+# 显示当前分支的版本历史
+
+git log
+
+# 显示commit历史，以及每次commit发生变更的文件
+
+git log --stat
+
+# 搜索提交历史，根据关键词
+
+git log -s [keyword]
+
+# 显示某个commit之后的所有变动，每个commit占据一行
+
+git log [tag] HEAD --pretty=format:%s
+
+# 显示某个commit之后的所有变动，其“提交说明”必须符合搜索条件
+
+git log [tag] HEAD --grep feature
+
+# 显示某个文件的版本历史，包括文件改名
+
+git log --follow [file]
+git whatchanged [file]
+
+# 显示指定文件相关的每一次diff
+
+git log -p [file]
+
+# 显示过去的5次提交
+
+git log -5 --pretty --oneline
+
+# 显示所有提交过的用户，按提交次数排序
+
+git shortlog -sn
+
+# 显示指定文件是什么人在什么时间修改过
+
+git blame [file]
+
+# 显示暂缓区和工作区的差异
+
+git diff
+
+# 显示暂缓区和上一个commit的差异
+
+git diff HEAD
+
+# 显示两次提交之间的差异
+
+git diff [first-branch]...[second-branch]
+
+# 显示某次提交发生变化的文件
+
+git show --name-only [commit]
+
+</code></pre>
+<h2 id="八-远程操作">八、远程操作</h2>
+<pre><code class="language-shell"># 下载远程仓库的所有变动
+
+git fetch [remote]
+
+# 取回远程仓库的变化，并与本地分支合并
+
+git pull [remote] [branch]
+
+# 显示所有的远程仓库
+
+git remote -v 
+
+# 显示某个远程仓库的信息
+
+git remote show [remote]
+
+# 增加一个新的远程仓库，并命名
+
+git remote add [shortname] [url]
+
+# 上传本地指定分支到远程仓库
+
+git push [remote] [branch]
+
+# 强行推送当前分支到远程仓库，即使有冲突
+
+git push [remote] --force
+
+# 推送所有的分支到远程仓库
+
+git push [remote] --all
+
+</code></pre>
+<h2 id="九撤销">九.撤销</h2>
+<pre><code class="language-shell"># 撤销工作目录中所有未提交文件的修改内容
+
+git reset --hard HEAD
+
+# 撤销指定的未提交文件的修改内容
+git  checkout HEAD [file]
+
+# 撤销指定的提交
+
+git revert &lt;commit&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Sonarqube7.7集成阿里PMD代码规范]]></title>
+        <id>https://grassroadsz.github.io/6oir-jIzh/</id>
+        <link href="https://grassroadsz.github.io/6oir-jIzh/">
+        </link>
+        <updated>2022-06-08T08:34:34.000Z</updated>
+        <content type="html"><![CDATA[<p>环境：<br>
+● linux Centos7<br>
+● sonarqube7.7 + postgres镜像</p>
+<pre><code class="language-shell">docker run   -d   --name postgres10   -p 5432:5432   -e POSTGRES_USER=sonar   -e POSTGRES_PASSWORD=123456   postgres
+
+docker run   -d   --name sonar7.7   -p 9000:9000   --link postgres10   -e SONARQUBE_JDBC_URL=jdbc:postgresql://postgres10:5432/sonar   -e SONARQUBE_JDBC_USERNAME=sonar   -e SONARQUBE_JDBC_PASSWORD=123456   -v /home/apppackage/sonarqube-7.7/conf:/opt/sonarqube_conf   -v /home/apppackage/sonarqube-7.7/extensions:/opt/sonarqube_extensions   -v /home/apppackage/sonarqube-7.7/logs:/opt/sonarqube_logs   -v /home/apppackage/sonarqube-7.7/data:/opt/sonarqube_data   sonarqube:7.7-community
+</code></pre>
+<p><a href="https://github.com/SonarQubeCommunity/sonar-l10n-zh">中文插件下载地址</a>：根据对应的sonar版本下载对应的jar包</p>
+<p><a href="https://github.com/caowenliang/sonar-pmd-p3c">p3c_git地址</a>：下载后按照如图修改，<br>
+增加一对大的标签</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
+<p>然后在pom的目录下使用命令mvn package -DskipTests</p>
+<p>生成的jar包路径<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
+<p>假如不添加大标签运行扫描时会失败如图：<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
+<p>将jar包上传至linux服务器后运行命令</p>
+<pre><code class="language-shell">docker cp sonar-pmd-plugin-3.2.1.jar sonar7.7:/opt/sonarqube/extensions/plugins/
+docker cp sonar-l10n-zh-plugin-1.27.jar sonar7.7:/opt/sonarqube/extensions/plugins
+# 将有变更的容器从新打成镜像docker commit 容器名 新的镜像名
+docker commit sonar7.7 sonar7.7-cn-pmd
+# 重启sonarqube
+docker restart sonar7.7
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
+<a href="https://blog.csdn.net/weixin_43367055/article/details/100770254">添加p3c规则教程(jar包打出来的是PMD开头)</a>：使用docker-compose或者是-v映射目录时，插件一直无法加载进去<br>
+<a href="https://blog.csdn.net/weixin_34205826/article/details/86250962">解决jar运行时报错</a><br>
+<a href="https://www.jianshu.com/p/b849175dd38b">编译jar包参考链接</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[批量修改图片CDN]]></title>
+        <id>https://grassroadsz.github.io/4eZMO1Acq/</id>
+        <link href="https://grassroadsz.github.io/4eZMO1Acq/">
+        </link>
+        <updated>2022-06-08T08:21:55.000Z</updated>
+        <content type="html"><![CDATA[<p>图片是放在github 仓库的 但是 cdn.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net</p>
+<pre><code class="language-python">
+# !/usr/bin/env python
+# -*- coding:utf-8 -*-
+import os
+import re
+import time
+
+
+def modify_md_content(top):
+    for root, dirs, files in os.walk(top, topdown=False):
+        # 循环文件
+        for file_name in files:
+            file_name_split = file_name.split('.')
+
+            try:
+                if file_name_split[-1] == 'md':
+                    # 找到md文件并且复制一份md文件路径
+                    md_file_path = os.path.join(root, '.'.join(file_name_split))
+                    copy_md_file_path = os.path.join(root, '.'.join([f'{file_name_split[0]}_copy', file_name_split[1]]))
+
+                    # 打开md文件然后进行替换
+                    with open(md_file_path, 'r', encoding='utf8') as fr, \
+                            open(copy_md_file_path, 'w', encoding='utf8') as fw:
+                        data = fr.read()
+                        # 选择md文件中想要替换的字段
+                        data = re.sub('cdn.jsdelivr.net', 'fastly.jsdelivr.net', data)
+
+                        fw.write(data)  # 新文件一次性写入原文件内容
+                        # fw.flush()
+
+                    # 删除原文件
+                    os.remove(md_file_path)
+                    # 重命名新文件名为原文件名
+                    os.rename(copy_md_file_path, md_file_path)
+                    print(f'{md_file_path} done...')
+                    time.sleep(0.5)
+            except FileNotFoundError as e:
+                print(e)
+        time.sleep(0.5)
+
+
+if __name__ == '__main__':
+    top = &quot;/Users/grassroadsz/Documents/Gridea/posts&quot;
+    modify_md_content(top)
+
+    ```</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Charless 常用操作]]></title>
+        <id>https://grassroadsz.github.io/OH9Z12mtN/</id>
+        <link href="https://grassroadsz.github.io/OH9Z12mtN/">
+        </link>
+        <updated>2022-06-08T03:40:41.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="重定向">重定向</h1>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.27ogwol667ok.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3i7cbptk7ge0.webp" alt="image" loading="lazy"></figure>
+<h2 id="拦截请求修改数据">拦截请求修改数据</h2>
+<h3 id="单次修改响应数据">单次修改响应数据</h3>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.4bvupr55t38.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2dgx1oc32r40.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.15suaswe4pq8.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.xihuh28ypvk.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.eigsbn388gg.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1l9gigdwu2jk.webp" alt="image" loading="lazy"></figure>
+<h3 id="自动修改">自动修改</h3>
+<p>Breakpoint 快速的实现接口拦截修改，但是如果每次都想要以相同的方式进行拦截修改就需要每次都进行手动触发，这样就很不方便，影响效率；因此我们可以使用 Tools 中的 Rewrite 功能来完成提前定义好接口数据的篡改规则，这样每次访问的时候就会自动拦截修改发送</p>
+<p>1）Tools 中选中 Rewrite，然后设置需要拦截的请 URL<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5kom5wtwoe00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="9"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.38064gbbt4w0.webp" alt="image" loading="lazy"></figure>
+<p>2）再选择 Add 一个重写规则，将返回值中的“ TTF榜单 ”替换为“ 11111榜单 ”、</p>
+<figure data-type="image" tabindex="10"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tpcljo6cfs0.webp" alt="image" loading="lazy"></figure>
+<p>重新访问 TesterHome 首页</p>
+<figure data-type="image" tabindex="11"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1xap7lc6l9kw.webp" alt="image" loading="lazy"></figure>
+<p>上述 Rewrite 功能，不仅可以对 Response 进行修改，还可以对 Request 进行修改，只是较为常用的就是对 Response 进行修改。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DjangoAdmin-1-创建后台]]></title>
+        <id>https://grassroadsz.github.io/oiFkRrJij/</id>
+        <link href="https://grassroadsz.github.io/oiFkRrJij/">
+        </link>
+        <updated>2022-06-08T02:50:28.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="创建项目">创建项目</h1>
+<pre><code class="language-shell">django-admin.py startproject  meetrooms
+cd meetrooms
+python manage.py startapp jobs
+</code></pre>
+<h2 id="meetroomssettingpy">meetrooms/setting.py</h2>
+<pre><code class="language-python">
+&quot;&quot;&quot;
+Django settings for meetrooms project.
+
+Generated by 'django-admin startproject' using Django 2.2.8.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/2.2/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/2.2/ref/settings/
+&quot;&quot;&quot;
+
+import os
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '2$aj8h1w6yz1ooue=ius2&amp;6c^d7nzi1av-#bw+2caqr8!_jb#f'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    # 好看的后台管理
+    &quot;simpleui&quot;,
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # 自己的应用
+    &quot;jobs&quot;,
+]
+
+# ...... 此处省略
+# Internationalization
+# https://docs.djangoproject.com/en/2.2/topics/i18n/
+
+LANGUAGE_CODE = 'zh-hans'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATIC_URL = '/static/'
+</code></pre>
+<h2 id="jobsmodelspy">jobs/models.py</h2>
+<pre><code class="language-python">from django.contrib.auth.models import User
+from django.db import models
+
+# Create your models here.
+JOB_TITLES = [
+    (0, &quot;开发&quot;),
+    (1, &quot;测试&quot;),
+    (2, &quot;产品&quot;)
+]
+
+JOB_TYPES = [
+    (0, &quot;技术类&quot;),
+    (1, &quot;产品类&quot;),
+    (2, &quot;运营类&quot;),
+    (3, &quot;设计类&quot;)
+]
+JOB_CITIES = [
+    (0, &quot;北京&quot;),
+    (1, &quot;上海&quot;),
+    (2, &quot;深圳&quot;)
+]
+
+
+class Job(models.Model):
+    job_type = models.SmallIntegerField(blank=False, choices=JOB_TYPES, verbose_name=&quot;职位类别&quot;)
+    job_name = models.SmallIntegerField(blank=False, verbose_name=&quot;工作名称&quot;, choices=JOB_TITLES)
+    city = models.SmallIntegerField(verbose_name=&quot;工作地点&quot;, choices=JOB_CITIES, blank=False)
+    job_info = models.TextField(verbose_name=&quot;工作描述&quot;, blank=False, max_length=1024)
+    job_requirement = models.TextField(verbose_name=&quot;职位要求&quot;, blank=False, max_length=1024)
+    # creator没了的时候如何关联,用户删除时设置为Null，SET_NULL会报错
+    creator = models.ForeignKey(User, verbose_name=&quot;创建人&quot;, on_delete=models.SET(None))
+    create_time = models.DateTimeField(verbose_name=&quot;创建时间&quot;, auto_now=True)
+    update_time = models.DateTimeField(verbose_name=&quot;修改时间&quot;, auto_now=True)
+
+</code></pre>
+<h2 id="jobsadminpy">jobs/admin.py</h2>
+<pre><code class="language-python">
+from django.contrib import admin
+from .models import Job
+# Register your models here.
+# 注册model类,使Django后台可管理
+admin.site.register(Job)
+</code></pre>
+<h2 id="启动运行">启动运行</h2>
+<pre><code class="language-shell">python manage.py makemigrations
+python manage.py migrate
+
+python3 manage.py createsuperuser         
+用户名 (leave blank to use 'grassroadsz'): test
+电子邮件地址: test@qq.com
+Password: 
+Password (again): 
+密码跟 用户名 太相似了。
+密码长度太短。密码必须包含至少 8 个字符。
+这个密码太常见了。
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+
+python manage.py runserver 127.0.0.1:8000
+</code></pre>
+<p>访问：127.0.0.1:8000/admin</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Django知识点]]></title>
         <id>https://grassroadsz.github.io/FUjWD5NC8/</id>
@@ -1819,1955 +2638,6 @@ post: 新建项目
  interfaces: 获取指定项目的所有接口数据
   &quot;&quot;&quot;
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[K8S 单集群部署]]></title>
-        <id>https://grassroadsz.github.io/VkMGKzvHG/</id>
-        <link href="https://grassroadsz.github.io/VkMGKzvHG/">
-        </link>
-        <updated>2022-05-29T09:21:17.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="使用kubeadm安装的步骤">使用kubeadm安装的步骤：</h2>
-<pre><code class="language-text">
-
-1. master：安装kubelet，kubeadm，docker，kubeclt客户端，然后初始化，生成令牌，供node端加入
-2. node01：安装kubelet，kubeadm，docker后，join 直接加入集群即可
-3. node02：安装kubelet，kubeadm，docker后，join 直接加入集群即可
-
-</code></pre>
-<p>PS：在CentOS中安装K8S只能在Centos7的系统上进行安装，原因是Linux 内核的版本必须是 3.10 以上</p>
-<h2 id="master-node机器初始化">master、node机器初始化</h2>
-<h3 id="关防火墙关swap">关防火墙，关swap</h3>
-<pre><code class="language-shell"># 关闭selinux
-setenforce  0
-sed -i &quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/sysconfig/selinux
-
-# 关闭防火墙
-systemctl stop firewalld
-systemctl disable firewalld
-
-# 关闭swap
-swapoff -a
-# 修改/etc/fstab文件，注释掉SWAP的自动挂载，使用free -m确认swap已经关闭
-sed -i 's/.*swap.*/#&amp;/' /etc/fstab
-</code></pre>
-<h3 id="改ip改hostname改hosts关机">改IP，改hostname，改hosts，关机</h3>
-<pre><code class="language-shell">##### -----------------master:-------------------
-
-echo &quot;master&quot; &gt; /etc/hostname
-cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
-192.168.1.151 master
-192.168.1.152 node01
-192.168.1.153 node02
-EOF
-sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.207#g /etc/sysconfig/network-scripts/ifcfg-ens33
-sed -i s/UUID/#UUID/g /etc/sysconfig/network-scripts/ifcfg-ens33
-reboot
-
-
-##### -----------------node01:-------------------
-
-echo &quot;node01&quot; &gt; /etc/hostname
-cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
-192.168.1.151 master
-192.168.1.152 node01
-192.168.1.153 node02
-EOF
-sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.208#g /etc/sysconfig/network-scripts/ifcfg-ens33
-sed -i s/UUID/#UUID/g  /etc/sysconfig/network-scripts/ifcfg-ens33
-reboot
-
-
-##### -----------------node02:-------------------
-
-echo &quot;node02&quot; &gt; /etc/hostname
-cat &lt;&lt;EOF &gt;&gt;  /etc/hosts
-192.168.1.151 master
-192.168.1.152 node01
-192.168.1.153 node02
-EOF
-sed -i s#IPADDR=192.168.3.206#IPADDR=192.168.3.209#g /etc/sysconfig/network-scripts/ifcfg-ens33
-sed -i s/UUID/#UUID/g /etc/sysconfig/network-scripts/ifcfg-ens33
-reboot
-
-
-master节点
-# 下载yum源
-cd /etc/yum.repos.d/
-wget  https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum -y install docker-ce-18.06.1.ce-3.el7
-systemctl enable docker&amp;&amp; systemctl start docker
-
-# kubernetes的yum源
-cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-
-
-# kubelet是k8s的管理工具
-# kubeadm是k8s的安装工具
-# kubectl是k8s的客户端
-# ----V1.13.3版本----
-yum install -y kubelet-1.13.3 kubeadm-1.13.3 kubectl-1.13.3 kubernetes-cni-0.6.0 
-# ----V1.15版本------
-yum install -y kubelet kubeadm kubectl
-
-# 忽略swap报错
-cat &lt;&lt;EOF &gt; /etc/sysconfig/kubelet
-KUBELET_EXTRA_ARGS=&quot;--fail-swap-on=false&quot;
-EOF
-
-# 更加转发等功能
-cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.ipv4.ip_forward = 1
-EOF
-# 让配置生效
-sysctl --system
-
-# 开机自启动kubelet
-systemctl enable kubelet
-
-
-# -----------------1.13.3版本----------------
-kubeadm init \
-  --apiserver-advertise-address=192.168.1.151 \
-  --image-repository registry.aliyuncs.com/google_containers \
-  --kubernetes-version v1.13.3 \
-  --service-cidr=10.1.0.0/16 \
-  --pod-network-cidr=10.2.0.0/16 \
-  --service-dns-domain=cluster.local \
-  --ignore-preflight-errors=Swap \
-  --ignore-preflight-errors=NumCPU
-
-# ----------------1.15.0版本---------------
-kubeadm init \
-  --apiserver-advertise-address=192.168.1.151 \
-  --image-repository registry.aliyuncs.com/google_containers \
-  --kubernetes-version v1.15.0 \
-  --service-cidr=10.1.0.0/16 \
-  --pod-network-cidr=10.2.0.0/16 \
-  --service-dns-domain=cluster.local \
-  --ignore-preflight-errors=Swap \
-  --ignore-preflight-errors=NumCPU
-
-
-
-# ----------------------参数说明-------------------------
---apiserver-advertise-address：指定用 Master 的哪个IP地址与 Cluster的其他节点通信。
-
---service-cidr：指定Service网络的范围，即负载均衡VIP使用的IP地址段。
-
---pod-network-cidr：指定Pod网络的范围，即Pod的IP地址段。
-
---image-repository：Kubenetes默认Registries地址是k8s.gcr.io，在国内并不能访问 gcr.io，在1.13版本中我们可以增加-image-repository参数，默认值是k8s.gcr.io，将其指定为阿里云镜像地址：registry.aliyuncs.com/google_containers。
-
---kubernetes-version=v1.13.3：指定要安装的版本号。
-
---ignore-preflight-errors=：忽略运行时的错误，例如上面目前存在[ERROR NumCPU]和[ERROR Swap]，忽略这两个报错就是增加--ignore-preflight-errors=NumCPU 和--ignore-preflight-errors=Swap的配置即可
-
-
-------------------------------kubeadm init干了什么？--------------------
-[init]：指定版本进行初始化操作
-
-[preflight] ：初始化前的检查和下载所需要的Docker镜像文件
-
-[kubelet-start] ：生成kubelet的配置文件”/var/lib/kubelet/config.yaml”，没有这个文件kubelet无法启动，所以初始化之前的kubelet实际上启动失败。
-
-[certificates]：生成Kubernetes使用的证书，存放在/etc/kubernetes/pki目录中。
-
-[kubeconfig] ：生成 KubeConfig 文件，存放在/etc/kubernetes目录中，组件之间通信需要使用对应文件。
-
-[control-plane]：使用/etc/kubernetes/manifest目录下的YAML文件，安装 Master 组件。
-
-[etcd]：使用/etc/kubernetes/manifest/etcd.yaml安装Etcd服务。
-
-[wait-control-plane]：等待control-plan部署的Master组件启动。
-
-[apiclient]：检查Master组件服务状态。
-
-[uploadconfig]：更新配置
-
-[kubelet]：使用configMap配置kubelet。
-
-[patchnode]：更新CNI信息到Node上，通过注释的方式记录。
-
-[mark-control-plane]：为当前节点打标签，打了角色Master，和不可调度标签，这样默认就不会使用Master节点来运行Pod。
-
-[bootstrap-token]：生成token记录下来，后边使用kubeadm join往集群中添加节点时会用到
-
-[addons]：安装附加组件CoreDNS和kube-proxy
-
-
-
-# 系统提示步骤
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
-
-# 打通网络
-cd ~
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-
-[github地址](https://github.com/coreos/flannel),直接新建这个文件也可以，镜像可能有墙比较慢
-
-# 创建密钥
-kubeadm token create --print-join-command
-</code></pre>
-<h3 id="node节点">node节点</h3>
-<pre><code class="language-shell"># 安装docker的yum源
-cd /etc/yum.repos.d/
-wget  https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum -y install docker-ce-18.06.1.ce-3.el7
-systemctl enable docker&amp;&amp; systemctl start docker
-
-# 写入k8s的yum源
-cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-
-# 下载k8s的组件
-----V1.13.3版本----
-yum install -y kubelet-1.13.3 kubeadm-1.13.3 kubectl-1.13.3 kubernetes-cni-0.6.0 
-----V1.15版本------
-yum install -y kubelet kubeadm kubectl
-
-# 忽略swap错误
-cat &lt;&lt;EOF &gt; /etc/sysconfig/kubelet
-KUBELET_EXTRA_ARGS=&quot;--fail-swap-on=false&quot;
-EOF
-
-# 开启系统转发
-cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.ipv4.ip_forward = 1
-EOF
-
-# 让配置生效
-sysctl --system
-
-# 设置服务开机自启动
-systemctl enable kubelet
-
-
-# 加入集群（令牌过期作废）
-kubeadm join 192.168.3.207:6443 --token a4645k.pq7e5e34y9sl9g53 --discovery-token-ca-cert-hash sha256:abd02c82cdefbcc2d17a2f53ec9b376e31d123ef33af880608d97f64b12a65f5  --ignore-preflight-errors=Swap
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[docker搭建私有仓库]]></title>
-        <id>https://grassroadsz.github.io/SYEUK_VDx/</id>
-        <link href="https://grassroadsz.github.io/SYEUK_VDx/">
-        </link>
-        <updated>2022-05-29T09:02:38.000Z</updated>
-        <content type="html"><![CDATA[<p>前提条件</p>
-<p>node01对应ip：192.168.1.152<br>
-node02对应ip：192.168.1.153</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.4dq8l2g2dmw0.webp" alt="image" loading="lazy"></figure>
-<h2 id="服务端操作node01节点">服务端操作(node01节点)</h2>
-<p>在ROOT下执行，把证书保存在/root/certs目录下</p>
-<pre><code class="language-shell">mkdir certs
-</code></pre>
-<p>进入certs目录，创建文件domain.key</p>
-<pre><code class="language-shell">touch domain.key
-
-openssl req -newkey rsa:2048 -nodes -sha256 -keyout /root/certs/domain.key -x509 -days 365 -out /root/certs/domain.crt
-</code></pre>
-<p>然后根据提示数据一些信息，如下图，倒数第二行输入节点名称node5</p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2ruqn8ewj080.webp" alt="image" loading="lazy"></figure>
-<p>将domain.crt拷贝到 /etc/docker/certs.d/node5:5000/ca.crt，</p>
-<pre><code class="language-shell">mkdir -p /etc/docker/certs.d/node5:5000
-
-cp certs/domain.crt /etc/docker/certs.d/node5:5000/ca.crt
-</code></pre>
-<p>将domain.crt内容放入系统的CA bundle文件当中，使操作系统信任我们的自签名证书。</p>
-<pre><code class="language-shell">cat certs/domain.crt &gt;&gt; /etc/pki/tls/certs/ca-bundle.crt
-</code></pre>
-<p>修改docker的daemon.json文件，添加如下内容</p>
-<pre><code class="language-shell">vi /etc/docker/daemon.json
-</code></pre>
-<pre><code class="language-shell">{   
-
-&quot;insecure-registries&quot;: [ &quot;node01:5000&quot;]
-
-}
-</code></pre>
-<p>重启docker</p>
-<pre><code class="language-shell">systemctl daemon-reload &amp;&amp; systemctl restart docker
-</code></pre>
-<p>下载registry镜像（本次用node5节点作为私有镜像库服务器）</p>
-<pre><code class="language-shell"># 拉取registry
-
-docker pull registry
-
-# 创建容器并运行
-
-docker run -itd -v /data/registry:/var/lib/registry -v ~/certs/:/root/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/root/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/root/certs/domain.key -p 5000:5000 --restart=always --name registry registry:latest
-
-# 上面命令执行了此步骤可以不做
-docker run -itd -p 192.168.3.195:5000:5000 -v /data/docker/registry:/var/lib/registry --restart=always --name registry registry:latest
-
-# 把服务端的证书拷贝到客户端机器：
-
-cd certs/
-scp domain.crt root@172.16.11.3:/root/certs/
-</code></pre>
-<h2 id="客户端操作node02节点">客户端操作（node02节点）</h2>
-<p>先把服务端的证书拷贝到本机的/root/certs/下面，然后执行</p>
-<pre><code class="language-shell">mkdir -p /etc/docker/certs.d/node5:5000
-
-cp certs/domain.crt /etc/docker/certs.d/node5:5000/ca.crt
-</code></pre>
-<p>将domain.crt内容放入系统的CA bundle文件当中，使操作系统信任我们的自签名证书。</p>
-<pre><code class="language-shell">cat certs/domain.crt &gt;&gt; /etc/pki/tls/certs/ca-bundle.crt
-</code></pre>
-<p>修改docker的daemon.json文件，添加如下内容</p>
-<pre><code class="language-shell">vi /etc/docker/daemon.json
-</code></pre>
-<pre><code class="language-shell">{   
-
-&quot;insecure-registries&quot;: [ &quot;node01:5000&quot;]
-
-}
-</code></pre>
-<p>重启docker</p>
-<pre><code class="language-shell">systemctl daemon-reload &amp;&amp; systemctl restart docker
-</code></pre>
-<p>测试上传镜像</p>
-<pre><code class="language-shell">docker pull ubuntu
-
-docker tag ubuntu:latest  node01:5000/ubuntu:v1
-
-docker push node01:5000/ubuntu:v1
-</code></pre>
-<p>测试是否可以拉取镜像</p>
-<pre><code class="language-shell">docker pull node01:5000/ubuntu:v1
-</code></pre>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3o2qsz9gmcs0.webp" alt="image" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[docker安装与卸载]]></title>
-        <id>https://grassroadsz.github.io/qK-SfR0HM/</id>
-        <link href="https://grassroadsz.github.io/qK-SfR0HM/">
-        </link>
-        <updated>2022-05-29T08:54:09.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="安装方式一推荐">安装方式一（推荐）</h2>
-<pre><code class="language-shell"># 卸载旧版本
-$ sudo yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine
-  
-# 安装依赖                  
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-
-# 换源
-sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-
-# 换源后更新yum缓存
-sudo yum makecache fast
-
-# 安装docker
-yum install docker -y
-
-# 启动并测试是否安装成功
-sudo systemctl start docker
-docker run hello-world
-
-</code></pre>
-<h2 id="方式二使用脚本快捷安装docker-ce版不推荐">方式二：使用脚本快捷安装docker CE版(不推荐)</h2>
-<pre><code class="language-shell">$ curl -fsSL get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh --mirror Aliyun
-
-# 安装后启动docker CE
-
-$ sudo systemctl enable docker
-$ sudo systemctl start docker
-
-# 安装镜像加速
-vim /etc/docker/daemon.json
-
-{
-  &quot;registry-mirrors&quot;: [
-    &quot;https://registry.docker-cn.com&quot;
-  ]
-}
-# 之后重新启动
-
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
-</code></pre>
-<p>解决CE版的如下警告</p>
-<pre><code class="language-shell">WARNING: bridge-nf-call-iptables is disabled
-WARNING: bridge-nf-call-ip6tables is disabled
-</code></pre>
-<pre><code class="language-shell">$ sudo tee -a /etc/sysctl.conf &lt;&lt;-EOF
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-
-</code></pre>
-<p>然后重新加载</p>
-<p>$ sudo sysctl -p</p>
-<h2 id="卸载">卸载</h2>
-<p>先停止镜像的container，然后删除container，再删除镜像(删除的时候镜像名写全)</p>
-<pre><code class="language-shell">docker image ls
-docker stop container_name
-docker rm container_name 
-docker image rm &lt;image_name&gt;
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Linux 常用命令]]></title>
-        <id>https://grassroadsz.github.io/ANGbPIaE6/</id>
-        <link href="https://grassroadsz.github.io/ANGbPIaE6/">
-        </link>
-        <updated>2022-05-29T08:44:21.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文件">文件</h1>
-<h2 id="查找目录下mp4格式的文件">查找目录下.mp4格式的文件</h2>
-<pre><code class="language-shell">find 目录 -name &quot;*.mp4&quot;
-</code></pre>
-<h2 id="查找home目录下name包含mp4的60分钟前的文件">查找home目录下name包含mp4的60分钟前的文件</h2>
-<pre><code class="language-shell">find /home -name &quot;*.mp4&quot; -type f -mmin +60 -exec ls {} \;
-</code></pre>
-<h2 id="查找home目录下name包含mp4的60分钟前的文件并删除">查找home目录下name包含mp4的60分钟前的文件并删除</h2>
-<pre><code class="language-shell">find /home -name &quot;*.mp4&quot; -type f -mmin +60 -exec rm {} \;
-</code></pre>
-<h2 id="查找当前目录下大于10m的文件">查找当前目录下大于10m的文件</h2>
-<pre><code class="language-shell">find . -size +10M
-</code></pre>
-<h1 id="网络与进程">网络与进程</h1>
-<h2 id="查看端口占用">查看端口占用</h2>
-<pre><code class="language-shell">netstat -anp|grep port
-</code></pre>
-<h2 id="获取进程名-进程号以及用户-id">获取进程名、进程号以及用户 ID</h2>
-<pre><code class="language-shell">netstat -tlnp
-</code></pre>
-<h2 id="统计当前机器连接数">统计当前机器连接数</h2>
-<pre><code class="language-shell">netstat -tnp|wc -l
-
-</code></pre>
-<h2 id="实时监控阿里云盾的cpu与内存使用情况">实时监控阿里云盾的cpu与内存使用情况</h2>
-<pre><code class="language-shell">#top -b 指定为非交互模式下-p 指定pid -n指定行号
- while true;do sleep 1 ;top -b -p 10960 -n 1|tail -n 1|awk '{print $9,$10}';done
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6c88vnqbv7c0.webp" alt="image" loading="lazy"></figure>
-<h2 id="统计nginx日志中访问量前三的ip">统计nginx日志中访问量前三的ip</h2>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.56g0fmlkevk0.webp" alt="image" loading="lazy"></figure>
-<pre><code class="language-shell"># awk取第一列的ip：awk '{print $1}' /var/log/nginx/access.log,排序后去重统计：sort|uniq -c,排序去重统计结果再排序取前三：sort -rn|head -n 3
-
-awk '{print $1}' /var/log/nginx/access.log|sort|uniq -c|sort -rn|head -n 3
-</code></pre>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2aftii7iqbk0.webp" alt="image" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[工作中使用的shell脚本]]></title>
-        <id>https://grassroadsz.github.io/0pbx98OrS/</id>
-        <link href="https://grassroadsz.github.io/0pbx98OrS/">
-        </link>
-        <updated>2022-05-29T08:35:34.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="网卡监控">网卡监控</h2>
-<pre><code class="language-shell">while true;
-do
-rx_before=$(cat /proc/net/dev | grep 'ens' | tr : &quot; &quot; | awk '{print $2}')
-tx_before=$(cat /proc/net/dev | grep 'ens' | tr : &quot; &quot; | awk '{print $10}')
-sleep 1
-#rx_after=`ifconfig ens0|sed -n &quot;7p&quot;|awk '{print $2}'|cut -c7-`
-#tx_after=`ifconfig ens0|sed -n &quot;7p&quot;|awk '{print $6}'|cut -c7-`
-rx_after=$(cat /proc/net/dev | grep 'ens' | tr : &quot; &quot; | awk '{print $2}')
-tx_after=$(cat /proc/net/dev | grep 'ens' | tr : &quot; &quot; | awk '{print $10}')
-
-rx_result=$[(rx_after-rx_before)/1024/1024/2*8]
-tx_result=$[(tx_after-tx_before)/1024/1024/2*8]
-echo  &quot;$time Now_In_Speed: $rx_result Mbps Now_OUt_Speed: $tx_result Mbps&quot;
-
-done
-</code></pre>
-<h2 id="内存cpu监控">内存CPU监控</h2>
-<pre><code class="language-shell">#! /bin/bash
-# description: 大文件上传下载服务器性能监控脚本
-# author：grassroadsZ
-# Date: 2020-4-21 17:30:04
-
-# 服务器CPU使用情况，每1s输出一次
-while true;
-do sleep 1 ;
-
-
-echo -n &quot;服务器总内存为：$(free -m|grep Mem|awk '{printf $2}')MB,剩余内存为：$(free -m|grep Mem|awk '{printf $4}')MB&quot;
-
-u=$(top -b -n 1|grep Cpu|awk '{print $2}')
-s=$(top -b -n 1|grep Cpu|awk '{print $4}')
-cpu_count=$(awk -v a=$u -v b=$s 'BEGIN{print a+b}')
-
-echo -e &quot;\nCPU使用率为用户使用率：${u} % + 系统使用率 ${s} % = ${cpu_count} %\n&quot;
-
-done
-</code></pre>
-<h2 id="批量新建用户">批量新建用户</h2>
-<pre><code class="language-shell">#!/bin/bash
-# 批量创建用户
-read -p &quot;input nu &lt;1-99&gt;:&quot; nu
-
-read -p &quot;input name:&quot; name
-
-read -p &quot;input date &lt;YYYY-MM-DD&gt;:&quot; date
-
-read -p &quot;input password:&quot; password
-
-a=1
-
-if [ $nu -lt 100 ];
-then
-
-while [ $a -le $nu ]
-
-do
-
-if [ $a -lt 10 ]
-
-then
-
-useradd -e $date &quot;$name&quot;0&quot;$a&quot;
-
-echo &quot;$passwd&quot; | --stdin &quot;$name&quot;0&quot;$a&quot;&amp;&gt; /dev/null
-
-else
-
-useradd -e $date &quot;$name&quot;&quot;$a&quot;
-
-echo &quot;password&quot; | passwd --stdin &quot;$name&quot;&quot;$a&quot;&amp;&gt; /dev/null
-
-fi
-
-a=`expr $a + 1`
-
-done
-
-fi
-</code></pre>
-<h2 id="批量删除用户">批量删除用户</h2>
-<pre><code class="language-shell">#!/bin/bash
-# 用法 bash file.sh 批量用户名前缀
-if [ $# -le 0 ]
-
-then
-
- echo &quot; Error:The prefix of users has not be specified. &quot;
-
- echo &quot; usage:$0nameprefix &quot;
-
-exit1
-
-fi
-
-tar jcvf /root/usrs.cnf.tar.gz /etc/passwd /etc/shadow /etc/group &amp;&gt; /dev/null
-
-usersdel=`grep &quot;$1&quot; /etc/passwd | cut -d &quot;:&quot; -f 1 | grep -v &quot;root&quot;`
-
-for u in $usersdel
-
-do
-
-userdel -r $u &amp;&gt; /dev/null
-
-done
-</code></pre>
-<h2 id="文件上传监控">文件上传监控</h2>
-<pre><code class="language-shell">#!/bin/bash
-filename=test_file1.bag.filepart
-filesize=`ls -l $filename | awk '{ print $5 }'`
-# 100GB
-maxsize=$((1024*100*1024*1024))
-while true;
-do
-if [ $filesize -eq $maxsize ]
-then
-    echo &quot;文件上传完毕&quot;
-    echo &quot;${date}&quot;
-    
-else 
-    echo &quot;文件没传完，继续....&quot;
-    echo “当前耗时 $(expr $(date +%s) - $(date -d &quot;2020-05-07 09:41:48&quot; +%s))s
-    echo 当前文件大小 $(ls -l ${filename} | awk '{ print $5 }') 字节
-fi
-
-sleep 3
-done
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Linux 挂载磁盘]]></title>
-        <id>https://grassroadsz.github.io/dBGV0cXXS/</id>
-        <link href="https://grassroadsz.github.io/dBGV0cXXS/">
-        </link>
-        <updated>2022-05-29T08:30:13.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="查看未挂载磁盘">查看未挂载磁盘</h2>
-<p>fdisk -l</p>
-<pre><code class="language-shell">[root@debug010000002015 ~]# fdisk -l
-
-Disk /dev/vda: 53.7 GB, 53687091200 bytes, 104857600 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk label type: dos
-Disk identifier: 0x0000efd2
-
-   Device Boot      Start         End      Blocks   Id  System
-/dev/vda1   *        2048   104855551    52426752   83  Linux
-
-Disk /dev/vdb: 536.9 GB, 536870912000 bytes, 1048576000 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-</code></pre>
-<h2 id="分区">分区</h2>
-<p>fdisk /dev/vdb</p>
-<pre><code class="language-shell">[root@debug010000002015 ~]# fdisk /dev/vdb 
-Welcome to fdisk (util-linux 2.23.2).
-
-Changes will remain in memory only, until you decide to write them.
-Be careful before using the write command.
-
-Device does not contain a recognized partition table
-Building a new DOS disklabel with disk identifier 0xa36ad56b.
-
-Command (m for help): m
-Command action
-   a   toggle a bootable flag
-   b   edit bsd disklabel
-   c   toggle the dos compatibility flag
-   d   delete a partition
-   g   create a new empty GPT partition table
-   G   create an IRIX (SGI) partition table
-   l   list known partition types
-   m   print this menu
-   n   add a new partition
-   o   create a new empty DOS partition table
-   p   print the partition table
-   q   quit without saving changes
-   s   create a new empty Sun disklabel
-   t   change a partition's system id
-   u   change display/entry units
-   v   verify the partition table
-   w   write table to disk and exit
-   x   extra functionality (experts only)
-
-Command (m for help): n
-Partition type:
-   p   primary (0 primary, 0 extended, 4 free)
-   e   extended
-Select (default p): p
-Partition number (1-4, default 1): 1
-First sector (2048-1048575999, default 2048): 
-Using default value 2048
-Last sector, +sectors or +size{K,M,G} (2048-1048575999, default 1048575999): 
-Using default value 1048575999
-Partition 1 of type Linux and of size 500 GiB is set
-
-Command (m for help): w
-The partition table has been altered!
-
-Calling ioctl() to re-read partition table.
-Syncing disks.
-</code></pre>
-<p>fdisk -l</p>
-<pre><code class="language-shell">[root@debug010000002015 ~]# fdisk -l
-
-Disk /dev/vda: 53.7 GB, 53687091200 bytes, 104857600 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk label type: dos
-Disk identifier: 0x0000efd2
-
-   Device Boot      Start         End      Blocks   Id  System
-/dev/vda1   *        2048   104855551    52426752   83  Linux
-
-Disk /dev/vdb: 536.9 GB, 536870912000 bytes, 1048576000 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk label type: dos
-Disk identifier: 0xa36ad56b
-
-   Device Boot      Start         End      Blocks   Id  System
-/dev/vdb1            2048  1048575999   524286976   83  Linux
-</code></pre>
-<h2 id="格式化">格式化</h2>
-<p>mkfs -t ext4 -c /dev/vdb1</p>
-<pre><code class="language-shell">[root@debug010000002015 ~]# mkfs -t ext4 -c /dev/vdb1 
-mke2fs 1.42.9 (28-Dec-2013)
-Filesystem label=
-OS type: Linux
-Block size=4096 (log=2)
-Fragment size=4096 (log=2)
-Stride=0 blocks, Stripe width=0 blocks
-32768000 inodes, 131071744 blocks
-6553587 blocks (5.00%) reserved for the super user
-First data block=0
-Maximum filesystem blocks=2279604224
-4000 block groups
-32768 blocks per group, 32768 fragments per group
-8192 inodes per group
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
-	4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968, 
-	102400000
-
-Checking for bad blocks (read-only test):  33.57% done, 9:34 elapsed. (0/0/0 errors)
-</code></pre>
-<h2 id="挂载">挂载</h2>
-<p>mount /dev/vdb1 /data/</p>
-<pre><code>[root@debug010000002015 ~]# mount /dev/vdb1 /data/
-
-查看
-df -hl
-
-[root@debug010000002015 ~]# df -hl
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/vda1        50G  2.1G   45G   5% /
-devtmpfs        3.9G     0  3.9G   0% /dev
-tmpfs           3.9G     0  3.9G   0% /dev/shm
-tmpfs           3.9G  316K  3.9G   1% /run
-tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
-tmpfs           783M     0  783M   0% /run/user/0
-/dev/vdb1       493G   73M  467G   1% /data
-</code></pre>
-<p>开机自启动<br>
-设置开机自动挂载，修改/etc/fstab文件，在最后一行添加如下内容：</p>
-<p>/dev/sdb       /data         ext4    defaults        1 1<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.25d635uowo0w.webp" alt="image" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Shell 基础]]></title>
-        <id>https://grassroadsz.github.io/uZq7nEUWR/</id>
-        <link href="https://grassroadsz.github.io/uZq7nEUWR/">
-        </link>
-        <updated>2022-05-28T08:12:07.000Z</updated>
-        <content type="html"><![CDATA[<p>一、简介</p>
-<p>shell是什么</p>
-<ul>
-<li>命令解释器</li>
-<li>shell就是在操作系统和应用程序之间的一个命令翻译工具</li>
-</ul>
-<p>shell分类</p>
-<ul>
-<li>
-<p>Windows</p>
-</li>
-<li>
-<ul>
-<li>cmd命令行</li>
-</ul>
-</li>
-<li>
-<p>Linux</p>
-</li>
-<li>
-<ul>
-<li>Sh / bash / zsh /</li>
-</ul>
-</li>
-</ul>
-<p>二、常用命令</p>
-<p>1.head</p>
-<ul>
-<li>默认获取文件的前10 行</li>
-</ul>
-<p>2.tail</p>
-<ul>
-<li>默认获取最后10行</li>
-<li>取文件第6到第9行：head -9 file |tail -n 4</li>
-</ul>
-<p>3.cut</p>
-<ul>
-<li>取出文本指定的列</li>
-<li>-d 指定分隔符</li>
-<li>-f 指定行</li>
-</ul>
-<p>4.uniq</p>
-<ul>
-<li>去重（需先排序）</li>
-<li>-d 打印重复行</li>
-<li>-c 统计出现的次数</li>
-</ul>
-<p>5.sort</p>
-<ul>
-<li>将文件排序，默认以ASCII 码从小到大排序</li>
-<li>-r 反序</li>
-<li>-n 以数字类型排序</li>
-<li>-t 指定分隔符</li>
-<li>-k 指定排序的列号</li>
-</ul>
-<p>将文件最后一列取出进行排序去重cut -d 分隔符 -f 行号 file|sort|uniq</p>
-<p>6.wc(word count)</p>
-<p>统计文件</p>
-<ul>
-<li>-l 行号</li>
-<li>-w 单词数</li>
-<li>-c 字节数</li>
-<li>-L 最长行的字节数</li>
-</ul>
-<p>三、变量</p>
-<p>定义变量</p>
-<p>本地变量</p>
-<p>只在当前bash生效</p>
-<p>username='grassroadsZ'<br>
-username=&quot;grassdoadsZ&quot;</p>
-<p>单引号和双引号的区别：单引号里面是什么就会输出什么，双引号可以做变量替换</p>
-<p>输出:</p>
-<p>echo $username</p>
-<p>等号两侧不能有空格</p>
-<ul>
-<li>将linux 命令赋值给变量<br>
-one_var=$(pwd)<br>
-echo $one_var</li>
-</ul>
-<p>全局变量</p>
-<p>所有的bash都能用（临时全局变量）</p>
-<ul>
-<li>方法一：<br>
-变量=值<br>
-export 变量</li>
-<li>方法二:<br>
-export 变量=值</li>
-</ul>
-<p>env ：查看当前的环境变量（永久变量）</p>
-<ul>
-<li>新建全局变量</li>
-</ul>
-<p>vim ~/.bashrc<br>
-export username=&quot;grassroadsZ&quot;</p>
-<p>查看变量</p>
-<p>echo $变量名</p>
-<p>echo &quot;$变量名&quot;</p>
-<p>echo &quot;${变量名}&quot;（shell脚本中较常用）</p>
-<p>内置变量</p>
-<ul>
-<li>$0:   获取当前执行shell的文件名</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>:</mo><mi mathvariant="normal">获</mi><mi mathvariant="normal">取</mi><mi mathvariant="normal">当</mi><mi mathvariant="normal">前</mi><mi mathvariant="normal">执</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">的</mi><mi>s</mi><mi>h</mi><mi>e</mi><mi>l</mi><mi>l</mi><mi mathvariant="normal">脚</mi><mi mathvariant="normal">本</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">第</mi><mi>n</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">参</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">值</mi><mi mathvariant="normal">，</mi><mi>n</mi><mo>=</mo><mn>1..9</mn><mi mathvariant="normal">如</mi><mi mathvariant="normal">果</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">于</mi><mn>9</mn><mi mathvariant="normal">就</mi><mi mathvariant="normal">要</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">括</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">括</mi><mi mathvariant="normal">起</mi><mi mathvariant="normal">来</mi></mrow><annotation encoding="application/x-tex">n:   获取当前执行的shell脚本的第n个参数值，n=1..9如果大于9就要用大括号括起来</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord cjk_fallback">获</span><span class="mord cjk_fallback">取</span><span class="mord cjk_fallback">当</span><span class="mord cjk_fallback">前</span><span class="mord cjk_fallback">执</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">脚</span><span class="mord cjk_fallback">本</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">第</span><span class="mord mathdefault">n</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">参</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">值</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">.</span><span class="mord">9</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">于</span><span class="mord">9</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">括</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">括</span><span class="mord cjk_fallback">起</span><span class="mord cjk_fallback">来</span></span></span></span>{10}</li>
-<li>$#:   获取当前shell命令中的参数总个数</li>
-<li>$?:    获取上一条命令的执行结果，echo $?为0的话代表上一条命令执行成功，非0为失败</li>
-<li>$*: 获取所有参数</li>
-</ul>
-<p>示例：</p>
-<pre><code class="language-shell">#! /bin/bash
-
-echo &quot;当前脚本名为：$0&quot;
-echo &quot;第一个参数为：$1&quot;
-# ...
-echo &quot;第十一个参数为：${11}&quot;
-
-echo &quot;参数总数为：$#&quot;
-echo &quot;一次性获取所有的参数：$*&quot;
-</code></pre>
-<p>四、数值运算</p>
-<p>方式一</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>(</mo><mi mathvariant="normal">算</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">表</mi><mi mathvariant="normal">达</mi><mi mathvariant="normal">式</mi><mo>)</mo><mo>)</mo><mi mathvariant="normal">，</mi><mi mathvariant="normal">变</mi><mi mathvariant="normal">量</mi><mi mathvariant="normal">可</mi><mi mathvariant="normal">以</mi><mi mathvariant="normal">不</mi><mi mathvariant="normal">加</mi></mrow><annotation encoding="application/x-tex">((算数表达式))，变量可以不加</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord cjk_fallback">算</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">达</span><span class="mord cjk_fallback">式</span><span class="mclose">)</span><span class="mclose">)</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">不</span><span class="mord cjk_fallback">加</span></span></span></span></p>
-<p>方式二</p>
-<p>expr 表达式,此处变量的$不可以省略</p>
-<p>实例:</p>
-<pre><code class="language-shell">one=10
-two=20
-# 求和
-$(($one + $two)) # 或者写为$((one + two))
-# 乘法
-result=$(expr $one * $two)
-# 比较大小,需转义,两个括号时不需要转义，如果大于不成立返回0，大于成立返回1
-result=$(expr $one \&gt; $two) # 或者写为$(($one &gt; $two))
-</code></pre>
-<p>五、条件表达式</p>
-<p>返回值</p>
-<ul>
-<li>条件成立，返回0</li>
-<li>条件不成立，返回1</li>
-</ul>
-<p>逻辑表达式</p>
-<p>&amp;&amp; 和||和！</p>
-<p>one_word=1</p>
-<h1 id="如果one_word1输出one_word是1否则输出one_word不是1">如果one_word=1输出one_word是1否则输出one_word不是1</h1>
-<h1 id="写法一空格-表达式-空格">写法一：[空格 表达式 空格]</h1>
-<p>[ &quot;${one_word}&quot;==1 ] &amp;&amp; echo 'one_word是1'|| echo &quot;one_word不是1&quot;</p>
-<h1 id="写法二">写法二：</h1>
-<p>test &quot;${one_word}&quot; == 1 &amp;&amp; echo &quot;one_word是1&quot;|| echo &quot;one_word不是1&quot;</p>
-<p>文件表达式</p>
-<ul>
-<li>-f 判断输入的内容是否是一个文件</li>
-<li>-d 是否是目录</li>
-<li>-x 是否可执行</li>
-<li>-e 是否存在</li>
-</ul>
-<p>实例</p>
-<p>[ -f anaconda-ks.cfg ] &amp;&amp; echo '是文件'|| echo &quot;不是文件&quot;<br>
-[ -d anaconda-ks.cfg ] &amp;&amp; echo '是目录'|| echo &quot;不是目录&quot;<br>
-[ -x anaconda-ks.cfg ] &amp;&amp; echo '可执行'|| echo &quot;不可执行&quot;<br>
-[ -e anaconda-ks.cfg ] &amp;&amp; echo '存在'|| echo &quot;不存在&quot;</p>
-<p>数值操作符</p>
-<ul>
-<li>n1 -eq n2 相等</li>
-<li>n1 -gt n2 大于</li>
-<li>n1 -lt n2 小于</li>
-<li>n1 -ne n2 不等于</li>
-<li>n1 -ge  n2 大于等于</li>
-</ul>
-<p>字符串比较</p>
-<ul>
-<li>str1 == str2 是否相等</li>
-<li>str1 != str2 是否不相等</li>
-</ul>
-<p>六、shell脚本格式</p>
-<p>shell脚本调试: bash -x file.sh</p>
-<p>格式要求</p>
-<ul>
-<li>首行指定执行shell的程序<br>
-#! /bin/bash<br>
-echo &quot;你好, ${USER}&quot;</li>
-<li>命名见名知意</li>
-</ul>
-<p>注释</p>
-<h1 id="单行注释">单行注释</h1>
-<p>:&lt;&lt;!<br>
-这是多行注释<br>
-!</p>
-<p>七、函数</p>
-<p>格式</p>
-<h1 id="格式一">格式一:</h1>
-<p>函数名()</p>
-<p>{</p>
-<p>命令1</p>
-<p>命令2</p>
-<p>}</p>
-<h1 id="格式二">格式二:</h1>
-<p>function 函数名</p>
-<p>{</p>
-<p>命令1</p>
-<p>}</p>
-<p>#!/bin/bash</p>
-<h1 id="description定义函数两种方法demo">Description:定义函数两种方法demo</h1>
-<h1 id="方式一">方式一：</h1>
-<p>hello()<br>
-{<br>
-echo &quot;你好! <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>U</mi><mi>S</mi><mi>E</mi><mi>R</mi></mrow><mo separator="true">,</mo><mi mathvariant="normal">今</mi><mi mathvariant="normal">天</mi><mi mathvariant="normal">是</mi></mrow><annotation encoding="application/x-tex">{USER},今天是</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">今</span><span class="mord cjk_fallback">天</span><span class="mord cjk_fallback">是</span></span></span></span>(date)&quot;<br>
-}</p>
-<h1 id="方式二">方式二:</h1>
-<p>function hello<br>
-{<br>
-echo &quot;你好!&quot;<br>
-}</p>
-<h1 id="调用函数">调用函数</h1>
-<h1 id="直接使用函数名进行调用">直接使用函数名进行调用</h1>
-<p>hello</p>
-<p>参数</p>
-<pre><code class="language-shell">#! /bin/bash
-echo &quot;$1 $2&quot;
-function your_info()
-{
-	echo &quot;你的姓名：$1, age为：$2&quot;
-}
-your_info grassroadsZ 18
-</code></pre>
-<h1 id="参数为一一对应your_info-2-1-对应的2-对应的为11对应的为2">参数为一一对应your_info $2 $1 --&gt; 对应的$2 对应的为$1,$1对应的为$2</h1>
-<h1 id="执行结果">执行结果</h1>
-<p>[root@Centos7 bin]# bash file.sh 10 20<br>
-10,20<br>
-你的姓名是：grassroadsZ，你的年龄为18</p>
-<p>接受用户参数</p>
-<pre><code class="language-shell">#! /bin/bash
-read -p &quot;请输入姓名: &quot;空格name
-read -p &quot;请输入年龄: &quot; age
-# 如果不使用变量接收，默认变量为REPLY
-read -p &quot;请输入年龄: &quot;
-
-function your_info
-{
-	echo &quot;你的姓名：${name}, age为：${age}&quot;
-	# 换行
-	echo -e &quot;你的姓名：${name}, \n你的age为：${age}&quot;
-	echo &quot;你的姓名：${name}, age为：${REPLY}&quot;
-}
-</code></pre>
-<p>八、流程控制</p>
-<pre><code class="language-shell">if
-
-if [条件]
-then
-	指令1
-elif [条件2]
-then
-	指令2
-else
-	指令3
-fi
-</code></pre>
-<p>实例1</p>
-<pre><code class="language-shell">#! /bin/bash
-#Description:判断是否可以上网
-read -p &quot;姓名&quot; name
-read -p &quot;年龄&quot; age
-if [ &quot;${age}&quot; -ge 70 ]
-then
-	echo &quot;${name},大于等于70岁&quot;
-elif [ &quot;${age}&quot; -ge 18 ]
-then
-	echo &quot;${name}大于18&quot;
-else
-	echo &quot;${name}小于18岁&quot;
-fi
-</code></pre>
-<p>实例2</p>
-<pre><code class="language-shell">#! /bin/bash
-#Description:根据命令启动停止服务
-if [! &quot;$1&quot; -eq 1]; then
-	echo &quot;Usage: $0 [start | stop |restart]&quot;
-	exit 1
-fi
-
-if [ &quot;$1&quot;==&quot;start&quot; ]; then
-	echo &quot;服务启动中。。。。&quot;
-elif [ &quot;$1&quot;==&quot;restart&quot; ]; then
-	echo &quot;服务重启中。。。&quot;
-else
-	echo &quot;服务暂停中。。。&quot;
-fi
-
-exit 0
-</code></pre>
-<p>for</p>
-<h1 id="格式一-2">格式一</h1>
-<pre><code>for v in 列表
-do
-    执行语句
-done
-</code></pre>
-<h1 id="格式二-2">格式二</h1>
-<pre><code>max=10
-for ((i=1;i&lt;=max;i++))
-do
-    echo &quot;$i&quot;
-done
-</code></pre>
-<p>实例</p>
-<pre><code class="language-shell">#! /bin/bash
-#Description:for循环
-dirs=$(ls /)
-for dir in ${dirs}
-do
-	echo &quot;${dir}&quot;
-done
-</code></pre>
-<p>while</p>
-<pre><code class="language-shell">#! /bin/bash
-#Description:while循环
-i=1
-max=10
-while [ &quot;${i}&quot; -lt &quot;${max}&quot; ]
-do
- echo &quot;${i}&quot;
- i=$((i+1))
-done
-</code></pre>
-<p>case</p>
-<p>case 变量名 in<br>
-值1）<br>
-指令1<br>
-;;<br>
-值2)<br>
-指令2<br>
-;;<br>
-值3）<br>
-指令3<br>
-;;</p>
-<p>实例</p>
-<pre><code class="language-shell">#! /bin/bash
-#Description:case计算器
-
-function shwo_error
-{
-	echo &quot;Usage: $0 num 1[+ | - |\*|/] num2&quot;
-}
-
-
-if [! &quot;$1&quot; -eq 1]; then
-	show_error
-	exit 1
-fi
-
-case &quot;$2&quot; in
-	+)
-		echo &quot;$1 + $3 = $(($1 + $3))&quot;
-		;;
-	-)
-		echo &quot;$1 - $3 = $(($1 - $3))&quot;
-		;;
-	\*)
-		echo &quot;$1 * $3 = $(($1 * $3))&quot;
-		;;
-	-)
-		echo &quot;$1 / $3 = $(($1 / $3))&quot;
-		;;
-	*)
-      echo &quot;非法输入&quot;
-      show_error
-      ;;
-esac
-exit 0
-</code></pre>
-<p>九、文本处理三剑客</p>
-<p>grep</p>
-<ul>
-<li>两种形式
-<ul>
-<li>grep [option] pattern [file1,file2....]</li>
-<li>Some command | grep [option]</li>
-</ul>
-</li>
-</ul>
-<p>[root@Centos7 ~]# grep root /etc/passwd<br>
-root❌0:0:root:/root:/bin/bash<br>
-operator❌11:0:operator:/root:/sbin/nologin</p>
-<p>sed</p>
-<ul>
-<li>流文件编辑器</li>
-<li>两种形式</li>
-<li>不加任何参数数时，默认会将匹配到的内容打印两次
-<ul>
-<li>sed [option] &quot;partten command&quot; file</li>
-<li>Some conmmand |sed [option] &quot;parttern command&quot;</li>
-</ul>
-</li>
-</ul>
-<h1 id="只打印password中的oo">只打印password中的oo</h1>
-<p>sed -n &quot;/oo/ p&quot; /etc/password</p>
-<h1 id="只打印第6行">只打印第6行</h1>
-<p>sed -n '6 p' /etc/password</p>
-<h1 id="打印38行">打印3,8行</h1>
-<p>sed -n &quot;3,8 p&quot; /etc/password</p>
-<h1 id="打印以h开头到o开头">打印以h开头到o开头</h1>
-<p>sed -n &quot;/<sup>h/,/</sup>o/ p&quot; /etc/password</p>
-<p>command命令</p>
-<ul>
-<li>p打印</li>
-<li>新增
-<ul>
-<li>a （after）在匹配行后新增</li>
-<li>i （insert）在匹配行前新增</li>
-<li>r （read）外部文件读入，行后新增</li>
-<li>w （write）匹配行写入外部文件</li>
-</ul>
-</li>
-<li>删除
-<ul>
-<li>d 删除</li>
-</ul>
-</li>
-<li>修改
-<ul>
-<li>s/old/new/	(只修改匹配中的一个old)</li>
-<li>s/old/new/g  （修改匹配行中所有的old）</li>
-<li>s/old/new/ig   （修改忽略大小写）</li>
-</ul>
-</li>
-</ul>
-<p>实例</p>
-<h1 id="在password的第9行前面新增hello-word">在password的第9行前面新增hello word</h1>
-<p>sed '9 i &quot;hello world&quot;' password（# 内存修改，未提交）<br>
-sed -i '9 i &quot;hello world&quot;' password（# 真实修改文件）</p>
-<h1 id="在password的中以mail开头的后面前面新增hello-word">在password的中以mail开头的后面前面新增hello word</h1>
-<p>sed -i '/^mail/ a 新增的hello word' password</p>
-<h1 id="在sbinnologin后新增hello">在/sbin/nologin后新增hello</h1>
-<p>sed -i '//sbin/nologin a 新增 hello' password</p>
-<h1 id="将filetxt的内容新增到password中出现两个o的行">将file.txt的内容新增到password中出现两个o的行</h1>
-<p>sed -ir '/o{2}/ r file.txt' password</p>
-<h1 id="将69行的内容写入到-twotxt">将6,9行的内容写入到 two.txt</h1>
-<p>sed  '6,9 w two.txt' password</p>
-<h1 id="以s开头的行进行删除">以s开头的行进行删除</h1>
-<p>sed -i '/^s/ d' password</p>
-<h1 id="将含有bin的行改写为bin">将含有bin的行改写为BIN</h1>
-<p>sed -i 's/bin/BIN/' password	# (一行中多个只修改一次)<br>
-sed -i 's/bin/BIN/g' password	# （修改所有）<br>
-sed -i 's/bin/BIN/ig' password	# （修改所有）</p>
-<h1 id="第1到10行的修改为">第1到10行的：修改为？</h1>
-<p>sed -i '1,10 s/😕?/g' password</p>
-<h1 id="删除-开头的注释">删除# 开头的注释</h1>
-<p>sed -i '/^#/d' file</p>
-<h1 id="删除空行">删除空行</h1>
-<p>sed -i '/^$/d' file</p>
-<p>awk</p>
-<ul>
-<li>文本处理，处理数据并生成结果报告</li>
-<li>两种形式
-<ul>
-<li>awk 'BEGIN{} pattern {commands} END{}' file</li>
-<li>Some command | awk 'BEGIN{} pattern {commands} END{}</li>
-</ul>
-</li>
-</ul>
-<h1 id="默认分隔符为空格">默认分隔符为空格</h1>
-<h1 id="打印整行">打印整行</h1>
-<p>awk '{print $0}' file</p>
-<h1 id="打印第一列">打印第一列</h1>
-<p>awk '{print $1}' file</p>
-<h1 id="打印最后一列无论规则与否">打印最后一列，无论规则与否</h1>
-<p>awk '{print $NF}' file</p>
-<h1 id="如果当前行号大于1则打印当前行">如果当前行号大于1则打印当前行</h1>
-<p>awk ' NR &gt; 1 {print $0}' file</p>
-<h1 id="指定分隔符">指定分隔符</h1>
-<p>awk 'BEGIN {FS=&quot;:&quot;} {print $1}' file</p>
-<h1 id="指定为分隔符将第3列数值大于100的行的第一列打印">指定:为分隔符将第3列数值大于100的行的第一列打印</h1>
-<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {print $1}' password</p>
-<h1 id="指定为分隔符将第3列数值大于100的行的第一列及总处理的行数">指定:为分隔符将第3列数值大于100的行的第一列及总处理的行数</h1>
-<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {i++; print $1} END{print i}' password</p>
-<h1 id="填充格式与python中的字符串输出一样">填充格式与python中的字符串输出一样</h1>
-<p>awk 'BEGIN{FS=&quot;:&quot;} $3&gt;100 {printf &quot;%s\n&quot; $1}' pwd</p>
-<h1 id="输出带表头的内容">输出带表头的内容</h1>
-<p>awk 'BEGIN{FS=&quot;:&quot;;printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;} $3&gt;100 {printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF}' pwd</p>
-<h1 id="输出带表头的内容-2">输出带表头的内容</h1>
-<p>awk 'BEGIN{FS=&quot;:&quot;;printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;} $3&gt;100 {count++; printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF} END{printf &quot;%-18s%-6s\n&quot; &quot;Toal&quot;, count}' pwd</p>
-<p>awk长命令脚本化</p>
-<h1 id="begin-块">BEGIN 块</h1>
-<p>BEGIN{<br>
-FS=&quot;:&quot;;<br>
-printf &quot;%-18s%-6s%-18s\n&quot;,&quot;user&quot;,&quot;uid&quot;,&quot;shell&quot;<br>
-}</p>
-<h1 id="command块">command块</h1>
-<p>{<br>
-if ($3&gt;100){<br>
-count++;<br>
-printf &quot;%-18s%-6s%-18s\n&quot; $1, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">3,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span></span></span></span>NF<br>
-}<br>
-}</p>
-<h1 id="end块">END块</h1>
-<p>END{<br>
-printf &quot;%-18s%-6s\n&quot; &quot;Toal&quot;, count}</p>
-<p>调用：awk -f file.awk file</p>
-<p>实例</p>
-<p>Linux 系统截图</p>
-<p>描述如下基础命令的作用</p>
-<ul>
-<li>ls: 列出当前目录所有文件(不包含隐藏文件，指定参数-a可显示隐藏文件)</li>
-<li>pwd:当前所在路径</li>
-<li>cd:进入到某一个目录</li>
-<li>touch:新建文件</li>
-<li>mkdir：创建目录</li>
-<li>rm：删除文件或目录</li>
-<li>mv:移动文件</li>
-<li>cp：复制文件</li>
-<li>cat:查看文件</li>
-<li>more: 分段查看文件</li>
-<li>tar：tar格式的文件解压缩</li>
-<li>which：输出命令的位置</li>
-</ul>
-<p>获取/etc/passwd文件的第4~7行</p>
-<p>head -n 7 /etc/passwd|tail -n 4</p>
-<p>在必做题第3题的基础上，以第4列的数字大小进行排序</p>
-<p>root@Centos7 bin]# head -n 7 /etc/passwd|tail -n 4 |sort -t&quot;:&quot; -k4 -n -r<br>
-lp❌4:7:lp:/var/spool/lpd:/sbin/nologin<br>
-adm❌3:4:adm:/var/adm:/sbin/nologin<br>
-sync❌5:0:sync:/sbin:/bin/sync<br>
-shutdown❌6:0:shutdown:/sbin:/sbin/shutdown</p>
-<p>linux中“$?”标记有什么作用?</p>
-<p>可以用来判断上一条命令是否执行成功</p>
-<p>如何调试shell脚本 ?</p>
-<p>脚本调试使用bash -x file.sh</p>
-<p>查看系统当前进程连接数？</p>
-<p>判断当前linux系统的发布版，是Ubuntu、Centos、Fedora、SUSE等</p>
-<p>echo &quot;$(grep -i &quot;^name&quot; /etc/os-release)&quot;</p>
-<h1 id="将namecentos-linux-双引号中的内容取出更佳">将NAME=&quot;CentOS Linux&quot; 双引号中的内容取出更佳</h1>
-<p>从命令行接收两个数，以及逻辑运算符（&gt;、&gt;=、&lt;、&lt;=、==、!=），打印判断结果，例如: bash 脚本名  数字1 &lt;= 数字2</p>
-<pre><code class="language-shell">#! /bin/bash
-
-function check_num()
-{
-    read -p &quot;请输入数字1:&quot; num1
-    read -p &quot;请输入比较符号:&quot; check
-    read -p &quot;请输入数字2:&quot; num2
-
-    if [ $check = '&gt;=' ]    
-    then    
-        check='-ge'
-
-    elif [ $check = '&lt;=' ]  
-    then
-        check='-le'
-
-    elif [ $check = '!=' ]  
-    then    
-        check='-ne'
-    else
-        echo &quot;输入的比较符号${check}错误&quot;
-        exit 1
-    fi
-    if [ ${num1} ${check} ${num2} ]
-    then    
-        echo &quot;当前文件名：$0 ${num1} ${check} ${num2} 正确&quot;
-    else    
-        echo &quot;当前文件名：$0 ${num1} ${check} ${num2} 错误&quot;
-    fi
-
-}
-
-check_num
-</code></pre>
-<p>输入4个大于0小于等于20的数字，统计它们的和、最小的数字和最大的数字 b.要求有异常数字校验</p>
-<pre><code class="language-shell">#! /bin/bash
-# 四个数字求和
-
-function num_sum
-{
-    num=0
-    while [ $num -lt 4 ]
-    do
-        echo &quot;please input a num &gt;0 and &lt;=20:&quot;
-        read line
-        if [ $line -le 20 -a $line -gt 0 ];then
-                num_list[$num]=$line
-                let num=$num+1
-        else
-            echo &quot;输入的不符合要求&quot;
-                
-        fi
-    done
-
-    arr=(${num_list[*]})
-
-    let min=${arr[0]}
-    let max=${min}
-    sum=0
-    # #来获取数组元素的个数
-    for (( i=0;i&lt;${#arr[*]};i++))
-    do
-            [[ ${min} -gt ${arr[$i]} ]] &amp;&amp; min=${arr[$i]}
-            [[ ${max} -lt ${arr[$i]} ]] &amp;&amp; max=${arr[$i]}
-            let sum=sum+${arr[$i]}
-    done
-    echo &quot;最小值：$min&quot;
-    echo &quot;最大值：$max&quot;
-    echo &quot;求和：$sum&quot;
-    
-}
-
-num_sum
-</code></pre>
-<p>日志分析</p>
-<p>使用shell脚本分析执行用例的日志：</p>
-<p>a.统计每位测试人员执行用例的总数</p>
-<h1 id="日志模板">日志模板</h1>
-<h1 id="2019-08-17-161951025-info-keke-pass-手机号为空-generate_logspy-42">2019-08-17 16:19:51,025 INFO keke Pass 手机号为空 generate_logs.py 42</h1>
-<h1 id="2019-08-17-161951026-critical-lemon-pass-密码-多于18位-generate_logspy-42">2019-08-17 16:19:51,026 CRITICAL lemon Pass 密码-多于18位 generate_logs.py 42</h1>
-<pre><code class="language-shell"># 统计每位测试人员执行用例的总数
-
-BEGIN{
-    # 格式化输入表头，左对齐
-    printf &quot;%-10s%-10s\n&quot;,&quot;Tester&quot;,&quot;TotalTestcases&quot;
-}
-
-{   # 定义用户类字典
-    USERS[$4] += 1
-}
-
-END{
-    # for循环用户列表类字典及总数
-    for (u in USERS){
-        printf &quot;%-10s%-10s\n&quot;, u, USERS[u]
-    }
-}
-</code></pre>
-<p>b.分别统计每位测试人员执行用例成功和失败的总数</p>
-<pre><code class="language-shell"># 分别统计每位测试人员执行用例成功和失败的总数 
-
-BEGIN{
-    # 格式化输入表头，左对齐
-    printf &quot;%-15s%-15s%-15s\n&quot;,&quot;Tester&quot;,&quot;Passtotal&quot;,&quot;FAIL&quot;
-}
-
-{   # 定义用户为key的字典
-    if($5 ~ &quot;Pass&quot;){
-        SUCCESS[$4] += 1
-    } else if($5 ~ &quot;Fail&quot;){
-        FAIL[$4] +=1
-    }
-    USERS[$4] += 1
-    
-}
-
-END{
-    for (u in USERS){
-        printf &quot;%-15s%-15s%-15s\n&quot;, u , SUCCESS[u], FAIL[u]
-    }
-}
-</code></pre>
-<p>c.将1、2合并，同时分别统计每位测试人员执行用例CRITICAL、ERROR日志等级数以及所有测试人员每项总数</p>
-<h1 id="日志模板-2">日志模板</h1>
-<h1 id="2019-08-17-161951025-info-keke-pass-手机号为空-generate_logspy-42-2">2019-08-17 16:19:51,025 INFO keke Pass 手机号为空 generate_logs.py 42</h1>
-<h1 id="2019-08-17-161951026-critical-lemon-pass-密码-多于18位-generate_logspy-42-2">2019-08-17 16:19:51,026 CRITICAL lemon Pass 密码-多于18位 generate_logs.py 42</h1>
-<pre><code class="language-shell">BEGIN{
-    # 格式化输入表头，左对齐
-    printf &quot;%-15s%-15s%-15s%-15s\n&quot;,&quot;Tester&quot;,&quot;ERROR&quot;,&quot;CRITICAL&quot;,&quot;TOTAL&quot;
-}
-
-{
-    # 定义用户为key的字典
-    if($3 ~ &quot;CRITICAL&quot;){
-        CRITICAL[$4] +=1
-        CRITICALTotal +=1
-    } else if($3 ~ &quot;ERROR&quot;){
-        ERROR[$4] +=1
-        ErrorTotal +=1
-    }
-
-    USERS[$4] += 1
-}
-
-END{
-    for (u in USERS){
-        printf &quot;%-15s%-15s%-15s%-15s\n&quot;, u ,ERROR[u],CRITICAL[u], CRITICAL[u] + ERROR[u]
-    }
-    print &quot;\n&quot;
-    printf &quot;%-15s&quot;, &quot;ErrorTotal&quot;
-    printf &quot;%-15s\n&quot;,ErrorTotal
-    printf &quot;%-30s&quot;,&quot;CRITICALTotal&quot;
-    printf &quot;%-15s\n&quot;,CRITICALTotal
-    
-}
-</code></pre>
-<p>d.使用shell脚本来实现，并显示菜单，选择不同的选项则打印不同的内容</p>
-<pre><code class="language-shell">#!/bin/bash
-
-# 定义待处理的日志文件路径
-# 指定每个选项需要的awk表达式文件路径
-# 显示菜单
-# 用户输入执行不同的函数，输入0时，退出。exit 1
-# 显示帮助信息
-
-
-function show_error
-{   
-    echo &quot;输入错误&quot;
-	echo &quot;Usage: $0 1 | 2 | 3&quot;
-}
-
-
-logfile_path=&quot;/root/shell_05/&quot;
-total=&quot;${logfile_path}awk/user_total.awk&quot;
-pass_fail=&quot;${logfile_path}awk/pass_fail.awk&quot;
-critical_error=&quot;${logfile_path}/awk/critical_error.awk&quot;
-
-logfile=&quot;${logfile_path}testcases.log&quot;
-
-echo -e &quot;1.统计每位测试人员执行用例的总数\n2.统计每位测试人员执行用例成功和失败的总数\n3.统计详情\n0.退出&quot;
-echo &quot;请输入操作选项：&quot;
-
-read num
-if [[ $num -ge 0 &amp;&amp; $num -le 3 ]];then 
-    case &quot;$num&quot; in
-	1)
-        echo &quot;你输入的是$num,开始统计每位测试人员执行用例的总数 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
-		awk -f $total $logfile
-        
-		;;
-	2)
-		echo &quot;你输入的是$num,开始统计每位测试人员执行用例成功和失败的总数 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
-        awk -f $pass_fail $logfile
-		;;
-	3)
-		echo &quot;你输入的是$num,统计每位测试人员执行用例CRITICAL、ERROR日志等级数以及所有测试人员每项总数&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
-		awk -f $critical_error $logfile
-        ;;
-	0)
-		echo &quot;你输入的是$num,正在退出&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;
-        exit 1
-		;;
-	*)
-      echo &quot;非法输入&quot;
-      show_error
-      ;;
-    esac
-    exit 0
-else 
-    show_error
-    exit 1
-fi 
-}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[客户端自动化]]></title>
-        <id>https://grassroadsz.github.io/Mbkh7VQ2l/</id>
-        <link href="https://grassroadsz.github.io/Mbkh7VQ2l/">
-        </link>
-        <updated>2022-05-28T08:09:33.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-shell"> pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywinauto
-</code></pre>
-<pre><code class="language-python">&quot;&quot;&quot;
-from pywinauto.application import Application
-# 打开指定的应用程序
-
-# 1. 打开windows自带的应用
-# app = Application(backend='uia').start(&quot;chrome.exe --force-renderer-accessibility --incognito &quot;)
-
-# 2. 打开任意一个应用程序
-app = Application(backend='uia').start(r&quot;C:\\Users\grassroadsZ\AppData\Local\Google\Chrome\Application\chrome.exe&quot;)
-# 选择指定窗口
-# 1.通过窗口类型来选择
-dlg = app[&quot;TNavicatMainForm&quot;]
-
-# 2.通过窗口标题来选择
-dlg = app[&quot;Navicat for MySQL&quot;]
-
-
-# 方式二：app.类名
-dlg =app.TNavicatMainForm
-
-dlg.print_control_identifiers()
-
-
-# 操作窗口
-# 窗口最大化
-dlg.maximize()
-
-# 窗口最小化
-dlg.minimize()
-
-# 窗口恢复正常大小
-dlg.restore()
-
-# 查找窗口显示状态，最大化为1，正常为0
-status = dlg.get_show_state()
-
-# 获取当前窗口的坐标位置
-rect = dlg.rectangle()
-print(rect)# （L548,T194,R1768,B1043）
-
-# 关闭窗口
-dlg.close()
-
-# 选择控件
-# 选择控件
-
-# menu = dlg.Menu
-menu = dlg[&quot;Menu&quot;]
-print(menu.print_control_identifiers()) # 查看Menu上的控件
-
-
-file = menu.child_window(title=&quot;文件&quot;, control_type=&quot;MenuItem&quot;)
-file.print_control_identifiers()
-控件的分类
-
-状态栏 StatusBar
-按钮 Button
-单选框 RadioButton
-组合框 ComboBox
-编辑栏 Edit
-列表框 ListBox
-弹出菜单 PopupMenu
-工具栏 Toolbar
-树状视图 Tree View
-菜单项 MenuItem
-静态内容 Static
-复选框 CheckBox
-组框 GroupBox
-对话框 Dialog
-头部内容 Header
-列表显示控件 ListView
-选项卡控件 TabControl
-工具提示 ToolTips
-菜单 Menu
-窗格 Pane
-&quot;&quot;&quot;
-
-import pywinauto
-from pywinauto import mouse
-from pywinauto.keyboard import send_keys
-
-
-class NavicatTest:
-
-    def __init__(self, path=None, precess=None):
-        # 初始化一个应用程序对象
-        if path:
-            self.app = pywinauto.Application(backend=&quot;uia&quot;).start(path)
-        else:
-            self.app = pywinauto.Application(backend=&quot;uia&quot;).connect(process=precess)
-        # 选择主窗口
-        self.dlg = self.app[&quot;Navicat for MySQL&quot;]
-
-    def new_connect(self, title, host, port, user, password):
-        &quot;&quot;&quot;
-            新建连接
-        &quot;&quot;&quot;
-        # 选择菜单栏
-        menu = self.dlg[&quot;Menu&quot;]
-        # 点击文件
-        menu.child_window(title=&quot;文件&quot;, control_type=&quot;MenuItem&quot;).click_input()
-        # 点击新建连接
-        menu.item_by_path(&quot;文件-&gt;新建连接...&quot;).click_input()
-        # 选择新建连接窗口
-        new_dlg = self.app[&quot;新建连接&quot;]
-        # 连接名称输入框
-        new_dlg[&quot;常规&quot;].Edit5.type_keys(title)
-        # ip输入框
-        new_dlg[&quot;常规&quot;].Edit1.type_keys(host)
-        # 端口输入框
-        new_dlg[&quot;常规&quot;].Edit4.type_keys(port)
-        # 用户名输入框
-        new_dlg[&quot;常规&quot;].Edit3.type_keys(user)
-        # 密码输入框
-        new_dlg[&quot;常规&quot;].Edit2.type_keys(password)
-        # 点击确定按钮
-        new_dlg[&quot;确定&quot;].click()
-
-    def open_connect(self, title):
-        &quot;&quot;&quot;
-        打开连接或者数据库
-        :param title: 连接名或者数据库名
-        :return:
-        &quot;&quot;&quot;
-        # 获取控制坐标中心点，进行点击，打开连接
-        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
-        rect = db_name.rectangle().mid_point()
-        print(rect.x, rect.y)
-        mouse.double_click(coords=(rect.x, rect.y))
-
-    def del_connect(self, title):
-        &quot;&quot;&quot;删除连接&quot;&quot;&quot;
-        # 获取控件中心点位置
-        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
-        rect = db_name.rectangle().mid_point()
-        # 鼠标在控件中心点，右击
-        mouse.right_click(coords=(rect.x, rect.y))
-        # 删除连接
-        self.app[&quot;上下文&quot;][&quot;MenuItem5&quot;].click_input()
-        # 选择删除窗口
-        self.app[&quot;确认删除&quot;][&quot;删除&quot;].click()
-
-    def close_coonnect(self, title):
-        &quot;&quot;&quot;
-        关闭连接或者数据库
-        :param title: 连接名或者数据库名
-        :return:
-        &quot;&quot;&quot;
-        # 获取控件中心点位置
-        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
-        rect = db_name.rectangle().mid_point()
-        # 鼠标在控件中心点，右击
-        mouse.right_click(coords=(rect.x, rect.y))
-        # 删除连接
-        self.app[&quot;上下文&quot;][&quot;MenuItem2&quot;].click_input()
-
-    def del_database(self, database):
-        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=database, control_type=&quot;TreeItem&quot;)
-        rect = db_name.rectangle().mid_point()
-        mouse.right_click(coords=(rect.x, rect.y))
-        self.app[&quot;上下文&quot;][&quot;MenuItem4&quot;].click_input()
-        # 选择删除窗口
-        self.app[&quot;确认删除&quot;][&quot;删除&quot;].click()
-
-    def new_database(self, title, database, charset=&quot;utf8 -- UTF-8 Unicode&quot;):
-        &quot;&quot;&quot;新建数据库&quot;&quot;&quot;
-        db_name = self.dlg[&quot;TTreeView&quot;].child_window(title=title, control_type=&quot;TreeItem&quot;)
-        rect = db_name.rectangle().mid_point()
-        mouse.right_click(coords=(rect.x, rect.y))
-
-        dlg = self.app[&quot;上下文&quot;]
-        # 点击新建连接
-        dlg.MenuItem8.click_input()
-        # 获取新建连接的窗口
-        # self.app[&quot;新建数据库&quot;].print_control_identifiers()
-        # 数据数据库名
-        self.app[&quot;新建数据库&quot;][&quot;常规&quot;].Edit3.type_keys(database)
-        self.app[&quot;新建数据库&quot;][&quot;常规&quot;].Edit2.type_keys(charset)
-        # 键盘回车键，点击确定
-        send_keys(&quot;{VK_RETURN}&quot;)
-
-    def new_find_dlg(self):
-        &quot;&quot;&quot;新建查询窗口&quot;&quot;&quot;
-        find = self.dlg[&quot;TTreeView&quot;].child_window(title=&quot;查询&quot;, control_type=&quot;TreeItem&quot;)
-        # 获取查询的左边
-        rect = find.rectangle().mid_point()
-        # 鼠标右击
-        mouse.right_click(coords=(rect.x, rect.y))
-        # 选择出现的小窗口
-        dlg = self.app[&quot;上下文&quot;]
-        # 点击新建连接
-        dlg.MenuItem1.click_input()
-
-    def find_sql(self, database, title, sql):
-        &quot;&quot;&quot;查询sql&quot;&quot;&quot;
-        title = &quot;无标题 @{} ({}) - 查询&quot;.format(database, title)
-        find_dlg = self.app[title]
-        find_dlg[&quot;TabControl&quot;].print_control_identifiers()
-        # 获取编辑框
-        edit = find_dlg[&quot;TabControl&quot;].Pane4
-        # 获取编辑窗口控件位置
-        rect = edit.rectangle().mid_point()
-        mouse.click(coords=(rect.x, rect.y))
-        sql = &quot;^a{}&quot;.format(sql.replace(&quot; &quot;, &quot;{VK_SPACE}&quot;)) + &quot;;&quot;
-        send_keys(sql)
-        # 使用运行快捷键
-        send_keys(&quot;^r&quot;)
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Git 命令]]></title>
-        <id>https://grassroadsz.github.io/kHeewF6F8/</id>
-        <link href="https://grassroadsz.github.io/kHeewF6F8/">
-        </link>
-        <updated>2022-05-28T08:06:00.000Z</updated>
-        <content type="html"><![CDATA[<p>名词</p>
-<p>master：默认开发分支</p>
-<p>origin：默认远程版本库</p>
-<p>Index/stage:暂缓区</p>
-<p>Workspace：工作区</p>
-<p>Repository：仓库区（本地仓库）</p>
-<p>Remote：远程仓库</p>
-<p>一. 新建代码库</p>
-<h1 id="在当前目录新建一个代码仓库">在当前目录新建一个代码仓库</h1>
-<pre><code>git init
-</code></pre>
-<h1 id="新建一个目录将其初始化为-git仓库">新建一个目录，将其初始化为    git仓库</h1>
-<pre><code>git init [project-name]
-</code></pre>
-<h1 id="下载一个项目和它的整个代码历史">下载一个项目和它的整个代码历史</h1>
-<pre><code>git clone[url]
-</code></pre>
-<p>二.配置</p>
-<pre><code>git的设置文件为.    gitconfig,它可以在用户主目录下（全局配置）
-</code></pre>
-<h1 id="显示当前的-git配置">显示当前的    git配置</h1>
-<pre><code>git config --list
-</code></pre>
-<h1 id="编辑-git配置文件">编辑    git配置文件</h1>
-<pre><code>git config -e [--global]
-</code></pre>
-<h1 id="设置提交代码时的用户信息">设置提交代码时的用户信息</h1>
-<pre><code>git config [--global]
-</code></pre>
-<h1 id="设置提交代码时的用户信息-2">设置提交代码时的用户信息</h1>
-<pre><code>git config [--global] user.name &quot;[name]&quot;
-
-git config [--global] user.email &quot;email address&quot;
-</code></pre>
-<p>三.增加/删除/修改文件</p>
-<h1 id="查看状态">查看状态</h1>
-<pre><code>git status
-</code></pre>
-<h1 id="查看变更内容">查看变更内容</h1>
-<pre><code>git diff
-</code></pre>
-<h1 id="添加指定文件到暂存区">添加指定文件到暂存区</h1>
-<pre><code>git add [file1] [file2]
-</code></pre>
-<h1 id="添加指定目录到暂缓区包括子目录">添加指定目录到暂缓区，包括子目录</h1>
-<pre><code>git add .
-</code></pre>
-<h1 id="添加每个变化前都会要求确认">添加每个变化前，都会要求确认</h1>
-<p>#对于同一个文件的多处变化，可以实现分次提交</p>
-<pre><code>git add -p
-</code></pre>
-<h1 id="删除工作区文件并且将这次删除放入暂缓区">删除工作区文件，并且将这次删除放入=暂缓区</h1>
-<pre><code>git rm[file1] [file2]...
-</code></pre>
-<h1 id="停止追踪指定文件但该文件会保留在工作区">停止追踪指定文件，但该文件会保留在工作区</h1>
-<pre><code>git rm --cached [file]
-</code></pre>
-<h1 id="改名文件并且将这个改名放入暂存区">改名文件，并且将这个改名放入暂存区</h1>
-<pre><code>git mv [file-oigin] [file-renamed]
-</code></pre>
-<p>代码提交</p>
-<h1 id="提交暂缓区至仓库区">提交暂缓区至仓库区</h1>
-<pre><code>git commit -m [message]
-</code></pre>
-<h1 id="提交暂缓区的指定文件到仓库区">提交暂缓区的指定文件到仓库区</h1>
-<pre><code>git commit [file1] [file2]...m [message]
-</code></pre>
-<h1 id="提交工作区自上次commit之后的变化直接到仓库区">提交工作区自上次commit之后的变化，直接到仓库区</h1>
-<pre><code>git commit -a
-</code></pre>
-<h1 id="使用一次新的commit替代上一次提交">使用一次新的commit，替代上一次提交</h1>
-<h1 id="如果代码没有任何新变化则用来改写上一次commit的提交信息">如果代码没有任何新变化，则用来改写上一次commit的提交信息</h1>
-<pre><code>git commit --amend -m [message]
-</code></pre>
-<h1 id="重做上一次commit并包括指定文件的新变化">重做上一次commit，并包括指定文件的新变化</h1>
-<pre><code>git commit --amend [file1] [file2]...
-</code></pre>
-<p>五.分支</p>
-<h1 id="显示所有的本地分支">显示所有的本地分支</h1>
-<pre><code>git branch
-</code></pre>
-<h1 id="列出所有的远程分支">列出所有的远程分支</h1>
-<pre><code>git branch -r
-</code></pre>
-<h1 id="列出所有的本地分支和远程分支">列出所有的本地分支和远程分支</h1>
-<pre><code>git branch -a
-</code></pre>
-<h1 id="新建一个分支但是依然停留在当前分支">新建一个分支，但是依然停留在当前分支</h1>
-<pre><code>git branch [branch-name]
-</code></pre>
-<h1 id="新建一个分支并与指定的远程分支建立追踪关系">新建一个分支，并与指定的远程分支建立追踪关系</h1>
-<pre><code>git branch --track [branck] [remote-name]
-</code></pre>
-<h1 id="删除远程分支">删除远程分支</h1>
-<pre><code>git push origin --delete [branch-name]
-
-git branch -dr [remote/branch]
-</code></pre>
-<h1 id="新建一个分支并切换到该分支">新建一个分支，并切换到该分支</h1>
-<pre><code>git checkout -b [branch]
-</code></pre>
-<h1 id="切换到指定分支并更新工作区">切换到指定分支，并更新工作区</h1>
-<pre><code>git checkout [branch-name]
-</code></pre>
-<h1 id="切换到上一个分支">切换到上一个分支</h1>
-<pre><code>git checkout -
-</code></pre>
-<h1 id="建立追踪关系在现有分支与指定的远程分支之间">建立追踪关系，在现有分支与指定的远程分支之间</h1>
-<pre><code>git branch --set-upstream [branch] [remote-branch]
-</code></pre>
-<h1 id="合并指定分支到当前分支">合并指定分支到当前分支</h1>
-<pre><code>git merge [branch]
-</code></pre>
-<h1 id="衍合指定分支到当前分支">衍合指定分支到当前分支</h1>
-<pre><code>git rebase &lt;branch&gt;
-</code></pre>
-<h1 id="选择一个commit合并到当前分支">选择一个commit，合并到当前分支</h1>
-<pre><code>git cherry-pick [commit]
-</code></pre>
-<p>六. 标签</p>
-<h1 id="列出所有本地标签">列出所有本地标签</h1>
-<pre><code>git tag
-</code></pre>
-<h1 id="基于最新提交创建的标签">基于最新提交创建的标签</h1>
-<pre><code>git tag &lt;tagname&gt;
-</code></pre>
-<h1 id="删除标签">删除标签</h1>
-<pre><code>git tag -d &lt;tagname&gt;
-</code></pre>
-<h1 id="删除远程tag">删除远程tag</h1>
-<pre><code>git push origin ：refs/tages/[tagename]
-</code></pre>
-<h1 id="查看tag信息">查看tag信息</h1>
-<pre><code>git show [tag]
-</code></pre>
-<h1 id="提交指定tag">提交指定tag</h1>
-<pre><code>git  push [remote] [tag]
-</code></pre>
-<h1 id="提交所有tag">提交所有tag</h1>
-<pre><code>git push [remote] --[tag]
-</code></pre>
-<h1 id="新建一个分支指向某个tag">新建一个分支，指向某个tag</h1>
-<pre><code>git checkout -b [branch] [tag]
-</code></pre>
-<p>七.查看信息</p>
-<h1 id="显示有变更的文件">显示有变更的文件</h1>
-<pre><code>git status 
-</code></pre>
-<h1 id="显示当前分支的版本历史">显示当前分支的版本历史</h1>
-<pre><code>git log
-</code></pre>
-<h1 id="显示commit历史以及每次commit发生变更的文件">显示commit历史，以及每次commit发生变更的文件</h1>
-<pre><code>git log --stat
-</code></pre>
-<h1 id="搜索提交历史根据关键词">搜索提交历史，根据关键词</h1>
-<pre><code>git log -s [keyword]
-</code></pre>
-<h1 id="显示某个commit之后的所有变动每个commit占据一行">显示某个commit之后的所有变动，每个commit占据一行</h1>
-<pre><code>git log [tag] HEAD --pretty=format:%s
-</code></pre>
-<h1 id="显示某个commit之后的所有变动其提交说明必须符合搜索条件">显示某个commit之后的所有变动，其“提交说明”必须符合搜索条件</h1>
-<pre><code>git log [tag] HEAD --grep feature
-</code></pre>
-<h1 id="显示某个文件的版本历史包括文件改名">显示某个文件的版本历史，包括文件改名</h1>
-<pre><code>git log --follow [file]
-git whatchanged [file]
-</code></pre>
-<h1 id="显示指定文件相关的每一次diff">显示指定文件相关的每一次diff</h1>
-<pre><code>git log -p [file]
-</code></pre>
-<h1 id="显示过去的5次提交">显示过去的5次提交</h1>
-<pre><code>git log -5 --pretty --oneline
-</code></pre>
-<h1 id="显示所有提交过的用户按提交次数排序">显示所有提交过的用户，按提交次数排序</h1>
-<pre><code>git shortlog -sn
-</code></pre>
-<h1 id="显示指定文件是什么人在什么时间修改过">显示指定文件是什么人在什么时间修改过</h1>
-<pre><code>git blame [file]
-</code></pre>
-<h1 id="显示暂缓区和工作区的差异">显示暂缓区和工作区的差异</h1>
-<pre><code>git diff
-</code></pre>
-<h1 id="显示暂缓区和上一个commit的差异">显示暂缓区和上一个commit的差异</h1>
-<pre><code>git diff HEAD
-</code></pre>
-<h1 id="显示两次提交之间的差异">显示两次提交之间的差异</h1>
-<pre><code>git diff [first-branch]...[second-branch]
-</code></pre>
-<h1 id="显示某次提交发生变化的文件">显示某次提交发生变化的文件</h1>
-<pre><code>git show --name-only [commit]
-</code></pre>
-<p>远程操作</p>
-<h1 id="下载远程仓库的所有变动">下载远程仓库的所有变动</h1>
-<pre><code>git fetch [remote]
-</code></pre>
-<h1 id="取回远程仓库的变化并与本地分支合并">取回远程仓库的变化，并与本地分支合并</h1>
-<pre><code>git pull [remote] [branch]
-</code></pre>
-<h1 id="显示所有的远程仓库">显示所有的远程仓库</h1>
-<pre><code>git remote -v 
-</code></pre>
-<h1 id="显示某个远程仓库的信息">显示某个远程仓库的信息</h1>
-<pre><code>git remote show [remote]
-</code></pre>
-<h1 id="增加一个新的远程仓库并命名">增加一个新的远程仓库，并命名</h1>
-<pre><code>git remote add [shortname] [url]
-</code></pre>
-<h1 id="上传本地指定分支到远程仓库">上传本地指定分支到远程仓库</h1>
-<pre><code>git push [remote] [branch]
-</code></pre>
-<h1 id="强行推送当前分支到远程仓库即使有冲突">强行推送当前分支到远程仓库，即使有冲突</h1>
-<pre><code>git push [remote] --force
-</code></pre>
-<h1 id="推送所有的分支到远程仓库">推送所有的分支到远程仓库</h1>
-<pre><code>git push [remote] --all
-</code></pre>
-<p>九.撤销</p>
-<h1 id="撤销工作目录中所有未提交文件的修改内容">撤销工作目录中所有未提交文件的修改内容</h1>
-<pre><code>git reset --hard HEAD
-</code></pre>
-<h1 id="撤销指定的未提交文件的修改内容">撤销指定的未提交文件的修改内容</h1>
-<pre><code>git  checkout HEAD [file]
-</code></pre>
-<h1 id="撤销指定的提交">撤销指定的提交</h1>
-<pre><code>git revert &lt;commit&gt;</code></pre>
 ]]></content>
     </entry>
 </feed>

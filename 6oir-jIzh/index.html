@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文章迁移 | grassroadsZ</title>
+<title>Sonarqube7.7集成阿里PMD代码规范 | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,8 +24,10 @@
 
 
 
-    <meta name="description" content="由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。
-" />
+    <meta name="description" content="环境：
+● linux Centos7
+● sonarqube7.7 + postgres镜像
+docker run   -d   --name postgres10   -p 5432:5432   -e POSTGRES_USER=so..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -97,20 +99,49 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">文章迁移</h2>
-            <div class="post-date">2022-05-28</div>
+            <h2 class="post-title">Sonarqube7.7集成阿里PMD代码规范</h2>
+            <div class="post-date">2022-06-08</div>
             
             <div class="post-content" v-pre>
-              <p>由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。</p>
+              <p>环境：<br>
+● linux Centos7<br>
+● sonarqube7.7 + postgres镜像</p>
+<pre><code class="language-shell">docker run   -d   --name postgres10   -p 5432:5432   -e POSTGRES_USER=sonar   -e POSTGRES_PASSWORD=123456   postgres
+
+docker run   -d   --name sonar7.7   -p 9000:9000   --link postgres10   -e SONARQUBE_JDBC_URL=jdbc:postgresql://postgres10:5432/sonar   -e SONARQUBE_JDBC_USERNAME=sonar   -e SONARQUBE_JDBC_PASSWORD=123456   -v /home/apppackage/sonarqube-7.7/conf:/opt/sonarqube_conf   -v /home/apppackage/sonarqube-7.7/extensions:/opt/sonarqube_extensions   -v /home/apppackage/sonarqube-7.7/logs:/opt/sonarqube_logs   -v /home/apppackage/sonarqube-7.7/data:/opt/sonarqube_data   sonarqube:7.7-community
+</code></pre>
+<p><a href="https://github.com/SonarQubeCommunity/sonar-l10n-zh">中文插件下载地址</a>：根据对应的sonar版本下载对应的jar包</p>
+<p><a href="https://github.com/caowenliang/sonar-pmd-p3c">p3c_git地址</a>：下载后按照如图修改，<br>
+增加一对大的标签</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
+<p>然后在pom的目录下使用命令mvn package -DskipTests</p>
+<p>生成的jar包路径<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
+<p>假如不添加大标签运行扫描时会失败如图：<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
+<p>将jar包上传至linux服务器后运行命令</p>
+<pre><code class="language-shell">docker cp sonar-pmd-plugin-3.2.1.jar sonar7.7:/opt/sonarqube/extensions/plugins/
+docker cp sonar-l10n-zh-plugin-1.27.jar sonar7.7:/opt/sonarqube/extensions/plugins
+# 将有变更的容器从新打成镜像docker commit 容器名 新的镜像名
+docker commit sonar7.7 sonar7.7-cn-pmd
+# 重启sonarqube
+docker restart sonar7.7
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
+<a href="https://blog.csdn.net/weixin_43367055/article/details/100770254">添加p3c规则教程(jar包打出来的是PMD开头)</a>：使用docker-compose或者是-v映射目录时，插件一直无法加载进去<br>
+<a href="https://blog.csdn.net/weixin_34205826/article/details/86250962">解决jar运行时报错</a><br>
+<a href="https://www.jianshu.com/p/b849175dd38b">编译jar包参考链接</a></p>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
+                <a href="https://grassroadsz.github.io/4eZMO1Acq/">
                   <h3 class="post-title">
-                    UI自动化文件上传
+                    批量修改图片CDN
                   </h3>
                 </a>
               </div>

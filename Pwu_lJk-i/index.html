@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文章迁移 | grassroadsZ</title>
+<title>DjangoAdmin-2-自定义后台管理页面字段的展示相关 | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,17 @@
 
 
 
-    <meta name="description" content="由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。
-" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="
+jobs/admin.py
+from django.contrib import admin
+from .models import Job
+
+
+# Register your models here.
+
+
+class JobAdmin(..." />
+    <meta name="keywords" content="Django" />
   </head>
   <body>
     <div id="app" class="main">
@@ -97,20 +105,53 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">文章迁移</h2>
-            <div class="post-date">2022-05-28</div>
+            <h2 class="post-title">DjangoAdmin-2-自定义后台管理页面字段的展示相关</h2>
+            <div class="post-date">2022-06-09</div>
             
             <div class="post-content" v-pre>
-              <p>由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。</p>
+              <figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.66ze4xspj0c0.webp" alt="image" loading="lazy"></figure>
+<h2 id="jobsadminpy">jobs/admin.py</h2>
+<pre><code class="language-python">from django.contrib import admin
+from .models import Job
+
+
+# Register your models here.
+
+
+class JobAdmin(admin.ModelAdmin):
+    # 列表页展示字段
+    list_display = [&quot;job_name&quot;, &quot;job_type&quot;, &quot;city&quot;, &quot;creator&quot;, &quot;create_time&quot;]
+
+    # 定义后台列表页中不显示的字段
+    exclude = [&quot;creator&quot;]
+
+    # 保存模型类对象之前进行的操作
+    def save_model(self, request, obj, form, change):
+        obj.creator = request.user
+        super().save_model(request, obj, form, change)
+
+# 注册model类
+admin.site.register(Job, JobAdmin)
+
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.12j6dmpt8bio.webp" alt="image" loading="lazy"></figure>
 
             </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://grassroadsz.github.io/tag/JgK5jY1OY/" class="tag">
+                    Django
+                  </a>
+                
+              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
+                <a href="https://grassroadsz.github.io/mAhzwkCca/">
                   <h3 class="post-title">
-                    UI自动化文件上传
+                    Docker 命令
                   </h3>
                 </a>
               </div>

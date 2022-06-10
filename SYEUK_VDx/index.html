@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654656129427">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
 
 
@@ -33,7 +33,7 @@ node02对应ip：192.168.1.153
 mkdir certs
 
 进入cer..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="docker" />
   </head>
   <body>
     <div id="app" class="main">
@@ -42,7 +42,7 @@ mkdir certs
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://grassroadsz.github.io">
-        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654656129427" class="site-logo">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
         <h1 class="site-title">grassroadsZ</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -111,7 +111,7 @@ mkdir certs
               <p>前提条件</p>
 <p>node01对应ip：192.168.1.152<br>
 node02对应ip：192.168.1.153</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.4dq8l2g2dmw0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.4dq8l2g2dmw0.webp" alt="image" loading="lazy"></figure>
 <h2 id="服务端操作node01节点">服务端操作(node01节点)</h2>
 <p>在ROOT下执行，把证书保存在/root/certs目录下</p>
 <pre><code class="language-shell">mkdir certs
@@ -122,7 +122,7 @@ node02对应ip：192.168.1.153</p>
 openssl req -newkey rsa:2048 -nodes -sha256 -keyout /root/certs/domain.key -x509 -days 365 -out /root/certs/domain.crt
 </code></pre>
 <p>然后根据提示数据一些信息，如下图，倒数第二行输入节点名称node5</p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2ruqn8ewj080.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.2ruqn8ewj080.webp" alt="image" loading="lazy"></figure>
 <p>将domain.crt拷贝到 /etc/docker/certs.d/node5:5000/ca.crt，</p>
 <pre><code class="language-shell">mkdir -p /etc/docker/certs.d/node5:5000
 
@@ -191,9 +191,17 @@ docker push node01:5000/ubuntu:v1
 <p>测试是否可以拉取镜像</p>
 <pre><code class="language-shell">docker pull node01:5000/ubuntu:v1
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3o2qsz9gmcs0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3o2qsz9gmcs0.webp" alt="image" loading="lazy"></figure>
 
             </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://grassroadsz.github.io/tag/e85npEo86/" class="tag">
+                    docker
+                  </a>
+                
+              </div>
             
             
               <div class="next-post">

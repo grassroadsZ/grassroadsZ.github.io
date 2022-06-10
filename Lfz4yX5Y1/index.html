@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Git命令 | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="名词
+master：默认开发分支
+origin：默认远程版本库
+Index/stage:暂缓区
+Workspace：工作区
+Repository：仓库区（本地仓库）
+Remote：远程仓库
+一. 新建代码库
+# 在当前目录新建一个代码仓库
+..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Git命令</h2>
+            <div class="post-date">2022-06-08</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="名词">名词</h1>
+<p>master：默认开发分支</p>
+<p>origin：默认远程版本库</p>
+<p>Index/stage:暂缓区</p>
+<p>Workspace：工作区</p>
+<p>Repository：仓库区（本地仓库）</p>
+<p>Remote：远程仓库</p>
+<h2 id="一-新建代码库">一. 新建代码库</h2>
+<pre><code class="language-shell"># 在当前目录新建一个代码仓库
+
+git init
+
+# 新建一个目录，将其初始化为Git仓库
+
+git init [project-name]
+
+# 下载一个项目和它的整个代码历史
+
+git clone[url]
+</code></pre>
+<h2 id="二配置">二.配置</h2>
+<p>git的设置文件为.gitconfig,它可以在用户主目录下（全局配置）</p>
+<pre><code class="language-shell"># 显示当前的Git配置
+
+git config --list
+
+# 编辑Git配置文件
+
+git config -e [--global]
+
+# 设置提交代码时的用户信息
+
+git config [--global]
+
+# 设置提交代码时的用户信息
+
+git config [--global] user.name &quot;[name]&quot;
+
+git config [--global] user.email &quot;email address&quot;
+</code></pre>
+<h2 id="三增加删除修改文件">三.增加/删除/修改文件</h2>
+<pre><code class="language-shell"># 查看状态
+
+git status
+
+# 查看变更内容
+
+git diff
+
+# 添加指定文件到暂存区
+
+git add [file1] [file2]
+
+# 添加指定目录到暂缓区，包括子目录
+
+git add .
+
+# 添加每个变化前，都会要求确认
+
+#对于同一个文件的多处变化，可以实现分次提交
+
+git add -p
+
+# 删除工作区文件，并且将这次删除放入=暂缓区
+
+git rm[file1] [file2]...
+
+# 停止追踪指定文件，但该文件会保留在工作区
+
+git rm --cached [file]
+
+# 改名文件，并且将这个改名放入暂存区
+
+git mv [file-oigin] [file-renamed]
+</code></pre>
+<h2 id="四-代码提交">四、代码提交</h2>
+<pre><code class="language-shell"># 提交暂缓区至仓库区
+
+git commit -m [message]
+
+# 提交暂缓区的指定文件到仓库区
+
+git commit [file1] [file2]...m [message]
+
+# 提交工作区自上次commit之后的变化，直接到仓库区
+
+git commit -a
+
+# 使用一次新的commit，替代上一次提交
+
+# 如果代码没有任何新变化，则用来改写上一次commit的提交信息
+
+git commit --amend -m [message]
+
+# 重做上一次commit，并包括指定文件的新变化
+
+git commit --amend [file1] [file2]...
+
+</code></pre>
+<h2 id="五分支">五.分支</h2>
+<pre><code class="language-shell"># 显示所有的本地分支
+
+git branch
+
+# 列出所有的远程分支
+
+git branch -r
+
+# 列出所有的本地分支和远程分支
+
+git branch -a
+
+# 新建一个分支，但是依然停留在当前分支
+
+git branch [branch-name]
+
+# 新建一个分支，并与指定的远程分支建立追踪关系
+
+git branch --track [branck] [remote-name]
+
+# 删除远程分支
+
+git push origin --delete [branch-name]
+
+git branch -dr [remote/branch]
+
+# 新建一个分支，并切换到该分支
+
+git checkout -b [branch]
+
+# 切换到指定分支，并更新工作区
+
+git checkout [branch-name]
+
+# 切换到上一个分支
+
+git checkout -
+
+# 建立追踪关系，在现有分支与指定的远程分支之间
+
+git branch --set-upstream [branch] [remote-branch]
+
+# 合并指定分支到当前分支
+
+git merge [branch]
+
+# 衍合指定分支到当前分支
+
+git rebase &lt;branch&gt;
+
+# 选择一个commit，合并到当前分支
+
+git cherry-pick [commit]
+
+</code></pre>
+<h2 id="六-标签">六. 标签</h2>
+<pre><code class="language-shell">
+# 列出所有本地标签
+
+git tag
+
+# 基于最新提交创建的标签
+
+git tag &lt;tagname&gt;
+
+# 删除标签
+
+git tag -d &lt;tagname&gt;
+
+# 删除远程tag
+
+git push origin ：refs/tages/[tagename]
+
+# 查看tag信息
+
+git show [tag]
+
+# 提交指定tag
+
+git  push [remote] [tag]
+
+# 提交所有tag
+
+git push [remote] --[tag]
+
+# 新建一个分支，指向某个tag
+
+git checkout -b [branch] [tag]
+
+</code></pre>
+<h2 id="七查看信息">七.查看信息</h2>
+<pre><code class="language-shell"># 显示有变更的文件
+
+git status 
+
+# 显示当前分支的版本历史
+
+git log
+
+# 显示commit历史，以及每次commit发生变更的文件
+
+git log --stat
+
+# 搜索提交历史，根据关键词
+
+git log -s [keyword]
+
+# 显示某个commit之后的所有变动，每个commit占据一行
+
+git log [tag] HEAD --pretty=format:%s
+
+# 显示某个commit之后的所有变动，其“提交说明”必须符合搜索条件
+
+git log [tag] HEAD --grep feature
+
+# 显示某个文件的版本历史，包括文件改名
+
+git log --follow [file]
+git whatchanged [file]
+
+# 显示指定文件相关的每一次diff
+
+git log -p [file]
+
+# 显示过去的5次提交
+
+git log -5 --pretty --oneline
+
+# 显示所有提交过的用户，按提交次数排序
+
+git shortlog -sn
+
+# 显示指定文件是什么人在什么时间修改过
+
+git blame [file]
+
+# 显示暂缓区和工作区的差异
+
+git diff
+
+# 显示暂缓区和上一个commit的差异
+
+git diff HEAD
+
+# 显示两次提交之间的差异
+
+git diff [first-branch]...[second-branch]
+
+# 显示某次提交发生变化的文件
+
+git show --name-only [commit]
+
+</code></pre>
+<h2 id="八-远程操作">八、远程操作</h2>
+<pre><code class="language-shell"># 下载远程仓库的所有变动
+
+git fetch [remote]
+
+# 取回远程仓库的变化，并与本地分支合并
+
+git pull [remote] [branch]
+
+# 显示所有的远程仓库
+
+git remote -v 
+
+# 显示某个远程仓库的信息
+
+git remote show [remote]
+
+# 增加一个新的远程仓库，并命名
+
+git remote add [shortname] [url]
+
+# 上传本地指定分支到远程仓库
+
+git push [remote] [branch]
+
+# 强行推送当前分支到远程仓库，即使有冲突
+
+git push [remote] --force
+
+# 推送所有的分支到远程仓库
+
+git push [remote] --all
+
+</code></pre>
+<h2 id="九撤销">九.撤销</h2>
+<pre><code class="language-shell"># 撤销工作目录中所有未提交文件的修改内容
+
+git reset --hard HEAD
+
+# 撤销指定的未提交文件的修改内容
+git  checkout HEAD [file]
+
+# 撤销指定的提交
+
+git revert &lt;commit&gt;
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/6oir-jIzh/">
+                  <h3 class="post-title">
+                    Sonarqube7.7集成阿里PMD代码规范
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

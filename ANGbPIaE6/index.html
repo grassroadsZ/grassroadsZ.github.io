@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654656129427">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
 
 
@@ -39,7 +39,7 @@ find /home -name &quot;*.mp4&quot; -type ..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://grassroadsz.github.io">
-        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654656129427" class="site-logo">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
         <h1 class="site-title">grassroadsZ</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -133,14 +133,14 @@ find /home -name &quot;*.mp4&quot; -type ..." />
 <pre><code class="language-shell">#top -b 指定为非交互模式下-p 指定pid -n指定行号
  while true;do sleep 1 ;top -b -p 10960 -n 1|tail -n 1|awk '{print $9,$10}';done
 </code></pre>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6c88vnqbv7c0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.6c88vnqbv7c0.webp" alt="image" loading="lazy"></figure>
 <h2 id="统计nginx日志中访问量前三的ip">统计nginx日志中访问量前三的ip</h2>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.56g0fmlkevk0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.56g0fmlkevk0.webp" alt="image" loading="lazy"></figure>
 <pre><code class="language-shell"># awk取第一列的ip：awk '{print $1}' /var/log/nginx/access.log,排序后去重统计：sort|uniq -c,排序去重统计结果再排序取前三：sort -rn|head -n 3
 
 awk '{print $1}' /var/log/nginx/access.log|sort|uniq -c|sort -rn|head -n 3
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2aftii7iqbk0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.2aftii7iqbk0.webp" alt="image" loading="lazy"></figure>
 
             </div>
             

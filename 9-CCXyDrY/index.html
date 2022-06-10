@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>UI自动化部署(Python3+Pytest+ selenium-docker + allure) | grassroadsZ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
+<link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="本地运行
+pip install -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com -r requirements.txt
+python run_local.p..." />
+    <meta name="keywords" content="测试经验" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://grassroadsz.github.io">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
+        <h1 class="site-title">grassroadsZ</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://grassroadsz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">UI自动化部署(Python3+Pytest+ selenium-docker + allure)</h2>
+            <div class="post-date">2022-06-09</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="本地运行">本地运行</h2>
+<pre><code class="language-shell">pip install -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com -r requirements.txt
+python run_local.py
+</code></pre>
+<ul>
+<li>allure 报告需本地安装allure</li>
+<li>请保证存在名为TarsUIAuto的应用存在</li>
+<li>请保证存在名为ABCD的服务存在</li>
+</ul>
+<h2 id="服务器centos部署">服务器(Centos)部署</h2>
+<h3 id="java安装">java安装</h3>
+<pre><code class="language-shell">yum install java
+</code></pre>
+<h3 id="maven安装">Maven安装</h3>
+<pre><code class="language-shell">wget http://mirrors.hust.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+tar -xvf  apache-maven-3.3.9-bin.tar.gz
+
+sudo mv -f apache-maven-3.3.9 /usr/local/
+
+sudo vim /etc/profile
+# 添加到最后两行
+export MAVEN_HOME=/usr/local/apache-maven-3.3.9
+export PATH=${PATH}:${MAVEN_HOME}/bin
+
+source /etc/profile
+mvn -v
+</code></pre>
+<h3 id="jenkins安装">Jenkins安装</h3>
+<pre><code class="language-shell">sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+yum install jenkins -y
+</code></pre>
+<p><strong>修改端口(未被占用可不修改)</strong></p>
+<pre><code class="language-shell">vi /etc/sysconfig/jenkins
+:/PORT
+# 改为其它未被占用的端口8088
+
+sudo systemctl daemon-reload
+</code></pre>
+<p>启动/停止/重启</p>
+<pre><code class="language-shell">service jenkins start/stop/restart
+</code></pre>
+<p>查看安装密码</p>
+<pre><code class="language-shell">cat /var/lib/jenkins/secrets/initialAdminPassword
+</code></pre>
+<p>修改jenkins执行命令的用户</p>
+<pre><code class="language-shell">vim /etc/sysconfig/jenkins
+# 将$JENKINS_USER=&quot;jenkins&quot;修改为$JENKINS_USER=&quot;root&quot;
+
+# 修改目录权限
+chown -R root:root /var/lib/jenkins
+chown -R root:root /var/cache/jenkins
+chown -R root:root /var/log/jenkins
+
+# 将jenkins加入docker 的用户组
+
+sudo gpasswd -a jenkins docker &amp;&amp; sudo service jenkins restart
+</code></pre>
+<p>修改docker 运行容器的host地址</p>
+<pre><code class="language-shell">vi /etc/hosts
+#添加如下
+193.112.207.190 www.tars.test2.com
+</code></pre>
+<p>确保域名可被请求<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.65httgaobcg0.webp" alt="image" loading="lazy"></p>
+<p>安装jenkins的allure插件</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.386yphytrg40.webp" alt="image" loading="lazy"></figure>
+<p>TarsUI项目jenkins配置参考<br>
+<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3ulaagmcmx20.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3b981di7rec.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tc5lw75d800.webp" alt="image" loading="lazy"></figure>
+<h3 id="必要条件">必要条件</h3>
+<p>虚拟环境命令</p>
+<pre><code class="language-shell">yum install python3
+python3 -m venv 路径/虚拟环境名
+
+docker pull elgalu/selenium
+
+docker pull dosel/zalenium
+</code></pre>
+<h3 id="jenkins_startsh解析">jenkins_start.sh解析</h3>
+<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1wg2t339odfk.webp" alt="image" loading="lazy"></figure>
+<p>运行过程中的屏幕录制存放在docker run 命令指定的video路径中，理论上通过外网ip+端口是可以访问控制台的，可以直接看回放的，但是在安全组放开，防火墙关闭状态下仍然无法访问，待解决</p>
+<h3 id="注意">注意</h3>
+<p>关于jenkins 相关的配置请尽量原封不动，否则会遇到如下问题</p>
+<p>● jenkins无法启动docker容器的问题（通过将jenkins加docker组，实际改成root这步可以忽略）<br>
+● jenkins的执行用户尽量改成root，否则pip依赖包时可能加sudo依然会存在无权限无法安装依赖包<br>
+● 建议jenkins中在tarsUI的工程上加一个stop selenium的docker容器命令在TarsUI项目构建完成后再进行容器停止</p>
+<p><a href="https://opensource.zalando.com/zalenium/#faq">selenium docker 容器启动参数参考</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://grassroadsz.github.io/tag/KlZQBekQp/" class="tag">
+                    测试经验
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://grassroadsz.github.io/Lfz4yX5Y1/">
+                  <h3 class="post-title">
+                    Git命令
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '7d56338c9b683c1db453',
+        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
+        repo: 'grassroadsZ.github.io',
+        owner: 'grassroadsZ',
+        admin: ['grassroadsZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

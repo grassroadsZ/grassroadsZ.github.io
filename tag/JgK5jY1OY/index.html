@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文章迁移 | grassroadsZ</title>
+<title>Django | grassroadsZ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,21 +12,13 @@
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
 
 
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。
-" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="温故而知新">
   </head>
   <body>
     <div id="app" class="main">
@@ -96,35 +88,43 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">文章迁移</h2>
-            <div class="post-date">2022-05-28</div>
-            
-            <div class="post-content" v-pre>
-              <p>由于之前服务器到期未进行续费，Halo 博客的数据库也没有备份，避免以后出现这种问题，还是放github吧。。。。</p>
-
-            </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://grassroadsz.github.io/ui-zi-dong-hua-wen-jian-shang-chuan/">
-                  <h3 class="post-title">
-                    UI自动化文件上传
-                  </h3>
+          <h2 class="current-tag">标签: Django</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/Pwu_lJk-i/">
+                  <h2 class="post-title">DjangoAdmin-2-自定义后台管理页面字段的展示相关</h2>
                 </a>
+                <div class="post-date">
+                  2022-06-09
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
               </div>
-            
-
-            
               
-                <div id="gitalk-container" data-aos="fade-in"></div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://grassroadsz.github.io/oiFkRrJij/">
+                  <h2 class="post-title">DjangoAdmin-1-创建后台</h2>
+                </a>
+                <div class="post-date">
+                  2022-06-08
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
               
+            </article>
+          
 
-              
-            
-
-          </div>
+          <div class="pagination-container">
+  
+  
+</div>
 
         </div>
       </div>
@@ -145,29 +145,6 @@ var app = new Vue({
 </script>
 
 
-
-
-
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '7d56338c9b683c1db453',
-        clientSecret: 'f750ad858d591e21978b5741a92df0a5b8294be9',
-        repo: 'grassroadsZ.github.io',
-        owner: 'grassroadsZ',
-        admin: ['grassroadsZ'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
 
 
 
