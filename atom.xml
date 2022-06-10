@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://grassroadsz.github.io</id>
     <title>grassroadsZ</title>
-    <updated>2022-06-10T00:51:21.546Z</updated>
+    <updated>2022-06-10T00:52:30.299Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://grassroadsz.github.io"/>
     <link rel="self" href="https://grassroadsz.github.io/atom.xml"/>
@@ -16,7 +16,7 @@
         <link href="https://grassroadsz.github.io/Pwu_lJk-i/">
         </link>
         <updated>2022-06-09T02:37:08.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.66ze4xspj0c0.webp" alt="image" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.66ze4xspj0c0.webp" alt="image" loading="lazy"></figure>
 <h2 id="jobsadminpy">jobs/admin.py</h2>
 <pre><code class="language-python">from django.contrib import admin
 from .models import Job
@@ -41,7 +41,7 @@ class JobAdmin(admin.ModelAdmin):
 admin.site.register(Job, JobAdmin)
 
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.12j6dmpt8bio.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.12j6dmpt8bio.webp" alt="image" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
@@ -231,13 +231,13 @@ sudo gpasswd -a jenkins docker &amp;&amp; sudo service jenkins restart
 193.112.207.190 www.tars.test2.com
 </code></pre>
 <p>确保域名可被请求<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.65httgaobcg0.webp" alt="image" loading="lazy"></p>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.65httgaobcg0.webp" alt="image" loading="lazy"></p>
 <p>安装jenkins的allure插件</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.386yphytrg40.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.386yphytrg40.webp" alt="image" loading="lazy"></figure>
 <p>TarsUI项目jenkins配置参考<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3ulaagmcmx20.webp" alt="image" loading="lazy"></p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3b981di7rec.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tc5lw75d800.webp" alt="image" loading="lazy"></figure>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3ulaagmcmx20.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3b981di7rec.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tc5lw75d800.webp" alt="image" loading="lazy"></figure>
 <h3 id="必要条件">必要条件</h3>
 <p>虚拟环境命令</p>
 <pre><code class="language-shell">yum install python3
@@ -248,7 +248,7 @@ docker pull elgalu/selenium
 docker pull dosel/zalenium
 </code></pre>
 <h3 id="jenkins_startsh解析">jenkins_start.sh解析</h3>
-<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1wg2t339odfk.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.1wg2t339odfk.webp" alt="image" loading="lazy"></figure>
 <p>运行过程中的屏幕录制存放在docker run 命令指定的video路径中，理论上通过外网ip+端口是可以访问控制台的，可以直接看回放的，但是在安全组放开，防火墙关闭状态下仍然无法访问，待解决</p>
 <h3 id="注意">注意</h3>
 <p>关于jenkins 相关的配置请尽量原封不动，否则会遇到如下问题</p>
@@ -581,14 +581,14 @@ docker run   -d   --name sonar7.7   -p 9000:9000   --link postgres10   -e SONARQ
 <p><a href="https://github.com/SonarQubeCommunity/sonar-l10n-zh">中文插件下载地址</a>：根据对应的sonar版本下载对应的jar包</p>
 <p><a href="https://github.com/caowenliang/sonar-pmd-p3c">p3c_git地址</a>：下载后按照如图修改，<br>
 增加一对大的标签</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
 <p>然后在pom的目录下使用命令mvn package -DskipTests</p>
 <p>生成的jar包路径<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
 <p>假如不添加大标签运行扫描时会失败如图：<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
 <p>将jar包上传至linux服务器后运行命令</p>
 <pre><code class="language-shell">docker cp sonar-pmd-plugin-3.2.1.jar sonar7.7:/opt/sonarqube/extensions/plugins/
 docker cp sonar-l10n-zh-plugin-1.27.jar sonar7.7:/opt/sonarqube/extensions/plugins
@@ -597,7 +597,7 @@ docker commit sonar7.7 sonar7.7-cn-pmd
 # 重启sonarqube
 docker restart sonar7.7
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
+<p><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
 <a href="https://blog.csdn.net/weixin_43367055/article/details/100770254">添加p3c规则教程(jar包打出来的是PMD开头)</a>：使用docker-compose或者是-v映射目录时，插件一直无法加载进去<br>
 <a href="https://blog.csdn.net/weixin_34205826/article/details/86250962">解决jar运行时报错</a><br>
 <a href="https://www.jianshu.com/p/b849175dd38b">编译jar包参考链接</a></p>
@@ -609,7 +609,7 @@ docker restart sonar7.7
         <link href="https://grassroadsz.github.io/4eZMO1Acq/">
         </link>
         <updated>2022-06-08T08:21:55.000Z</updated>
-        <content type="html"><![CDATA[<p>图片是放在github 仓库的 但是 cdn.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net</p>
+        <content type="html"><![CDATA[<p>图片是放在github 仓库的 但是 fastly.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net</p>
 <pre><code class="language-python">
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
@@ -635,7 +635,7 @@ def modify_md_content(top):
                             open(copy_md_file_path, 'w', encoding='utf8') as fw:
                         data = fr.read()
                         # 选择md文件中想要替换的字段
-                        data = re.sub('cdn.jsdelivr.net', 'fastly.jsdelivr.net', data)
+                        data = re.sub('fastly.jsdelivr.net', 'fastly.jsdelivr.net', data)
 
                         fw.write(data)  # 新文件一次性写入原文件内容
                         # fw.flush()
@@ -666,24 +666,24 @@ if __name__ == '__main__':
         <updated>2022-06-08T03:40:41.000Z</updated>
         <content type="html"><![CDATA[<h1 id="重定向">重定向</h1>
 <figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.27ogwol667ok.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3i7cbptk7ge0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3i7cbptk7ge0.webp" alt="image" loading="lazy"></figure>
 <h2 id="拦截请求修改数据">拦截请求修改数据</h2>
 <h3 id="单次修改响应数据">单次修改响应数据</h3>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.4bvupr55t38.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.2dgx1oc32r40.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="5"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.15suaswe4pq8.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="6"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.xihuh28ypvk.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.eigsbn388gg.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="8"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1l9gigdwu2jk.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.4bvupr55t38.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.2dgx1oc32r40.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.15suaswe4pq8.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.xihuh28ypvk.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.eigsbn388gg.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.1l9gigdwu2jk.webp" alt="image" loading="lazy"></figure>
 <h3 id="自动修改">自动修改</h3>
 <p>Breakpoint 快速的实现接口拦截修改，但是如果每次都想要以相同的方式进行拦截修改就需要每次都进行手动触发，这样就很不方便，影响效率；因此我们可以使用 Tools 中的 Rewrite 功能来完成提前定义好接口数据的篡改规则，这样每次访问的时候就会自动拦截修改发送</p>
 <p>1）Tools 中选中 Rewrite，然后设置需要拦截的请 URL<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5kom5wtwoe00.webp" alt="image" loading="lazy"></p>
-<figure data-type="image" tabindex="9"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.38064gbbt4w0.webp" alt="image" loading="lazy"></figure>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.5kom5wtwoe00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="9"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.38064gbbt4w0.webp" alt="image" loading="lazy"></figure>
 <p>2）再选择 Add 一个重写规则，将返回值中的“ TTF榜单 ”替换为“ 11111榜单 ”、</p>
-<figure data-type="image" tabindex="10"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tpcljo6cfs0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="10"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.5tpcljo6cfs0.webp" alt="image" loading="lazy"></figure>
 <p>重新访问 TesterHome 首页</p>
-<figure data-type="image" tabindex="11"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.1xap7lc6l9kw.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="11"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.1xap7lc6l9kw.webp" alt="image" loading="lazy"></figure>
 <p>上述 Rewrite 功能，不仅可以对 Response 进行修改，还可以对 Request 进行修改，只是较为常用的就是对 Response 进行修改。</p>
 ]]></content>
     </entry>

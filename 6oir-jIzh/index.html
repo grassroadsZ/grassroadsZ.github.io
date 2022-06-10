@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822335985">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
 
 
@@ -37,7 +37,7 @@ docker run   -d   --name postgres10   -p 5432:5432   -e POSTGRES_USER=so..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://grassroadsz.github.io">
-        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822335985" class="site-logo">
         <h1 class="site-title">grassroadsZ</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -113,14 +113,14 @@ docker run   -d   --name sonar7.7   -p 9000:9000   --link postgres10   -e SONARQ
 <p><a href="https://github.com/SonarQubeCommunity/sonar-l10n-zh">中文插件下载地址</a>：根据对应的sonar版本下载对应的jar包</p>
 <p><a href="https://github.com/caowenliang/sonar-pmd-p3c">p3c_git地址</a>：下载后按照如图修改，<br>
 增加一对大的标签</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3vhz4rjbuwe0.webp" alt="image" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.c6yvlf6qr3c.webp" alt="image" loading="lazy"></figure>
 <p>然后在pom的目录下使用命令mvn package -DskipTests</p>
 <p>生成的jar包路径<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3miwyhm8zu20.webp" alt="image" loading="lazy"></p>
 <p>假如不添加大标签运行扫描时会失败如图：<br>
-<img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
-<figure data-type="image" tabindex="3"><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
+<img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.64q9au0xch00.webp" alt="image" loading="lazy"></p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.6h981nk8edc0.webp" alt="image" loading="lazy"></figure>
 <p>将jar包上传至linux服务器后运行命令</p>
 <pre><code class="language-shell">docker cp sonar-pmd-plugin-3.2.1.jar sonar7.7:/opt/sonarqube/extensions/plugins/
 docker cp sonar-l10n-zh-plugin-1.27.jar sonar7.7:/opt/sonarqube/extensions/plugins
@@ -129,7 +129,7 @@ docker commit sonar7.7 sonar7.7-cn-pmd
 # 重启sonarqube
 docker restart sonar7.7
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
+<p><img src="https://fastly.jsdelivr.net/gh/grassroadsZ/picture@master/image.3h6iltjgw0w0.webp" alt="image" loading="lazy"><br>
 <a href="https://blog.csdn.net/weixin_43367055/article/details/100770254">添加p3c规则教程(jar包打出来的是PMD开头)</a>：使用docker-compose或者是-v映射目录时，插件一直无法加载进去<br>
 <a href="https://blog.csdn.net/weixin_34205826/article/details/86250962">解决jar运行时报错</a><br>
 <a href="https://www.jianshu.com/p/b849175dd38b">编译jar包参考链接</a></p>

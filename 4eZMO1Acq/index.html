@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822266035">
+<link rel="shortcut icon" href="https://grassroadsz.github.io/favicon.ico?v=1654822335985">
 <link rel="stylesheet" href="https://grassroadsz.github.io/styles/main.css">
 
 
@@ -24,10 +24,10 @@
 
 
 
-    <meta name="description" content="图片是放在github 仓库的 但是 cdn.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net
+    <meta name="description" content="图片是放在github 仓库的 但是 fastly.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net
 
 # !/usr/bin/env python
-# -*- cod..." />
+# -*- ..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://grassroadsz.github.io">
-        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822266035" class="site-logo">
+        <img src="https://grassroadsz.github.io/images/avatar.png?v=1654822335985" class="site-logo">
         <h1 class="site-title">grassroadsZ</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -103,7 +103,7 @@
             <div class="post-date">2022-06-08</div>
             
             <div class="post-content" v-pre>
-              <p>图片是放在github 仓库的 但是 cdn.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net</p>
+              <p>图片是放在github 仓库的 但是 fastly.jsdelivr.net 这个域名加速github的图片 无法正常显示，需要批量替换为 fastly.jsdelivr.net</p>
 <pre><code class="language-python">
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
@@ -129,7 +129,7 @@ def modify_md_content(top):
                             open(copy_md_file_path, 'w', encoding='utf8') as fw:
                         data = fr.read()
                         # 选择md文件中想要替换的字段
-                        data = re.sub('cdn.jsdelivr.net', 'fastly.jsdelivr.net', data)
+                        data = re.sub('fastly.jsdelivr.net', 'fastly.jsdelivr.net', data)
 
                         fw.write(data)  # 新文件一次性写入原文件内容
                         # fw.flush()
